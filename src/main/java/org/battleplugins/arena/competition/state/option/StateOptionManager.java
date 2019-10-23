@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.battleplugins.arena.BattleArena;
+import org.battleplugins.arena.competition.state.option.options.ClearInventoryOption;
 import org.battleplugins.arena.competition.state.option.options.GiveEffectsOption;
 import org.battleplugins.arena.configuration.ConfigProperty;
 
@@ -34,7 +35,8 @@ public class StateOptionManager {
     
     public StateOptionManager(BattleArena plugin) {
         this.plugin = plugin;
-        
+
+        stateOptions.put("clearInventory", ClearInventoryOption.class);
         stateOptions.put("giveEffects", GiveEffectsOption.class);
     }
     
