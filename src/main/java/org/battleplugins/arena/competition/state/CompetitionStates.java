@@ -37,9 +37,9 @@ public class CompetitionStates {
     public static final CompetitionState ON_SPAWN = CompetitionState.builder().name("onSpawn").build();
     public static final CompetitionState ON_DEATH = CompetitionState.builder().name("onDeath").build();
     public static final CompetitionState ON_KILL = CompetitionState.builder().name("onKill").build();
-    public static final CompetitionState ON_WIN = CompetitionState.builder().name("onWin").build();
+    public static final CompetitionState ON_WIN = CompetitionState.builder().name("onWin").aliases(new String[]{"winners"}).build();
     public static final CompetitionState ON_DRAW = CompetitionState.builder().name("onDraw").build();
-    public static final CompetitionState ON_LOSE = CompetitionState.builder().name("onLose").build();
+    public static final CompetitionState ON_LOSE = CompetitionState.builder().name("onLose").aliases(new String[]{"losers"}).build();
     public static final CompetitionState ON_TIME_EXPIRE = CompetitionState.builder().name("onTimeExpire").build();
     public static final CompetitionState ON_COUNTDOWN = CompetitionState.builder().name("onCountdown").build();
     public static final CompetitionState ON_QUEUE_ENTER = CompetitionState.builder().name("onQueueEnter").build();
