@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.competition.state.option.options.ClearInventoryOption;
+import org.battleplugins.arena.competition.state.option.options.ChangeGamemodeStateOption;
 import org.battleplugins.arena.competition.state.option.options.GiveEffectsOption;
 import org.battleplugins.arena.configuration.ConfigProperty;
 
@@ -37,6 +38,7 @@ public class StateOptionManager {
         this.plugin = plugin;
 
         stateOptions.put("clearInventory", ClearInventoryOption.class);
+        stateOptions.put("changeGamemode", ChangeGamemodeStateOption.class);
         stateOptions.put("giveEffects", GiveEffectsOption.class);
     }
     
