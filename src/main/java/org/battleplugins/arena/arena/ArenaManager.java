@@ -88,6 +88,10 @@ public class ArenaManager {
      * @param executor the command executor for this arena
      */
     public void registerArena(String name, String command, ArenaFactory arenaFactory, CustomCommandExecutor executor) {
+        if (arenaFactory == null) {
+            throw new NullPointerException("Arena factory for " + name + " was null, failed to register arena!");
+        }
+
         Arena arena = arenaFactory.newArena();
         arena.setName(name);
         if (arena.getExecutor() == null) {
@@ -103,7 +107,7 @@ public class ArenaManager {
     private ArenaFactory getArenaFactory(Class<? extends Arena> arenaClass) {
         if (arenaClass == null)
             return null;
-        
+
         return () -> {
             try {
                 return arenaClass.newInstance();
