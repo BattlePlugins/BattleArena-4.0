@@ -1,0 +1,144 @@
+package org.battleplugins.arena.configuration;
+
+import mc.alk.battlecore.configuration.ConfigurationSection;
+import mc.alk.battlecore.util.Log;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+/**
+ * Configuration property manager. Mainly used for
+ * retrieving values from classes annotated with the
+ * {@link ConfigProperty} annotation.
+ *
+ * @author Redned
+ */
+public class ConfigPropertyManager<T> {
+
+    /**
+     * A map of properties to keep in memory
+     *
+     * Key: the name of the property
+     * Value: the property class
+     *
+     * @return a map of registries to keep in memory
+     */
+    protected Map<String, Class<? extends T>> properties = new HashMap<>();
+
+    /**
+     * Returns a property from the given configuration section
+     *
+     * @param rootProperty the root property (main key)
+     * @param section the configuration section to get the property from
+     * @return a property from the given configuration section
+     */
+    public Optional<T> getProperty(String rootProperty, ConfigurationSection section) {
+        if (section == null) {
+            return Optional.empty();
+        }
+
+        Map<String, String> properties = new HashMap<>();
+        for (String key : section.getSections().getKeys(false)) {
+            properties.put(key, section.getString(key));
+        }
+
+        if (!properties.containsKey(rootProperty)) {
+            Log.warn("No root property was defined in section " + section + "! Please make sure everything is correct and up to date.");
+            return Optional.empty();
+        }
+
+        try {
+            Class<? extends T> valueClass = this.properties.get(rootProperty);
+            Constructor<? extends T> valueConstructor = valueClass.getConstructor(String.class);
+            valueConstructor.setAccessible(true);
+
+            T propertyValue = valueConstructor.newInstance(rootProperty);
+            for (Field field : valueClass.getDeclaredFields()) {
+                if (!field.isAnnotationPresent(ConfigProperty.class))
+                    continue;
+
+                ConfigProperty configProperty = field.getAnnotation(ConfigProperty.class);
+                String configPropertyName = configProperty.value().isEmpty() ? field.getName() : configProperty.value();
+
+                String property = properties.get(configPropertyName);
+                if (property == null && configProperty.required()) {
+                    Log.warn("Property value " + propertyValue + " is missing a required option, (" + configPropertyName + ")! Please make sure your configuration is correct!");
+                    return Optional.empty();
+                }
+
+                setPropertyValue(propertyValue, field, property);
+                return Optional.of(propertyValue);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return Optional.empty();
+    }
+
+    /**
+     * Returns a property from the given string
+     *
+     * Format: (propertyName){(property)=(value),(property)=(value)...}
+     * Example: giveEffect{effect=speed,duration=100,amplifier=2}
+     *
+     * @param value the string to parse the property from
+     * @return a property from the given string
+     */
+    public Optional<T> getProperty(String value) {
+        String propertyName = value.split("\\{")[0];
+        if (!properties.containsKey(propertyName)) {
+            Log.warn("Value " + value + " is not a valid property! Valid properties: " + properties.keySet() + "!");
+            return Optional.empty();
+        }
+
+        Map<String, String> properties = new HashMap<>();
+        if (value.contains("{")) {
+            String valueStr = value.split("\\{")[1].trim();
+            for (String property : valueStr.split(",")) {
+                properties.put(property.split("=")[0], property.split("=")[1]);
+            }
+        }
+
+        try {
+            Class<? extends T> valueClass = this.properties.get(propertyName);
+            Constructor<? extends T> valueConstructor = valueClass.getConstructor(String.class);
+            valueConstructor.setAccessible(true);
+
+            T propertyValue = valueConstructor.newInstance(propertyName);
+            for (Field field : valueClass.getDeclaredFields()) {
+                if (!field.isAnnotationPresent(ConfigProperty.class))
+                    continue;
+
+                ConfigProperty configProperty = field.getAnnotation(ConfigProperty.class);
+                String configPropertyName = configProperty.value().isEmpty() ? field.getName() : configProperty.value();
+
+                String property = properties.get(configPropertyName);
+                if (property == null && configProperty.required()) {
+                    Log.warn("Property value " + value + " is missing a required option, (" + propertyName + ")! Please make sure your configuration is correct!");
+                    return Optional.empty();
+                }
+
+                setPropertyValue(propertyValue, field, property);
+                return Optional.of(propertyValue);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return Optional.empty();
+    }
+
+    protected void setPropertyValue(T propertyValue, Field field, String value) {
+        field.setAccessible(true);
+        try {
+            field.set(propertyValue, field.getType().cast(value));
+        } catch (IllegalArgumentException | IllegalAccessException ex) {
+            Log.warn("Failed to set value property " + value + " to field " + field.getName() + "!");
+            ex.printStackTrace();
+        }
+    }
+}
