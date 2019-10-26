@@ -35,7 +35,7 @@ public class ConfigPropertyManager<T> {
      * @param section the configuration section to get the property from
      * @return a property from the given configuration section
      */
-    public Optional<T> getProperty(String rootProperty, ConfigurationSection section) {
+    protected Optional<T> getProperty(String rootProperty, ConfigurationSection section) {
         if (section == null) {
             return Optional.empty();
         }
@@ -88,7 +88,7 @@ public class ConfigPropertyManager<T> {
      * @param value the string to parse the property from
      * @return a property from the given string
      */
-    public Optional<T> getProperty(String value) {
+    protected Optional<T> getProperty(String value) {
         String propertyName = value.split("\\{")[0];
         if (!properties.containsKey(propertyName)) {
             Log.warn("Value " + value + " is not a valid property! Valid properties: " + properties.keySet() + "!");
@@ -132,12 +132,19 @@ public class ConfigPropertyManager<T> {
         return Optional.empty();
     }
 
-    protected void setPropertyValue(T propertyValue, Field field, String value) {
+    /**
+     * Sets the value of the property specified
+     *
+     * @param property the property (object) to get the field from
+     * @param field the field to modify
+     * @param value the value to set for the field
+     */
+    protected void setPropertyValue(T property, Field field, String value) {
         field.setAccessible(true);
         try {
-            field.set(propertyValue, field.getType().cast(value));
+            field.set(property, field.getType().cast(value));
         } catch (IllegalArgumentException | IllegalAccessException ex) {
-            Log.warn("Failed to set value property " + value + " to field " + field.getName() + "!");
+            Log.warn("Failed to set value of property " + value + " to field " + field.getName() + "!");
             ex.printStackTrace();
         }
     }
