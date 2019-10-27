@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import mc.alk.battlecore.executor.CustomCommandExecutor;
 
+import org.battleplugins.arena.competition.Competition;
 import org.battleplugins.arena.competition.Event;
 import org.battleplugins.arena.competition.Match;
 import org.battleplugins.arena.competition.Tournament;
@@ -51,6 +52,13 @@ public class Arena {
      * @return the command executor for this arena
      */
     private CustomCommandExecutor executor;
+
+    /**
+     * A list of competitions with this Arena
+     *
+     * @return a list of competitions with this Arena
+     */
+    private List<Competition> competitions = new ArrayList<>();
 
     /**
      * The list of victory conditions for this arena

@@ -10,9 +10,11 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import mc.alk.battlecore.executor.CustomCommandExecutor;
+import mc.alk.mc.MCPlayer;
 import mc.alk.mc.command.MCCommand;
 
 import org.battleplugins.arena.BattleArena;
+import org.battleplugins.arena.arena.player.ArenaPlayer;
 import org.battleplugins.arena.executor.ArenaExecutor;
 
 /**
@@ -44,7 +46,17 @@ public class ArenaManager {
      * @return a map of all the arenas
      */
     private Map<String, Arena> arenas = new HashMap<>();
-   
+
+    /**
+     * A map of all the ArenaPlayers online
+     *
+     * Key: the name of the ArenaPlayer
+     * Value: the arena player
+     *
+     * @return a map of all the ArenaPlayers online
+     */
+    private Map<String, ArenaPlayer> arenaPlayers = new HashMap<>();
+
     /**
      * Registers an arena into BattleArena
      * 
@@ -95,7 +107,7 @@ public class ArenaManager {
         Arena arena = arenaFactory.newArena();
         arena.setName(name);
         if (arena.getExecutor() == null) {
-            arena.setExecutor(new ArenaExecutor(arena));
+            arena.setExecutor(new ArenaExecutor(plugin, arena));
         }
         
         if (executor != null) {
@@ -103,7 +115,17 @@ public class ArenaManager {
             plugin.registerCommand(new MCCommand(command, "Main command for " + arena.getName() + ".", "battlearena." + command, new ArrayList<>()), executor);
         }
     }
-    
+
+    /**
+     * Returns an ArenaPlayer from the given player
+     *
+     * @param player the player to get the ArenaPlayer for
+     * @return an ArenaPlayer from the given player
+     */
+    public ArenaPlayer getArenaPlayer(MCPlayer player) {
+        return arenaPlayers.computeIfAbsent(player.getName(), (arenaPlayer) -> new ArenaPlayer(player));
+    }
+
     private ArenaFactory getArenaFactory(Class<? extends Arena> arenaClass) {
         if (arenaClass == null)
             return null;

@@ -1,11 +1,11 @@
 package org.battleplugins.arena.arena.player;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @RequiredArgsConstructor
@@ -24,7 +24,7 @@ public class ArenaTeam {
      * 
      * @return the players in the team
      */
-    private List<ArenaPlayer> players = new ArrayList<>();
+    private Set<ArenaPlayer> players = new HashSet<>();
     
     /**
      * Returns if the team is remaining in the competition

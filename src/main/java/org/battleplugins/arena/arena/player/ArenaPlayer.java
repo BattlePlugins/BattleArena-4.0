@@ -27,6 +27,7 @@ public class ArenaPlayer {
     /**
      * The current team the player is on
      */
+    @Setter
     private ArenaTeam currentTeam;
     
     /**
