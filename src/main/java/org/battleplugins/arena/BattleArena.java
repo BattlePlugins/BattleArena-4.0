@@ -15,7 +15,7 @@ import org.battleplugins.arena.competition.victorycondition.VictoryConditionMana
  * @author Redned
  */
 @Getter
-@PluginProperties(id = "ba", authors = "BattlePlugins", name = ArenaInfo.NAME, version = ArenaInfo.VERSION, description = ArenaInfo.DESCRIPTION, url = ArenaInfo.URL)
+@PluginProperties(id = "battlearena", authors = "BattlePlugins", name = ArenaInfo.NAME, version = ArenaInfo.VERSION, description = ArenaInfo.DESCRIPTION, url = ArenaInfo.URL)
 public class BattleArena extends MCPlugin {
 
     private ArenaManager arenaManager;
