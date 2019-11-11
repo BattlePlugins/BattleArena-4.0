@@ -2,8 +2,8 @@ package org.battleplugins.arena;
 
 import lombok.Getter;
 
+import mc.alk.battlecore.BattlePlugin;
 import mc.alk.battlecore.configuration.Configuration;
-import mc.alk.mc.plugin.MCPlugin;
 import mc.alk.mc.plugin.PluginProperties;
 
 import org.battleplugins.arena.arena.ArenaManager;
@@ -18,7 +18,7 @@ import org.battleplugins.arena.config.ConfigManager;
  */
 @Getter
 @PluginProperties(id = "battlearena", authors = "BattlePlugins", name = ArenaInfo.NAME, version = ArenaInfo.VERSION, description = ArenaInfo.DESCRIPTION, url = ArenaInfo.URL)
-public class BattleArena extends MCPlugin {
+public class BattleArena extends BattlePlugin {
 
     private ConfigManager configManager;
 
@@ -28,6 +28,8 @@ public class BattleArena extends MCPlugin {
 
     @Override
     public void onEnable() {
+        super.onEnable();
+
         this.configManager = new ConfigManager(this);
 
         this.arenaManager = new ArenaManager(this);
@@ -37,7 +39,7 @@ public class BattleArena extends MCPlugin {
 
     @Override
     public void onDisable() {
-        
+        super.onDisable();
     }
 
     /**
