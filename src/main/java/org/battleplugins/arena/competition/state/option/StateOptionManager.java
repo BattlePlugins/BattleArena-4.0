@@ -2,7 +2,7 @@ package org.battleplugins.arena.competition.state.option;
 
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.competition.state.option.options.*;
-import org.battleplugins.arena.configuration.ConfigPropertyManager;
+import org.battleplugins.arena.config.ConfigPropertyManager;
 
 import java.util.Map;
 import java.util.Optional;
@@ -27,7 +27,7 @@ public class StateOptionManager extends ConfigPropertyManager<StateOption> {
     /**
      * Returns a state option from the given string.
      * Overloaded method of {@link #getProperty(String)}
-     * for easier understanding and API cleanliness.
+     * for easier understanding.
      *
      * @param value the section to get the state option from
      * @return a state option from the given string

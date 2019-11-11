@@ -6,7 +6,7 @@ import mc.alk.mc.MCPlayer;
 
 import org.battleplugins.arena.competition.Competition;
 import org.battleplugins.arena.competition.state.option.StateOption;
-import org.battleplugins.arena.configuration.ConfigProperty;
+import org.battleplugins.arena.config.ConfigProperty;
 
 /**
  * State option that gives effects to a player.

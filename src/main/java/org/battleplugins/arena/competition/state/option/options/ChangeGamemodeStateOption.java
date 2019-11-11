@@ -7,7 +7,7 @@ import mc.alk.mc.entity.player.MCGameMode;
 
 import org.battleplugins.arena.competition.Competition;
 import org.battleplugins.arena.competition.state.option.StateOption;
-import org.battleplugins.arena.configuration.ConfigProperty;
+import org.battleplugins.arena.config.ConfigProperty;
 import org.jline.utils.Log;
 
 /**

@@ -1,0 +1,132 @@
+# -----------------
+# Teams configuration for BattleArena
+#
+# Documentation: https://docs.battleplugins.org/docs/ba/customization/teams
+# Support: https://discord.gg/tMVPVJf
+# GitHub: https://github.com/BattlePlugins/BattleArena
+# -----------------
+configVersion: 2.0.0 # The config version, do not change!
+
+## A list of all the teams.
+teams:
+  red:
+    name: Red
+    teamColor: "&c"
+    armorColor: 255,0,0
+    item: red_wool
+  blue:
+    name: Blue
+    teamColor: "&9"
+    armorColor: 0,0,255
+    item: blue_wool
+  green:
+    name: Green
+    teamColor: "&2"
+    armorColor: 0,128,0
+    item: green_wool
+  yellow:
+    name: Yellow
+    teamColor: "&e"
+    armorColor: 255,255,0
+    item: yellow_wool
+  pink:
+    name: Pink
+    teamColor: "&d"
+    armorColor: 255,204,255
+    item: pink_wool
+  aqua:
+    name: Aqua
+    teamColor: "&3"
+    armorColor: 0,255,255
+    item: cyan_wool
+  gray:
+    name: Gray
+    teamColor: "&7"
+    armorColor: 128,128,128
+    item: light_gray_wool
+  lime:
+    name: Lime
+    teamColor: "&a"
+    armorColor: 0,255,255
+    item: lime_wool
+  purple:
+    name: Purple
+    teamColor: "&5"
+    armorColor: 192,0,192
+    item: purple_wool
+  orange:
+    name: Orange
+    teamColor: "&6"
+    armorColor: 255,165,0
+    item: orange_wool
+  white:
+    name: White
+    teamColor: "&f"
+    armorColor: 255,255,255
+    item: white_wool
+  black:
+    name: Black
+    teamColor: "&0"
+    armorColor: 0,0,0
+    item: black_wool
+  ice:
+    name: Ice
+    teamColor: "&b"
+    armorColor: 153,153,255
+    item: ice
+  cobblestone:
+    name: Cobblestone
+    teamColor: "&8"
+    armorColor: 150,150,150
+    item: cobblestone
+  tnt:
+    name: TNT
+    teamColor: "&c"
+    armorColor: 200,50,50
+    item: tnt
+  sponge:
+    name: Sponge
+    teamColor: "&e"
+    armorColor: 255,130,100
+    item: sponge
+  glass:
+    name: Glass
+    teamColor: "&f"
+    armorColor: 255,255,255
+    item: glass
+  obby:
+    name: Obby
+    teamColor: "&0"
+    armorColor: 10,10,0
+    item: obsidian
+  snow:
+    name: Snow
+    teamColor: "&f"
+    armorColor: 255,255,255
+    item: snow_block
+  nether:
+    name: Nether
+    teamColor: "&4"
+    armorColor: 102,0,0
+    item: netherrack
+  iron:
+    name: Iron
+    teamColor: "&7"
+    armorColor: 208,208,208
+    item: iron_block
+  diamond:
+    name: Diamond
+    teamColor: "&b"
+    armorColor: 102,204,255
+    item: diamond_block
+  emerald:
+    name: Emerald
+    teamColor: "&a"
+    armorColor: 0,255,255
+    item: emerald_block
+  gold:
+    name: Gold
+    teamColor: "&6"
+    armorColor: 255,215,0
+    item: gold_block
+

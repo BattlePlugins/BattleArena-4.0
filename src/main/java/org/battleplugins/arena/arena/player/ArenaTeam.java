@@ -7,6 +7,11 @@ import lombok.RequiredArgsConstructor;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Represents a team in a competition.
+ *
+ * @author Redned
+ */
 @Getter
 @RequiredArgsConstructor
 public class ArenaTeam {

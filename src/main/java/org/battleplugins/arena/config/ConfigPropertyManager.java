@@ -1,4 +1,4 @@
-package org.battleplugins.arena.configuration;
+package org.battleplugins.arena.config;
 
 import mc.alk.battlecore.configuration.ConfigurationSection;
 import mc.alk.battlecore.util.Log;

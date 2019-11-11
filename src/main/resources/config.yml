@@ -1,0 +1,74 @@
+# -----------------
+# Main configuration for BattleArena
+#
+# Documentation: https://docs.battleplugins.org/docs/ba/
+# Support: https://discord.gg/tMVPVJf
+# GitHub: https://github.com/BattlePlugins/BattleArena
+# -----------------
+configVersion: 3.0.0 # The config version, do not change!
+
+## Database options.
+database:
+  type: sqlite ## Database type (mysql or sqlite).
+  prefix: ba_ ## Table prefix.
+  db: arena ## Name of database.
+  url : localhost ## URL to database. Ignored if sqlite.
+  port : "3306" ## Port of database. Ignored if sqlite.
+  username: root ## Database username.
+  password: "" ## Database password.
+
+## Global arena options that persist throughout all arenas.
+## Individual arenas/competitions can override these options.
+defaultArenaOptions:
+  ## A list of commands that should be allowed in arenas. Leave empty to allow all commands.
+  enabledCommands: []
+  ## A list of commands that should be disabled in arenas. Leave empty to disallow all commands. Overrides 'enabledCommands'.
+  disabledCommands: [home, spawn, pay, warp, tpa, tpahere]
+  ## A list of commands that should be allowed during the arena queue. Leave empty to allow all commands.
+  enabledQueueCommands: []
+  ## A list of commands that should be disabled in the arena queue. Leave empty to disallow all commands. Overrides 'enabledQueueCommands'.
+  disabledQueueCommands: [home, spawn, pay, warp, tpa, tpahere]
+
+  enableScoreboard: true ## If the scoreboard should be enabled.
+  enableColoredNames: true ## If colored names should be enabled based on team color.
+
+  enablePlayerReadyBlock: false ## If the player must click a block to indicate they are "ready."
+  readyBlockType: iron_block ## The ready block material.
+
+  classChangeCooldown: 5 ## Amount of time to wait before players can change their class again.
+
+  ### Match Options ###
+  secondsUntilMatch: 5 ## Time between onPreStart (end of queue) until onStart (match start).
+  secondsUntilMatchStart: 30 ## Amount of time to wait before starting the match when the minimum amount of players have joined.
+  secondsUntilMatchEnd: 10 ## Time between when a victory condition is called and when onComplete is called.
+  matchTime: 300 ## How long a match should last.
+  matchUpdateInterval: 30 ## Amount of time to wait before sending match time updates. Set to 0 to disable.
+
+  ### Event Options ###
+  secondsUntilEventStart: 30 ## Amount of time to wait before starting the event and when the event was opened.
+  secondsUntilEventEnd: 10 ## Time between when a victory condition is called and when onComplete is called.
+  eventTime: 300 ## How long an event should last.
+  eventCountdownInterval: 60 ## How often a match should announce a reminder that it's open and can be joined.
+
+  ### Duel Options ###
+  allowRatedDuels: false ## If duels should be rated (requires BattleTracker).
+  defaultDuelOptions: [rake=0.0] ## Default duel options.
+  challengeInterval: 1800 ## Time to wait before allowing players to challenge someone to a duel again (1800s = 30m).
+  disallowedChallengePerms: [battlearena.duel.exempt] ## A list of permissions that exempt someone from being dueled.
+
+currencyNameSingular: Gold ## Name of currency (singular).
+currencyNamePlural: Gold ## Name of currency (plural).
+
+## Depending on the server, sometimes players are teleported into the ground when a competition
+## is over or when they leave, resulting in them suffocating and being unable to move.
+## If you are subject to this, adjust the options below.
+teleportYOffset: 0.0 ## Upon teleportation, teleport a player x block(s) higher.
+teleportYVelocity: 0.0 ## The y velocity to give the player upon teleportation.
+
+## Upon a server crash, inventories may not be restored properly. This may result in a player
+## not having the correct inventory. Fortunately, BattleArena backs up their inventory when they
+## join a competition.
+savedInventoryCount: 5 ## The amount of old inventories to back up. Set to 0 to disable (not recommended).
+
+## If signs should be used.
+useSigns: true

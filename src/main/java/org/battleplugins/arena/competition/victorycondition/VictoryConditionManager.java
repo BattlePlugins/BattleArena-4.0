@@ -7,7 +7,7 @@ import mc.alk.battlecore.configuration.ConfigurationSection;
 
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.competition.victorycondition.conditions.*;
-import org.battleplugins.arena.configuration.ConfigPropertyManager;
+import org.battleplugins.arena.config.ConfigPropertyManager;
 
 /**
  * Manages and stores default victory conditions.
@@ -29,7 +29,7 @@ public class VictoryConditionManager extends ConfigPropertyManager<VictoryCondit
     /**
      * Returns a victory condition from the given configuration section.
      * Overloaded method of {@link #getProperty(String, ConfigurationSection)}
-     * for easier understanding and API cleanliness.
+     * for easier understanding.
      *
      * @param section the section to get the condition from
      * @return a victory condition from the given configuration section
