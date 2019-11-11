@@ -1,12 +1,14 @@
 package org.battleplugins.arena.competition;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.arena.Arena;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
-import org.battleplugins.arena.arena.player.ArenaTeam;
+import org.battleplugins.arena.arena.team.ArenaTeam;
 import org.battleplugins.arena.competition.state.CompetitionState;
 import org.battleplugins.arena.competition.state.CompetitionStates;
 
@@ -17,8 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
-import java.util.TreeMap;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
@@ -36,6 +38,10 @@ import java.util.stream.Collectors;
 @Getter
 @RequiredArgsConstructor
 public abstract class Competition {
+
+    @NonNull
+    @Getter(AccessLevel.NONE)
+    private BattleArena plugin;
 
     /**
      * The {@link Arena} associated with the competition
@@ -70,6 +76,9 @@ public abstract class Competition {
      */
     private String name;
 
+    @Getter(AccessLevel.NONE)
+    private AtomicInteger nextTeamIndex = new AtomicInteger();
+
     /**
      * Returns a list of all the players in the competition
      * 
@@ -103,7 +112,7 @@ public abstract class Competition {
      * The name of this competition, usually
      * the name of the map associated with it. Will return
      * empty if the competition is not assigned to a
-     * map (yet).
+     * map (yet)
      *
      * @return the name of this competition
      */
@@ -143,18 +152,34 @@ public abstract class Competition {
         player.setDeaths(0);
         player.setKills(0);
 
+        // If the team is already registered
         if (teams.containsKey(teamName)) {
-            teams.get(teamName).getPlayers().add(player);
+            ArenaTeam team = teams.get(teamName);
+            // If team is full, create a new team. -1 indicates that the team can never "fill up"
+            if (team.getPlayers().size() >= team.getMaxPlayers() && team.getMaxPlayers() != -1) {
+                addToAvailableTeam(player);
+            } else {
+                teams.get(teamName).getPlayers().add(player);
+                player.setCurrentTeam(team);
+            }
         } else {
+            // If the teams are empty and a new one needs to be made
             if (teams.isEmpty()) {
-                // TODO: Pull team names from a separate config
-                ArenaTeam team = new ArenaTeam(teamName == null ? "Red" : teamName);
+                String finalTeamName = teamName;
+                if (teamName == null) {
+                    finalTeamName = plugin.getArenaManager().getTeamManager().getDefaultTeams().keySet().toArray(new String[0])[nextTeamIndex.getAndIncrement()];
+                }
+                // TODO: Set team max players from competition file
+                ArenaTeam team = plugin.getArenaManager().getTeamManager().constructTeam(finalTeamName, -1);
                 team.getPlayers().add(player);
                 player.setCurrentTeam(team);
-                teams.put(teamName, team);
+                teams.put(finalTeamName, team);
             } else {
                 Random random = ThreadLocalRandom.current();
                 ArenaTeam team = teams.values().toArray(new ArenaTeam[0])[random.nextInt(teams.size())];
+                if (team.getPlayers().size() >= team.getMaxPlayers() && team.getMaxPlayers() != -1) {
+                    addToAvailableTeam(player);
+                }
                 team.getPlayers().add(player);
                 player.setCurrentTeam(team);
             }
@@ -165,9 +190,8 @@ public abstract class Competition {
      * Removes a player from the competition
      *
      * @param player the player to remove from the competition
-     * @param teamName the name of the team to remove the player from
      */
-    public void removePlayer(ArenaPlayer player, String teamName) {
+    public void removePlayer(ArenaPlayer player) {
         player.setCurrentTeam(null);
         player.setCurrentCompetition(null);
         player.setReady(false);
@@ -175,14 +199,9 @@ public abstract class Competition {
         if (!getPlayers().contains(player))
             return;
 
-        if (teams.containsKey(teamName)) {
-            teams.get(teamName).getPlayers().remove(player);
-        } else {
-            for (ArenaTeam team : teams.values()) {
-                if (team.getPlayers().contains(player)) {
-                    team.getPlayers().remove(player);
-                }
-            }
+        for (ArenaTeam team : teams.values()) {
+            team.getPlayers().remove(player);
+            return;
         }
     }
 
@@ -204,5 +223,35 @@ public abstract class Competition {
      */
     public <T extends Competition> T as(Class<T> competitionClass) {
         return is(competitionClass) ? competitionClass.cast(this) : null;
+    }
+
+    /**
+     * Adds a player to the next available team. This method may
+     * be called if the team they're trying to join is full or if the
+     * current teams are empty
+     *
+     * In an unlikely scenario, a player may try and join a competition
+     * where this method may end up being called due to the aforementioned
+     * scenarios, with the exception being that there is not enough teams
+     * created. This will result in the player being added to a team
+     * that is already "full." While this is unlikely, it has been
+     * added in order to prevent countless bugs that existed in the legacy
+     * version of BattleArena.
+     *
+     * @param player the player to add to the next available team
+     */
+    private void addToAvailableTeam(ArenaPlayer player) {
+        // TODO: Implement max team amounts
+        int nextTeamIndex = this.nextTeamIndex.getAndIncrement();
+        if (plugin.getArenaManager().getTeamManager().getDefaultTeams().size() >= nextTeamIndex) {
+            plugin.getLogger().warning("Team size has been exceeded for arena " + arena.getName() + ". Filling up full teams instead.");
+            nextTeamIndex = ThreadLocalRandom.current().nextInt(plugin.getArenaManager().getTeamManager().getDefaultTeams().size());
+        }
+
+        String nextTeamName = plugin.getArenaManager().getTeamManager().getDefaultTeams().keySet().toArray(new String[0])[nextTeamIndex];
+        ArenaTeam nextTeam = plugin.getArenaManager().getTeamManager().constructTeam(nextTeamName, -1);
+        nextTeam.getPlayers().add(player);
+        player.setCurrentTeam(nextTeam);
+        teams.put(nextTeamName, nextTeam);
     }
 }

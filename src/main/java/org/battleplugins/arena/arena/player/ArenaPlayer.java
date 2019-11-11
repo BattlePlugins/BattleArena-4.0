@@ -6,8 +6,10 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+
 import mc.alk.mc.MCPlayer;
 
+import org.battleplugins.arena.arena.team.ArenaTeam;
 import org.battleplugins.arena.competition.Competition;
 
 /**

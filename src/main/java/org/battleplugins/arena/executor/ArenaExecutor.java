@@ -11,7 +11,7 @@ import mc.alk.mc.command.MCCommandSender;
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.arena.Arena;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
-import org.battleplugins.arena.arena.player.ArenaTeam;
+import org.battleplugins.arena.arena.team.ArenaTeam;
 import org.battleplugins.arena.competition.Competition;
 
 import java.util.Optional;
@@ -73,9 +73,9 @@ public class ArenaExecutor extends CustomCommandExecutor {
 
         Optional<ArenaTeam> opArenaTeam = arenaPlayer.getCurrentTeam();
         if (opArenaTeam.isPresent()) {
-            arenaPlayer.getCurrentCompetition().get().removePlayer(arenaPlayer, opArenaTeam.get().getName());
+            arenaPlayer.getCurrentCompetition().get().removePlayer(arenaPlayer);
         } else {
-            arenaPlayer.getCurrentCompetition().get().removePlayer(arenaPlayer, null);
+            arenaPlayer.getCurrentCompetition().get().removePlayer(arenaPlayer);
         }
 
         player.sendMessage(ChatColor.YELLOW + "You have left " + ChatColor.GOLD + arena.getName() + ChatColor.YELLOW + "!");

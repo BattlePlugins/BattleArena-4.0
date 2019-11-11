@@ -2,13 +2,13 @@ package org.battleplugins.arena.competition.state.option.options;
 
 import lombok.Getter;
 
+import mc.alk.battlecore.util.Log;
 import mc.alk.mc.MCPlayer;
 import mc.alk.mc.entity.player.MCGameMode;
 
 import org.battleplugins.arena.competition.Competition;
 import org.battleplugins.arena.competition.state.option.StateOption;
 import org.battleplugins.arena.config.ConfigProperty;
-import org.jline.utils.Log;
 
 /**
  * State option for changing a player's gamemode.
@@ -31,7 +31,7 @@ public class ChangeGamemodeStateOption extends StateOption {
         try {
             gameMode = MCGameMode.valueOf(mode);
         } catch (Exception ex) {
-            // Debug here since this may be thrown a lot
+            // Debug here since this has the potential to be thrown a lot
             Log.debug("Gamemode " + mode + " could not be found!");
             return;
         }

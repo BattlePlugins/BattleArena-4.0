@@ -1,9 +1,5 @@
 package org.battleplugins.arena.arena;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
@@ -15,7 +11,12 @@ import mc.alk.mc.command.MCCommand;
 
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
+import org.battleplugins.arena.arena.team.ArenaTeamManager;
 import org.battleplugins.arena.executor.ArenaExecutor;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class contains all the necessary arena info and handles
@@ -36,7 +37,14 @@ public class ArenaManager {
     @NonNull 
     @Getter(AccessLevel.NONE)
     private BattleArena plugin;
-    
+
+    /**
+     * The team manager
+     *
+     * @return the team manager
+     */
+    private ArenaTeamManager teamManager = new ArenaTeamManager(plugin);
+
     /**
      * A map of all the arenas
      * 
@@ -123,7 +131,7 @@ public class ArenaManager {
      * @return an ArenaPlayer from the given player
      */
     public ArenaPlayer getArenaPlayer(MCPlayer player) {
-        return arenaPlayers.computeIfAbsent(player.getName(), (arenaPlayer) -> new ArenaPlayer(player));
+        return arenaPlayers.computeIfAbsent(player.getName(), arenaPlayer -> new ArenaPlayer(player));
     }
 
     private ArenaFactory getArenaFactory(Class<? extends Arena> arenaClass) {
@@ -134,7 +142,7 @@ public class ArenaManager {
             try {
                 return arenaClass.newInstance();
             } catch (InstantiationException | IllegalAccessException ex) {
-                plugin.getLogger().error("An error occured when trying to register arena class " + arenaClass.getSimpleName());
+                plugin.getLogger().error("An error occurred when trying to register arena class " + arenaClass.getSimpleName());
                 plugin.getLogger().error("If your arena class has a custom constructor, it must also have a default one as well.");
                 plugin.getLogger().error("If you want to use custom constructors, you can create a new ArenaFactory. Refer to the API documentation for more info.");
                 ex.printStackTrace();
