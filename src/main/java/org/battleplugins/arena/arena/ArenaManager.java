@@ -6,13 +6,13 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import mc.alk.battlecore.executor.CustomCommandExecutor;
-import mc.alk.mc.MCPlayer;
-import mc.alk.mc.command.MCCommand;
 
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
 import org.battleplugins.arena.arena.team.ArenaTeamManager;
 import org.battleplugins.arena.executor.ArenaExecutor;
+import org.battleplugins.command.Command;
+import org.battleplugins.entity.living.player.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -120,7 +120,7 @@ public class ArenaManager {
         
         if (executor != null) {
             arena.getExecutor().addMethods(executor, executor.getClass().getMethods());
-            plugin.registerCommand(new MCCommand(command, "Main command for " + arena.getName() + ".", "battlearena." + command, new ArrayList<>()), executor);
+            plugin.registerCommand(new Command(command, "Main command for " + arena.getName() + ".", "battlearena." + command, new ArrayList<>()), executor);
         }
     }
 
@@ -130,7 +130,7 @@ public class ArenaManager {
      * @param player the player to get the ArenaPlayer for
      * @return an ArenaPlayer from the given player
      */
-    public ArenaPlayer getArenaPlayer(MCPlayer player) {
+    public ArenaPlayer getArenaPlayer(Player player) {
         return arenaPlayers.computeIfAbsent(player.getName(), arenaPlayer -> new ArenaPlayer(player));
     }
 

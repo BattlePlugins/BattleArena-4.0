@@ -7,10 +7,9 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import mc.alk.mc.MCPlayer;
-
 import org.battleplugins.arena.arena.team.ArenaTeam;
 import org.battleplugins.arena.competition.Competition;
+import org.battleplugins.entity.living.player.Player;
 
 /**
  * Represents a player in a competition.
@@ -74,7 +73,7 @@ public class ArenaPlayer {
      * @return the player associated with this instance
      */
     @NonNull
-    private MCPlayer player;
+    private Player player;
     
     /**
      * Returns if the player is in a competition

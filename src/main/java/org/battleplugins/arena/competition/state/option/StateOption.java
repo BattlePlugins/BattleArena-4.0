@@ -4,9 +4,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import mc.alk.mc.MCPlayer;
-
 import org.battleplugins.arena.competition.Competition;
+import org.battleplugins.entity.living.player.Player;
 
 /**
  * Represents a state option for a competition.
@@ -31,5 +30,5 @@ public abstract class StateOption {
      * @param player the player to run this option on
      * @param competition the competition
      */
-    public abstract void runOption(MCPlayer player, Competition competition);
+    public abstract void runOption(Player player, Competition competition);
 }

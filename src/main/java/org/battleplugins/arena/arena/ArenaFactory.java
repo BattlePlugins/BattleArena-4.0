@@ -5,6 +5,7 @@ package org.battleplugins.arena.arena;
  * 
  * @author Europia79
  */
+@FunctionalInterface
 public interface ArenaFactory {
 
     /**

@@ -2,8 +2,7 @@ package org.battleplugins.arena.competition.state.option.options;
 
 import org.battleplugins.arena.competition.Competition;
 import org.battleplugins.arena.competition.state.option.StateOption;
-
-import mc.alk.mc.MCPlayer;
+import org.battleplugins.entity.living.player.Player;
 
 /**
  * State option that clears inventories.
@@ -17,7 +16,7 @@ public class ClearInventoryOption extends StateOption {
     }
 
     @Override
-    public void runOption(MCPlayer player, Competition competition) {
+    public void runOption(Player player, Competition competition) {
         player.getInventory().clear();
     }
 }

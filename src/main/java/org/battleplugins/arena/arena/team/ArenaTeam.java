@@ -4,8 +4,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import mc.alk.mc.ChatColor;
-
+import org.battleplugins.ChatColor;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
 
 import java.awt.Color;

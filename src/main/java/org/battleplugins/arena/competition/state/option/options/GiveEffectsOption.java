@@ -2,11 +2,10 @@ package org.battleplugins.arena.competition.state.option.options;
 
 import lombok.Getter;
 
-import mc.alk.mc.MCPlayer;
-
 import org.battleplugins.arena.competition.Competition;
 import org.battleplugins.arena.competition.state.option.StateOption;
 import org.battleplugins.arena.config.ConfigProperty;
+import org.battleplugins.entity.living.player.Player;
 
 /**
  * State option that gives effects to a player.
@@ -30,7 +29,7 @@ public class GiveEffectsOption extends StateOption {
     }
 
     @Override
-    public void runOption(MCPlayer player, Competition competition) {
+    public void runOption(Player player, Competition competition) {
         
     }
 }

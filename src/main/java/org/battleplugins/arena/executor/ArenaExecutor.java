@@ -4,15 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 
 import mc.alk.battlecore.executor.CustomCommandExecutor;
-import mc.alk.mc.ChatColor;
-import mc.alk.mc.MCPlayer;
-import mc.alk.mc.command.MCCommandSender;
 
+import org.battleplugins.ChatColor;
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.arena.Arena;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
 import org.battleplugins.arena.arena.team.ArenaTeam;
 import org.battleplugins.arena.competition.Competition;
+import org.battleplugins.command.Command;
+import org.battleplugins.command.CommandSender;
+import org.battleplugins.entity.living.player.Player;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -34,7 +35,7 @@ public class ArenaExecutor extends CustomCommandExecutor {
     private Arena arena;
 
     @MCCommand(cmds = {"j", "join"})
-    public void joinCommand(MCPlayer player, String name) {
+    public void joinCommand(Player player, String name) {
         ArenaPlayer arenaPlayer = plugin.getArenaManager().getArenaPlayer(player);
         if (arenaPlayer.isInCompetition()) {
             player.sendMessage(ChatColor.RED + "You are already in a competition!");
@@ -64,7 +65,7 @@ public class ArenaExecutor extends CustomCommandExecutor {
     }
 
     @MCCommand(cmds = {"l", "leave"})
-    public void leaveCommand(MCPlayer player) {
+    public void leaveCommand(Player player) {
         ArenaPlayer arenaPlayer = plugin.getArenaManager().getArenaPlayer(player);
         if (!arenaPlayer.isInCompetition()) {
             player.sendMessage(ChatColor.RED + "You are not currently in a competition!");
@@ -82,11 +83,9 @@ public class ArenaExecutor extends CustomCommandExecutor {
     }
 
     @Override
-    protected Object verifyArg(MCCommandSender sender, Class<?> clazz, mc.alk.mc.command.MCCommand command, String[] args, int curIndex, AtomicInteger numUsedStrings) {
-        String arg = args[curIndex];
-
-        if (sender instanceof MCPlayer) {
-            MCPlayer player = (MCPlayer) sender;
+    protected Object verifyArg(CommandSender sender, Class<?> clazz, Command command, String[] args, int curIndex, AtomicInteger numUsedStrings) {
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
             ArenaPlayer arenaPlayer = plugin.getArenaManager().getArenaPlayer(player);
             if (clazz.isAssignableFrom(Competition.class)) {
                 return arenaPlayer.getCurrentCompetition().orElseThrow(() -> new IllegalArgumentException("You are not in a competition!"));

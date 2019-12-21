@@ -26,10 +26,7 @@ public class LastManStandingCondition extends VictoryCondition {
     public boolean checkCondition(Competition competition) {
         if (accountTeams && competition.getRemainingTeams().size() == 1)
             return true;
-        
-        if (competition.getRemainingPlayers().size() == peopleStanding)
-            return true;
-        
-        return false;
+
+        return competition.getRemainingPlayers().size() == peopleStanding;
     }
 }
