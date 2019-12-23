@@ -3,10 +3,9 @@ package org.battleplugins.arena.arena.team;
 import lombok.AccessLevel;
 import lombok.Getter;
 
-import mc.alk.battlecore.configuration.Configuration;
-import mc.alk.battlecore.configuration.ConfigurationSection;
-
 import org.battleplugins.arena.BattleArena;
+import org.battleplugins.configuration.Configuration;
+import org.battleplugins.configuration.ConfigurationNode;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -37,11 +36,13 @@ public class ArenaTeamManager {
         this.defaultTeams = new LinkedHashMap<>();
 
         Configuration teamConfig = plugin.getConfigManager().getTeamsConfig();
-        for (String key : teamConfig.getSection("teams").getKeys(false)) {
-            ConfigurationSection section = teamConfig.getSection(key);
-            ArenaTeam team = new ArenaTeam(section.getString("name"), section.getString("teamColor"),
-                    section.getString("armorColor"), section.getString("item"), -1);
-            defaultTeams.put(section.getString(team.getName()), team);
+        for (String key : teamConfig.getNode("teams").getCollectionValue(String.class)) {
+            ConfigurationNode node = teamConfig.getNode("teams").getNode(key);
+            ArenaTeam team = new ArenaTeam(node.getNode("name").getValue(String.class),
+                    node.getNode("teamColor").getValue(String.class),
+                    node.getNode("armorColor").getValue(String.class),
+                    node.getNode("item").getValue(String.class), -1);
+            defaultTeams.put(node.getNode(team.getName()).getValue(String.class), team);
         }
     }
 

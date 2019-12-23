@@ -3,12 +3,12 @@ package org.battleplugins.arena;
 import lombok.Getter;
 
 import mc.alk.battlecore.BattlePlugin;
-import mc.alk.battlecore.configuration.Configuration;
 
 import org.battleplugins.arena.arena.ArenaManager;
 import org.battleplugins.arena.competition.state.option.StateOptionManager;
 import org.battleplugins.arena.competition.victorycondition.VictoryConditionManager;
 import org.battleplugins.arena.config.ConfigManager;
+import org.battleplugins.configuration.Configuration;
 import org.battleplugins.plugin.PluginProperties;
 
 /**

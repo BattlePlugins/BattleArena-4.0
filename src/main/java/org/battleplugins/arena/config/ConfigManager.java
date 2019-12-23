@@ -3,11 +3,12 @@ package org.battleplugins.arena.config;
 import lombok.AccessLevel;
 import lombok.Getter;
 
-import mc.alk.battlecore.configuration.Configuration;
 import mc.alk.battlecore.util.FileUtil;
 import mc.alk.battlecore.util.Log;
 
 import org.battleplugins.arena.BattleArena;
+import org.battleplugins.configuration.Configuration;
+import org.battleplugins.configuration.provider.YAMLConfigurationProvider;
 
 import java.io.File;
 import java.io.IOException;
@@ -90,7 +91,10 @@ public class ConfigManager {
             }
         }
 
-        return new Configuration(configFile);
+        return Configuration.builder()
+                .file(configFile)
+                .provider(YAMLConfigurationProvider.class)
+                .build();
     }
 
     /**
@@ -108,16 +112,24 @@ public class ConfigManager {
      * @param config the config to reload
      */
     public void reloadConfig(Configuration config) {
-        config.save();
-        config.reload();
+        try {
+            config.save();
+            config.reload();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
-     * Save sall the config files for BattleArena
+     * Saves all the config files for BattleArena
      */
     public void saveConfigs() {
-        config.save();
-        reloadConfig(messagesConfig);
-        teamsConfig.save();
+        try {
+            config.save();
+            messagesConfig.save();
+            teamsConfig.save();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }

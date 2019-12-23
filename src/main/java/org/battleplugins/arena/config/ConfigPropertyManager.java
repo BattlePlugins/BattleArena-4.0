@@ -1,7 +1,8 @@
 package org.battleplugins.arena.config;
 
-import mc.alk.battlecore.configuration.ConfigurationSection;
 import mc.alk.battlecore.util.Log;
+
+import org.battleplugins.configuration.ConfigurationNode;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -29,24 +30,24 @@ public class ConfigPropertyManager<T> {
     protected Map<String, Class<? extends T>> properties = new HashMap<>();
 
     /**
-     * Returns a property from the given configuration section
+     * Returns a property from the given configuration node
      *
      * @param rootProperty the root property (main key)
-     * @param section the configuration section to get the property from
-     * @return a property from the given configuration section
+     * @param node the configuration node to get the property from
+     * @return a property from the given configuration node
      */
-    protected Optional<T> getProperty(String rootProperty, ConfigurationSection section) {
-        if (section == null) {
+    protected Optional<T> getProperty(String rootProperty, ConfigurationNode node) {
+        if (node == null) {
             return Optional.empty();
         }
 
         Map<String, String> properties = new HashMap<>();
-        for (String key : section.getSections().getKeys(false)) {
-            properties.put(key, section.getString(key));
+        for (String key : node.getCollectionValue(String.class)) {
+            properties.put(key, node.getNode(key).getValue(String.class));
         }
 
         if (!properties.containsKey(rootProperty)) {
-            Log.warn("No root property was defined in section " + section + "! Please make sure everything is correct and up to date.");
+            Log.warn("No root property was defined in node " + node + "! Please make sure everything is correct and up to date.");
             return Optional.empty();
         }
 

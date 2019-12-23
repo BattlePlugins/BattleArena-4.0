@@ -29,7 +29,7 @@ public class StateOptionManager extends ConfigPropertyManager<StateOption> {
      * Overloaded method of {@link #getProperty(String)}
      * for easier understanding.
      *
-     * @param value the section to get the state option from
+     * @param value the string to get the state option from
      * @return a state option from the given string
      */
     public Optional<StateOption> getStateOption(String value) {

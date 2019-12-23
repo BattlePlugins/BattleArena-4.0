@@ -2,8 +2,6 @@ package org.battleplugins.arena.arena;
 
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 import mc.alk.battlecore.executor.CustomCommandExecutor;
 
@@ -31,10 +29,8 @@ import java.util.Map;
  * @author Redned
  */
 @Getter
-@RequiredArgsConstructor
 public class ArenaManager {
 
-    @NonNull 
     @Getter(AccessLevel.NONE)
     private BattleArena plugin;
 
@@ -43,7 +39,7 @@ public class ArenaManager {
      *
      * @return the team manager
      */
-    private ArenaTeamManager teamManager = new ArenaTeamManager(plugin);
+    private ArenaTeamManager teamManager;
 
     /**
      * A map of all the arenas
@@ -64,6 +60,11 @@ public class ArenaManager {
      * @return a map of all the ArenaPlayers online
      */
     private Map<String, ArenaPlayer> arenaPlayers = new HashMap<>();
+
+    public ArenaManager(BattleArena plugin) {
+        this.plugin = plugin;
+        this.teamManager = new ArenaTeamManager(plugin);
+    }
 
     /**
      * Registers an arena into BattleArena
