@@ -4,7 +4,7 @@ import lombok.Getter;
 
 import org.battleplugins.arena.competition.Competition;
 import org.battleplugins.arena.competition.state.option.StateOption;
-import org.battleplugins.arena.config.ConfigProperty;
+import org.battleplugins.arena.configuration.ConfigProperty;
 import org.battleplugins.entity.living.player.Player;
 
 /**

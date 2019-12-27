@@ -1,4 +1,4 @@
-package org.battleplugins.arena.config;
+package org.battleplugins.arena.configuration;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

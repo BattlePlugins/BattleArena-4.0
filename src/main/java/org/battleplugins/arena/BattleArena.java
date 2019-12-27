@@ -7,7 +7,7 @@ import mc.alk.battlecore.BattlePlugin;
 import org.battleplugins.arena.arena.ArenaManager;
 import org.battleplugins.arena.competition.state.option.StateOptionManager;
 import org.battleplugins.arena.competition.victorycondition.VictoryConditionManager;
-import org.battleplugins.arena.config.ConfigManager;
+import org.battleplugins.arena.configuration.ConfigManager;
 import org.battleplugins.configuration.Configuration;
 import org.battleplugins.plugin.PluginProperties;
 

@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.competition.victorycondition.conditions.*;
-import org.battleplugins.arena.config.ConfigPropertyManager;
+import org.battleplugins.arena.configuration.ConfigPropertyManager;
 import org.battleplugins.configuration.ConfigurationNode;
 
 /**
