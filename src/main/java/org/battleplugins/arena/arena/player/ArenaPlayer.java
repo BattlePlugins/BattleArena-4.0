@@ -1,7 +1,5 @@
 package org.battleplugins.arena.arena.player;
 
-import java.util.Optional;
-
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +8,8 @@ import lombok.Setter;
 import org.battleplugins.api.entity.living.player.Player;
 import org.battleplugins.arena.arena.team.ArenaTeam;
 import org.battleplugins.arena.competition.Competition;
+
+import java.util.Optional;
 
 /**
  * Represents a player in a competition.

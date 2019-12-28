@@ -11,7 +11,6 @@ import org.battleplugins.api.message.MessageStyle;
 import org.battleplugins.api.util.NamespacedKey;
 
 import java.awt.Color;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;

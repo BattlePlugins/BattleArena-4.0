@@ -38,7 +38,7 @@ public class ArenaExecutor extends CustomCommandExecutor {
     public void joinCommand(Player player, String name) {
         ArenaPlayer arenaPlayer = plugin.getArenaManager().getArenaPlayer(player);
         if (arenaPlayer.isInCompetition()) {
-            player.sendMessage(MessageStyle.RED + "You are already in a competition!");
+            player.sendMessage(arena.getMessageHandler().getFormattedMessage("alreadyInCompetition"));
             return;
         }
 
@@ -56,19 +56,19 @@ public class ArenaExecutor extends CustomCommandExecutor {
         }
 
         if (competition == null) {
-            player.sendMessage(MessageStyle.RED + (nameNull ? "There are currently no open competitions." : "A competition with that name could not be found"));
+            player.sendMessage(MessageStyle.RED + arena.getMessageHandler().getFormattedMessage(nameNull ? "noOpenCompetitions" : "competitionDoesNotExist"));
             return;
         }
 
         competition.addPlayer(arenaPlayer, null);
-        player.sendMessage(MessageStyle.YELLOW + "You have joined " + MessageStyle.GOLD + arena.getName() + MessageStyle.YELLOW + "!");
+        player.sendMessage(arena.getMessageHandler().getFormattedMessage(player, "joinedCompetition"));
     }
 
     @MCCommand(cmds = {"l", "leave"})
     public void leaveCommand(Player player) {
         ArenaPlayer arenaPlayer = plugin.getArenaManager().getArenaPlayer(player);
         if (!arenaPlayer.isInCompetition()) {
-            player.sendMessage(MessageStyle.RED + "You are not currently in a competition!");
+            player.sendMessage(arena.getMessageHandler().getFormattedMessage("notInCompetition"));
             return;
         }
 
@@ -79,7 +79,7 @@ public class ArenaExecutor extends CustomCommandExecutor {
             arenaPlayer.getCurrentCompetition().get().removePlayer(arenaPlayer);
         }
 
-        player.sendMessage(MessageStyle.YELLOW + "You have left " + MessageStyle.GOLD + arena.getName() + MessageStyle.YELLOW + "!");
+        player.sendMessage(arena.getMessageHandler().getFormattedMessage(player, "leftCompetition"));
     }
 
     @Override
@@ -88,7 +88,8 @@ public class ArenaExecutor extends CustomCommandExecutor {
             Player player = (Player) sender;
             ArenaPlayer arenaPlayer = plugin.getArenaManager().getArenaPlayer(player);
             if (clazz.isAssignableFrom(Competition.class)) {
-                return arenaPlayer.getCurrentCompetition().orElseThrow(() -> new IllegalArgumentException("You are not in a competition!"));
+                return arenaPlayer.getCurrentCompetition().orElseThrow(()
+                        -> new IllegalArgumentException(arena.getMessageHandler().getFormattedMessage("notInCompetition")));
             }
         }
 

@@ -59,4 +59,11 @@ public class Arena {
      * @return the list of victory conditions for this arena
      */
     private List<VictoryCondition> victoryConditions = new ArrayList<>();
+
+    /**
+     * The message handler to use for this arena
+     *
+     * @return the message handler to use for this arena
+     */
+    private ArenaMessageHandler messageHandler;
 }

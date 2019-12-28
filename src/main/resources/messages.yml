@@ -1,4 +1,3 @@
-
 # -----------------
 # Main message config for BattleArena
 #
@@ -7,3 +6,13 @@
 # GitHub: https://github.com/BattlePlugins/BattleArena
 # -----------------
 configVersion: 2.0.0 # The config version, do not change!
+
+messages:
+  prefix: "&6[%arena_name%]&e "
+  arena: # These can be overridden by arenas
+    alreadyInCompetition: "&cYou are already in a competition!"
+    notInCompetition: "&cYou are not in a competition!"
+    noOpenCompetitions: "&cThere are currently no open competitions."
+    arenaDoesNotExist: "&cA competition could not be found by that name."
+    joinedCompetition: "&eYou have joined &6%arena_name%&e!"
+    leftCompetition: "&eYou have left &6%arena_name%&e!"

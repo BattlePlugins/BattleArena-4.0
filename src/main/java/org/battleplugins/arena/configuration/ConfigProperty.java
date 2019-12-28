@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation used to annotate state option properties.
+ * Annotation used to annotate configuration properties.
  * 
  * @author Redned
  */
