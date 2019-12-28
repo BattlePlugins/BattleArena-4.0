@@ -40,13 +40,6 @@ public class Arena {
     protected String name;
 
     /**
-     * The arena type
-     * 
-     * @return the arena type
-     */
-    protected ArenaType arenaType;
-    
-    /**
      * The command executor for this arena
      * 
      * @return the command executor for this arena
