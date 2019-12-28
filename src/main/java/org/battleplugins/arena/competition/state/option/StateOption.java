@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import org.battleplugins.api.entity.living.player.Player;
 import org.battleplugins.arena.competition.Competition;
-import org.battleplugins.entity.living.player.Player;
 
 /**
  * Represents a state option for a competition.

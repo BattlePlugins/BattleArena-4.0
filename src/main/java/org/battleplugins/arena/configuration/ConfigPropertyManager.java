@@ -2,7 +2,7 @@ package org.battleplugins.arena.configuration;
 
 import mc.alk.battlecore.util.Log;
 
-import org.battleplugins.configuration.ConfigurationNode;
+import org.battleplugins.api.configuration.ConfigurationNode;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

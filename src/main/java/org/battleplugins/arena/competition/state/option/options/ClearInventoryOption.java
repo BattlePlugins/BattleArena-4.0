@@ -1,8 +1,8 @@
 package org.battleplugins.arena.competition.state.option.options;
 
+import org.battleplugins.api.entity.living.player.Player;
 import org.battleplugins.arena.competition.Competition;
 import org.battleplugins.arena.competition.state.option.StateOption;
-import org.battleplugins.entity.living.player.Player;
 
 /**
  * State option that clears inventories.

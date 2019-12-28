@@ -3,9 +3,9 @@ package org.battleplugins.arena.arena.team;
 import lombok.AccessLevel;
 import lombok.Getter;
 
+import org.battleplugins.api.configuration.Configuration;
+import org.battleplugins.api.configuration.ConfigurationNode;
 import org.battleplugins.arena.BattleArena;
-import org.battleplugins.configuration.Configuration;
-import org.battleplugins.configuration.ConfigurationNode;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

@@ -5,15 +5,15 @@ import lombok.NonNull;
 
 import mc.alk.battlecore.executor.CustomCommandExecutor;
 
-import org.battleplugins.ChatColor;
+import org.battleplugins.api.command.Command;
+import org.battleplugins.api.command.CommandSender;
+import org.battleplugins.api.entity.living.player.Player;
+import org.battleplugins.api.message.MessageStyle;
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.arena.Arena;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
 import org.battleplugins.arena.arena.team.ArenaTeam;
 import org.battleplugins.arena.competition.Competition;
-import org.battleplugins.command.Command;
-import org.battleplugins.command.CommandSender;
-import org.battleplugins.entity.living.player.Player;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -38,7 +38,7 @@ public class ArenaExecutor extends CustomCommandExecutor {
     public void joinCommand(Player player, String name) {
         ArenaPlayer arenaPlayer = plugin.getArenaManager().getArenaPlayer(player);
         if (arenaPlayer.isInCompetition()) {
-            player.sendMessage(ChatColor.RED + "You are already in a competition!");
+            player.sendMessage(MessageStyle.RED + "You are already in a competition!");
             return;
         }
 
@@ -56,19 +56,19 @@ public class ArenaExecutor extends CustomCommandExecutor {
         }
 
         if (competition == null) {
-            player.sendMessage(ChatColor.RED + (nameNull ? "There are currently no open competitions." : "A competition with that name could not be found"));
+            player.sendMessage(MessageStyle.RED + (nameNull ? "There are currently no open competitions." : "A competition with that name could not be found"));
             return;
         }
 
         competition.addPlayer(arenaPlayer, null);
-        player.sendMessage(ChatColor.YELLOW + "You have joined " + ChatColor.GOLD + arena.getName() + ChatColor.YELLOW + "!");
+        player.sendMessage(MessageStyle.YELLOW + "You have joined " + MessageStyle.GOLD + arena.getName() + MessageStyle.YELLOW + "!");
     }
 
     @MCCommand(cmds = {"l", "leave"})
     public void leaveCommand(Player player) {
         ArenaPlayer arenaPlayer = plugin.getArenaManager().getArenaPlayer(player);
         if (!arenaPlayer.isInCompetition()) {
-            player.sendMessage(ChatColor.RED + "You are not currently in a competition!");
+            player.sendMessage(MessageStyle.RED + "You are not currently in a competition!");
             return;
         }
 
@@ -79,7 +79,7 @@ public class ArenaExecutor extends CustomCommandExecutor {
             arenaPlayer.getCurrentCompetition().get().removePlayer(arenaPlayer);
         }
 
-        player.sendMessage(ChatColor.YELLOW + "You have left " + ChatColor.GOLD + arena.getName() + ChatColor.YELLOW + "!");
+        player.sendMessage(MessageStyle.YELLOW + "You have left " + MessageStyle.GOLD + arena.getName() + MessageStyle.YELLOW + "!");
     }
 
     @Override

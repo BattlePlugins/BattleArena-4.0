@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import org.battleplugins.ChatColor;
+import org.battleplugins.api.message.MessageStyle;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
 
 import java.awt.Color;
@@ -81,8 +81,8 @@ public class ArenaTeam implements Cloneable {
      *
      * @return the color of the team
      */
-    public ChatColor getTeamColor() {
-        return ChatColor.getByChar(teamColor.replace("&", ""));
+    public MessageStyle getTeamColor() {
+        return MessageStyle.getByChar(teamColor.replace("&", ""));
     }
 
     /**

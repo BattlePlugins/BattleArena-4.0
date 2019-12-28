@@ -1,12 +1,12 @@
 package org.battleplugins.arena.competition.victorycondition;
 
-import java.util.Map;
-import java.util.Optional;
-
+import org.battleplugins.api.configuration.ConfigurationNode;
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.competition.victorycondition.conditions.*;
 import org.battleplugins.arena.configuration.ConfigPropertyManager;
-import org.battleplugins.configuration.ConfigurationNode;
+
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Manages and stores default victory conditions.

@@ -1,14 +1,14 @@
 package org.battleplugins.arena.configuration.item;
 
-import org.battleplugins.ChatColor;
-import org.battleplugins.configuration.ConfigurationNode;
-import org.battleplugins.inventory.item.ItemStack;
-import org.battleplugins.inventory.item.ItemType;
-import org.battleplugins.inventory.item.ItemTypes;
-import org.battleplugins.inventory.item.component.*;
-import org.battleplugins.inventory.item.component.flag.ItemFlag;
-import org.battleplugins.inventory.item.component.flag.ItemFlags;
-import org.battleplugins.util.NamespacedKey;
+import org.battleplugins.api.configuration.ConfigurationNode;
+import org.battleplugins.api.inventory.item.ItemStack;
+import org.battleplugins.api.inventory.item.ItemType;
+import org.battleplugins.api.inventory.item.ItemTypes;
+import org.battleplugins.api.inventory.item.component.*;
+import org.battleplugins.api.inventory.item.component.flag.ItemFlag;
+import org.battleplugins.api.inventory.item.component.flag.ItemFlags;
+import org.battleplugins.api.message.MessageStyle;
+import org.battleplugins.api.util.NamespacedKey;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public abstract class ConfigItemReader implements ItemReader {
                 case "display-name":
                 case "displayName":
                 case "name":
-                    builder.component(DisplayNameComponent.class, ChatColor.translateAlternateColorCodes('&', node.getNode(key).getValue(String.class)));
+                    builder.component(DisplayNameComponent.class, MessageStyle.translateAlternateColorCodes('&', node.getNode(key).getValue(String.class)));
                     break;
                 case "enchants":
                 case "enchantments":

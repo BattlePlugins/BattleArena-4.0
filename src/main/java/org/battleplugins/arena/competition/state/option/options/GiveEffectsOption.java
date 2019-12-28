@@ -2,10 +2,10 @@ package org.battleplugins.arena.competition.state.option.options;
 
 import lombok.Getter;
 
+import org.battleplugins.api.entity.living.player.Player;
 import org.battleplugins.arena.competition.Competition;
 import org.battleplugins.arena.competition.state.option.StateOption;
 import org.battleplugins.arena.configuration.ConfigProperty;
-import org.battleplugins.entity.living.player.Player;
 
 /**
  * State option that gives effects to a player.

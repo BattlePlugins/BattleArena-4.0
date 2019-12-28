@@ -4,12 +4,12 @@ import lombok.Getter;
 
 import mc.alk.battlecore.util.Log;
 
+import org.battleplugins.api.entity.living.player.Player;
+import org.battleplugins.api.entity.living.player.gamemode.GameMode;
+import org.battleplugins.api.entity.living.player.gamemode.GameModes;
 import org.battleplugins.arena.competition.Competition;
 import org.battleplugins.arena.competition.state.option.StateOption;
 import org.battleplugins.arena.configuration.ConfigProperty;
-import org.battleplugins.entity.living.player.Player;
-import org.battleplugins.entity.living.player.gamemode.GameMode;
-import org.battleplugins.entity.living.player.gamemode.GameModes;
 
 /**
  * State option for changing a player's gamemode.

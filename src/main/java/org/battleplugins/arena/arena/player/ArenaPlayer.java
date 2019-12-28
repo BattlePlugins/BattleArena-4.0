@@ -7,9 +7,9 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import org.battleplugins.api.entity.living.player.Player;
 import org.battleplugins.arena.arena.team.ArenaTeam;
 import org.battleplugins.arena.competition.Competition;
-import org.battleplugins.entity.living.player.Player;
 
 /**
  * Represents a player in a competition.

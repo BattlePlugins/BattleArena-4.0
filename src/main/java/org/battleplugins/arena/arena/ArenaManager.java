@@ -5,12 +5,12 @@ import lombok.Getter;
 
 import mc.alk.battlecore.executor.CustomCommandExecutor;
 
+import org.battleplugins.api.command.Command;
+import org.battleplugins.api.entity.living.player.Player;
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
 import org.battleplugins.arena.arena.team.ArenaTeamManager;
 import org.battleplugins.arena.executor.ArenaExecutor;
-import org.battleplugins.command.Command;
-import org.battleplugins.entity.living.player.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;

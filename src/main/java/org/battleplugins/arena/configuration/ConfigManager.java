@@ -6,9 +6,9 @@ import lombok.Getter;
 import mc.alk.battlecore.util.FileUtil;
 import mc.alk.battlecore.util.Log;
 
+import org.battleplugins.api.configuration.Configuration;
+import org.battleplugins.api.configuration.provider.YAMLConfigurationProvider;
 import org.battleplugins.arena.BattleArena;
-import org.battleplugins.configuration.Configuration;
-import org.battleplugins.configuration.provider.YAMLConfigurationProvider;
 
 import java.io.File;
 import java.io.IOException;

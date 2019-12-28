@@ -1,7 +1,7 @@
 package org.battleplugins.arena.configuration.item;
 
-import org.battleplugins.configuration.ConfigurationNode;
-import org.battleplugins.inventory.item.ItemStack;
+import org.battleplugins.api.configuration.ConfigurationNode;
+import org.battleplugins.api.inventory.item.ItemStack;
 
 import java.util.Optional;
 
