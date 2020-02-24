@@ -127,7 +127,7 @@
                                         <include>org/battleplugins/**</include>
                                     </includes>
                                     <excludes>
-                                        <exclude>org/battleplugins/alib/javassist/**</exclude>
+                                        <exclude>org/battleplugins/api/shaded/javassist/**</exclude>
                                     </excludes>
                                 </filter>
                             </filters>

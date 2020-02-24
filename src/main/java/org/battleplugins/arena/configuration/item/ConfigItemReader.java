@@ -29,7 +29,6 @@ public abstract class ConfigItemReader implements ItemReader {
         if (!node.hasNode("type"))
             return Optional.empty();
 
-        System.out.println(NamespacedKey.of(node.getNode("type").getValue(String.class)));
         Optional<ItemType> itemType = ItemTypes.getItemFromKey(NamespacedKey.of(node.getNode("type").getValue(String.class)));
         if (!itemType.isPresent())
             return Optional.empty();
