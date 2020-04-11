@@ -1,7 +1,7 @@
-package org.battleplugins.arena.competition.state.option;
+package org.battleplugins.arena.match.state.option;
 
 import org.battleplugins.arena.BattleArena;
-import org.battleplugins.arena.competition.state.option.options.*;
+import org.battleplugins.arena.match.state.option.options.*;
 import org.battleplugins.arena.configuration.ConfigPropertyManager;
 
 import java.util.Map;

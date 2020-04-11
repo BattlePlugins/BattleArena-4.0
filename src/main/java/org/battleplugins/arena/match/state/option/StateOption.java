@@ -1,14 +1,14 @@
-package org.battleplugins.arena.competition.state.option;
+package org.battleplugins.arena.match.state.option;
 
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import org.battleplugins.api.entity.living.player.Player;
-import org.battleplugins.arena.competition.Competition;
+import org.battleplugins.arena.match.Match;
 
 /**
- * Represents a state option for a competition.
+ * Represents a state option for a match.
  * 
  * @author Redned
  */
@@ -28,7 +28,7 @@ public abstract class StateOption {
      * Calls the state option
      * 
      * @param player the player to run this option on
-     * @param competition the competition
+     * @param match the match
      */
-    public abstract void runOption(Player player, Competition competition);
+    public abstract void runOption(Player player, Match match);
 }

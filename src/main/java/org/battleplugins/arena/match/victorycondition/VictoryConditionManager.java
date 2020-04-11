@@ -1,8 +1,8 @@
-package org.battleplugins.arena.competition.victorycondition;
+package org.battleplugins.arena.match.victorycondition;
 
 import org.battleplugins.api.configuration.ConfigurationNode;
 import org.battleplugins.arena.BattleArena;
-import org.battleplugins.arena.competition.victorycondition.conditions.*;
+import org.battleplugins.arena.match.victorycondition.conditions.*;
 import org.battleplugins.arena.configuration.ConfigPropertyManager;
 
 import java.util.Map;

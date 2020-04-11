@@ -18,7 +18,7 @@ database:
   password: "" ## Database password.
 
 ## Global arena options that persist throughout all arenas.
-## Individual arenas/competitions can override these options.
+## Individual arenas/matches can override these options.
 defaultArenaOptions:
   ## A list of commands that should be allowed in arenas. Leave empty to allow all commands.
   enabledCommands: []
@@ -59,7 +59,7 @@ defaultArenaOptions:
 currencyNameSingular: Gold ## Name of currency (singular).
 currencyNamePlural: Gold ## Name of currency (plural).
 
-## Depending on the server, sometimes players are teleported into the ground when a competition
+## Depending on the server, sometimes players are teleported into the ground when a match
 ## is over or when they leave, resulting in them suffocating and being unable to move.
 ## If you are subject to this, adjust the options below.
 teleportYOffset: 0.0 ## Upon teleportation, teleport a player x block(s) higher.
@@ -67,7 +67,7 @@ teleportYVelocity: 0.0 ## The y velocity to give the player upon teleportation.
 
 ## Upon a server crash, inventories may not be restored properly. This may result in a player
 ## not having the correct inventory. Fortunately, BattleArena backs up their inventory when they
-## join a competition.
+## join a match.
 savedInventoryCount: 5 ## The amount of old inventories to back up. Set to 0 to disable (not recommended).
 
 ## If signs should be used.

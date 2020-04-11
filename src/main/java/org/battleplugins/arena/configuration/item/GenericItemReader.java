@@ -8,7 +8,7 @@ import org.battleplugins.api.inventory.item.component.*;
 import org.battleplugins.api.inventory.item.component.flag.ItemFlag;
 import org.battleplugins.api.inventory.item.component.flag.ItemFlags;
 import org.battleplugins.api.message.MessageStyle;
-import org.battleplugins.api.util.NamespacedKey;
+import org.battleplugins.api.util.Identifier;
 
 import java.awt.Color;
 import java.util.Arrays;
@@ -29,7 +29,7 @@ public class GenericItemReader extends ConfigItemReader {
     @Override
     public Optional<ItemStack> fromString(String string) {
         String[] split = string.split("\\{");
-        Optional<ItemType> itemType = ItemTypes.getItemFromKey(NamespacedKey.minecraft(split[0]));
+        Optional<ItemType> itemType = ItemTypes.getItemFromIdentifier(Identifier.minecraft(split[0]));
         if (!itemType.isPresent())
             return Optional.empty();
 

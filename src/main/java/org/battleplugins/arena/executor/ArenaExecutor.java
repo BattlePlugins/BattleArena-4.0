@@ -13,7 +13,7 @@ import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.arena.Arena;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
 import org.battleplugins.arena.arena.team.ArenaTeam;
-import org.battleplugins.arena.competition.Competition;
+import org.battleplugins.arena.match.Match;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -37,49 +37,44 @@ public class ArenaExecutor extends CustomCommandExecutor {
     @MCCommand(cmds = {"j", "join"})
     public void joinCommand(Player player, String name) {
         ArenaPlayer arenaPlayer = plugin.getArenaManager().getArenaPlayer(player);
-        if (arenaPlayer.isInCompetition()) {
-            player.sendMessage(arena.getMessageHandler().getFormattedMessage("alreadyInCompetition"));
+        if (arenaPlayer.isInMatch()) {
+            player.sendMessage(arena.getMessageHandler().getFormattedMessage("alreadyInMatch"));
             return;
         }
 
         boolean nameNull = name == null || name.isEmpty();
-        Competition competition = null;
-        for (Competition arenaComp : arena.getCompetitions()) {
-            if (arenaComp.getName().isPresent() && arenaComp.getName().get().equalsIgnoreCase(name)) {
-                competition = arenaComp;
+        Match match = null;
+        for (Match arenaMatch : arena.getMatches()) {
+            if (arenaMatch.getName().isPresent() && arenaMatch.getName().get().equalsIgnoreCase(name)) {
+                match = arenaMatch;
             }
 
-            if (!arenaComp.getName().isPresent() && nameNull) {
-                competition = arenaComp;
+            if (!arenaMatch.getName().isPresent() && nameNull) {
+                match = arenaMatch;
                 break;
             }
         }
 
-        if (competition == null) {
-            player.sendMessage(MessageStyle.RED + arena.getMessageHandler().getFormattedMessage(nameNull ? "noOpenCompetitions" : "competitionDoesNotExist"));
+        if (match == null) {
+            player.sendMessage(MessageStyle.RED + arena.getMessageHandler().getFormattedMessage(nameNull ? "noOpenMatches" : "matchDoesNotExist"));
             return;
         }
 
-        competition.addPlayer(arenaPlayer, null);
-        player.sendMessage(arena.getMessageHandler().getFormattedMessage(player, "joinedCompetition"));
+        match.addPlayer(arenaPlayer, null);
+        player.sendMessage(arena.getMessageHandler().getFormattedMessage(player, "joinedMatch"));
     }
 
     @MCCommand(cmds = {"l", "leave"})
     public void leaveCommand(Player player) {
         ArenaPlayer arenaPlayer = plugin.getArenaManager().getArenaPlayer(player);
-        if (!arenaPlayer.isInCompetition()) {
-            player.sendMessage(arena.getMessageHandler().getFormattedMessage("notInCompetition"));
+        if (!arenaPlayer.isInMatch()) {
+            player.sendMessage(arena.getMessageHandler().getFormattedMessage("notInMatch"));
             return;
         }
 
         Optional<ArenaTeam> opArenaTeam = arenaPlayer.getCurrentTeam();
-        if (opArenaTeam.isPresent()) {
-            arenaPlayer.getCurrentCompetition().get().removePlayer(arenaPlayer);
-        } else {
-            arenaPlayer.getCurrentCompetition().get().removePlayer(arenaPlayer);
-        }
-
-        player.sendMessage(arena.getMessageHandler().getFormattedMessage(player, "leftCompetition"));
+        arenaPlayer.getCurrentMatch().ifPresent(match -> match.removePlayer(arenaPlayer));
+        player.sendMessage(arena.getMessageHandler().getFormattedMessage(player, "leftMatch"));
     }
 
     @Override
@@ -87,9 +82,9 @@ public class ArenaExecutor extends CustomCommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             ArenaPlayer arenaPlayer = plugin.getArenaManager().getArenaPlayer(player);
-            if (clazz.isAssignableFrom(Competition.class)) {
-                return arenaPlayer.getCurrentCompetition().orElseThrow(()
-                        -> new IllegalArgumentException(arena.getMessageHandler().getFormattedMessage("notInCompetition")));
+            if (clazz.isAssignableFrom(Match.class)) {
+                return arenaPlayer.getCurrentMatch().orElseThrow(()
+                        -> new IllegalArgumentException(arena.getMessageHandler().getFormattedMessage("notInMatch")));
             }
         }
 

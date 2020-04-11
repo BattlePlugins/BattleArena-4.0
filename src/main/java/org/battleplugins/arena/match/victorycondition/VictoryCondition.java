@@ -1,13 +1,13 @@
-package org.battleplugins.arena.competition.victorycondition;
+package org.battleplugins.arena.match.victorycondition;
 
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import org.battleplugins.arena.competition.Competition;
+import org.battleplugins.arena.match.Match;
 
 /**
- * Represents a victory condition for a competition.
+ * Represents a victory condition for a match.
  * 
  * @author Redned
  */
@@ -26,7 +26,7 @@ public abstract class VictoryCondition {
     /**
      * Checks if the victory condition was met
      * 
-     * @param competition the competition
+     * @param match the match
      */
-    public abstract boolean checkCondition(Competition competition);
+    public abstract boolean checkCondition(Match match);
 }

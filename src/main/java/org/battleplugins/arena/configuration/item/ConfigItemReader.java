@@ -8,7 +8,7 @@ import org.battleplugins.api.inventory.item.component.*;
 import org.battleplugins.api.inventory.item.component.flag.ItemFlag;
 import org.battleplugins.api.inventory.item.component.flag.ItemFlags;
 import org.battleplugins.api.message.MessageStyle;
-import org.battleplugins.api.util.NamespacedKey;
+import org.battleplugins.api.util.Identifier;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public abstract class ConfigItemReader implements ItemReader {
         if (!node.hasNode("type"))
             return Optional.empty();
 
-        Optional<ItemType> itemType = ItemTypes.getItemFromKey(NamespacedKey.of(node.getNode("type").getValue(String.class)));
+        Optional<ItemType> itemType = ItemTypes.getItemFromIdentifier(Identifier.of(node.getNode("type").getValue(String.class)));
         if (!itemType.isPresent())
             return Optional.empty();
 

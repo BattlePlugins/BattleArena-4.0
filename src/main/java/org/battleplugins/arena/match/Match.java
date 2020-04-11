@@ -1,4 +1,4 @@
-package org.battleplugins.arena.competition;
+package org.battleplugins.arena.match;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.arena.Arena;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
 import org.battleplugins.arena.arena.team.ArenaTeam;
-import org.battleplugins.arena.competition.state.CompetitionState;
-import org.battleplugins.arena.competition.state.CompetitionStates;
+import org.battleplugins.arena.match.state.MatchState;
+import org.battleplugins.arena.match.state.MatchStates;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -25,53 +25,52 @@ import java.util.stream.Collectors;
 
 /**
  * Represents an active {@link Arena}. One of these is present for
- * each physical arena. Can either be an {@link Event}, {@link Match}
- * or {@link Tournament}.
+ * each physical arena.
  * 
  * The behavior for this class changes slightly when players are allowed
- * to vote for maps. Rather than assigning a competition for each map upon
- * the plugin being enabled, instead a set amount of competitions is 
+ * to vote for maps. Rather than assigning a match for each map upon
+ * the plugin being enabled, instead a set amount of matches is
  * created as defined in the Arena configuration. 
  * 
  * @author Redned
  */
 @Getter
 @RequiredArgsConstructor
-public abstract class Competition {
+public abstract class Match {
 
     @NonNull
     @Getter(AccessLevel.NONE)
     private BattleArena plugin;
 
     /**
-     * The {@link Arena} associated with the competition
+     * The {@link Arena} associated with the march
      * 
-     * @return the {@link Arena} associated with the competition
+     * @return the arena associated with the match
      */
     @NonNull 
     protected final Arena arena;
 
     /**
-     * The current state of the competition
+     * The current {@link MatchState}
      * 
-     * @return the current state of the competition
+     * @return the current match state
      */
-    protected CompetitionState state = CompetitionStates.NONE;
+    protected MatchState state = MatchStates.NONE;
     
     /**
-     * The teams in the competition
+     * The teams in the match
      *
      * Key: the name of the team
      * Value: the arena team
      *
-     * @return the teams in the competition
+     * @return the teams in the match
      */
     protected Map<String, ArenaTeam> teams = new LinkedHashMap<>();
 
     /**
-     * The name of this competition, usually
+     * The name of this match, usually
      * the name of the map associated with it. Will return
-     * empty if the competition is not assigned to a
+     * empty if the match is not assigned to a
      * map (yet)
      */
     private String name;
@@ -80,9 +79,9 @@ public abstract class Competition {
     private AtomicInteger nextTeamIndex = new AtomicInteger();
 
     /**
-     * Returns a list of all the players in the competition
+     * Returns a list of all the players in the match
      * 
-     * @return a list of all the players in the competition
+     * @return a list of all the players in the match
      */
     public List<ArenaPlayer> getPlayers() {
         List<ArenaPlayer> players = new ArrayList<>();
@@ -96,7 +95,7 @@ public abstract class Competition {
      * @return a list of the remaining players
      */
     public List<ArenaPlayer> getRemainingPlayers() {
-        return getPlayers().stream().filter(ArenaPlayer::isRemainingInCompetition).collect(Collectors.toList());
+        return getPlayers().stream().filter(ArenaPlayer::isRemainingInMatch).collect(Collectors.toList());
     }
     
     /**
@@ -105,50 +104,47 @@ public abstract class Competition {
      * @return a list of remaining teams
      */
     public List<ArenaTeam> getRemainingTeams() {
-        return getTeams().values().stream().filter(ArenaTeam::isRemainingInCompetition).collect(Collectors.toList());
+        return getTeams().values().stream().filter(ArenaTeam::isRemainingInMatch).collect(Collectors.toList());
     }
 
     /**
-     * The name of this competition, usually
+     * The name of this match, usually
      * the name of the map associated with it. Will return
-     * empty if the competition is not assigned to a
+     * empty if the match is not assigned to a
      * map (yet)
      *
-     * @return the name of this competition
+     * @return the name of this match
      */
     public Optional<String> getName() {
         return Optional.ofNullable(name);
     }
 
     /**
-     * Returns if this competition is open
+     * Returns if this match is open
      *
-     * @return if this competition is open
+     * @return if this match is open
      */
     public boolean isOpen() {
-        if (state.equals(CompetitionStates.ON_PRE_START))
+        if (state.equals(MatchStates.ON_PRE_START))
             return true;
 
-        if (state.equals(CompetitionStates.ON_START))
+        if (state.equals(MatchStates.ON_START))
             return true;
 
-        if (state.equals(CompetitionStates.ON_BEGINNING))
+        if (state.equals(MatchStates.ON_BEGINNING))
             return true;
 
-        if (state.equals(CompetitionStates.NONE))
-            return true;
-
-        return false;
+        return state.equals(MatchStates.NONE);
     }
 
     /**
-     * Adds a player to the competition
+     * Adds a player to the match
      *
-     * @param player the player to add to the competition
+     * @param player the player to add to the match
      * @param teamName the name of the team to add the player to
      */
     public void addPlayer(ArenaPlayer player, @Nullable String teamName) {
-        player.setCurrentCompetition(this);
+        player.setCurrentMatch(this);
         player.setDeaths(0);
         player.setKills(0);
 
@@ -169,7 +165,7 @@ public abstract class Competition {
                 if (teamName == null) {
                     finalTeamName = plugin.getArenaManager().getTeamManager().getDefaultTeams().keySet().toArray(new String[0])[nextTeamIndex.getAndIncrement()];
                 }
-                // TODO: Set team max players from competition file
+                // TODO: Set team max players from match file
                 ArenaTeam team = plugin.getArenaManager().getTeamManager().constructTeam(finalTeamName, -1);
                 team.getPlayers().add(player);
                 player.setCurrentTeam(team);
@@ -187,13 +183,13 @@ public abstract class Competition {
     }
 
     /**
-     * Removes a player from the competition
+     * Removes a player from the match
      *
-     * @param player the player to remove from the competition
+     * @param player the player to remove from the match
      */
     public void removePlayer(ArenaPlayer player) {
         player.setCurrentTeam(null);
-        player.setCurrentCompetition(null);
+        player.setCurrentMatch(null);
         player.setReady(false);
 
         if (!getPlayers().contains(player))
@@ -206,23 +202,23 @@ public abstract class Competition {
     }
 
     /**
-     * Returns if this class is the same as the competition class given
+     * Returns if this class is the same as the match class given
      * 
-     * @param competitionClass the competition class
-     * @return if this class is the same as the competition class given
+     * @param matchClass the match class
+     * @return if this class is the same as the match class given
      */
-    public <T extends Competition> boolean is(Class<T> competitionClass) {
-        return competitionClass.isInstance(this);
+    public <T extends Match> boolean is(Class<T> matchClass) {
+        return matchClass.isInstance(this);
     }
     
     /**
-     * Returns this class casted to the given competition class
+     * Returns this class casted to the given match class
      * 
-     * @param competitionClass the competition class
-     * @return this class casted to the given competition class
+     * @param matchClass the match class
+     * @return this class casted to the given match class
      */
-    public <T extends Competition> T as(Class<T> competitionClass) {
-        return is(competitionClass) ? competitionClass.cast(this) : null;
+    public <T extends Match> T as(Class<T> matchClass) {
+        return is(matchClass) ? matchClass.cast(this) : null;
     }
 
     /**
@@ -230,7 +226,7 @@ public abstract class Competition {
      * be called if the team they're trying to join is full or if the
      * current teams are empty
      *
-     * In an unlikely scenario, a player may try and join a competition
+     * In an unlikely scenario, a player may try and join a match
      * where this method may end up being called due to the aforementioned
      * scenarios, with the exception being that there is not enough teams
      * created. This will result in the player being added to a team

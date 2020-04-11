@@ -1,4 +1,4 @@
-package org.battleplugins.arena.competition.state.option.options;
+package org.battleplugins.arena.match.state.option.options;
 
 import lombok.Getter;
 
@@ -7,8 +7,8 @@ import mc.alk.battlecore.util.Log;
 import org.battleplugins.api.entity.living.player.Player;
 import org.battleplugins.api.entity.living.player.gamemode.GameMode;
 import org.battleplugins.api.entity.living.player.gamemode.GameModes;
-import org.battleplugins.arena.competition.Competition;
-import org.battleplugins.arena.competition.state.option.StateOption;
+import org.battleplugins.arena.match.Match;
+import org.battleplugins.arena.match.state.option.StateOption;
 import org.battleplugins.arena.configuration.ConfigProperty;
 
 /**
@@ -27,10 +27,10 @@ public class ChangeGamemodeStateOption extends StateOption {
     }
 
     @Override
-    public void runOption(Player player, Competition competition) {
+    public void runOption(Player player, Match match) {
         GameMode gameMode = null;
         for (GameMode value : GameModes.values()) {
-            if (value.getKey().getKey().equalsIgnoreCase(mode)) {
+            if (value.getIdentifier().getKey().equalsIgnoreCase(mode)) {
                 gameMode = value;
                 break;
             }

@@ -1,8 +1,8 @@
-package org.battleplugins.arena.competition.victorycondition.conditions;
+package org.battleplugins.arena.match.victorycondition.conditions;
 
-import org.battleplugins.arena.competition.Competition;
+import org.battleplugins.arena.match.Match;
 import org.battleplugins.arena.configuration.ConfigProperty;
-import org.battleplugins.arena.competition.victorycondition.VictoryCondition;
+import org.battleplugins.arena.match.victorycondition.VictoryCondition;
 
 /**
  * A victory condition called when there is only
@@ -23,10 +23,10 @@ public class LastManStandingCondition extends VictoryCondition {
     }
 
     @Override
-    public boolean checkCondition(Competition competition) {
-        if (accountTeams && competition.getRemainingTeams().size() == 1)
+    public boolean checkCondition(Match match) {
+        if (accountTeams && match.getRemainingTeams().size() == 1)
             return true;
 
-        return competition.getRemainingPlayers().size() == peopleStanding;
+        return match.getRemainingPlayers().size() == peopleStanding;
     }
 }

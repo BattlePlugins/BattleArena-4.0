@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 /**
- * Represents a team in a competition.
+ * Represents a team in a match.
  *
  * @author Redned
  */
@@ -60,16 +60,16 @@ public class ArenaTeam implements Cloneable {
     private Set<ArenaPlayer> players = new HashSet<>();
     
     /**
-     * Returns if the team is remaining in the competition
+     * Returns if the team is remaining in the match
      * 
-     * @return if the team is remaining in the competition
+     * @return if the team is remaining in the match
      */
-    public boolean isRemainingInCompetition() {
+    public boolean isRemainingInMatch() {
         if (players.isEmpty())
             return false;
         
         for (ArenaPlayer player : players) {
-            if (player.isInCompetition())
+            if (player.isInMatch())
                 return true;
         }
         

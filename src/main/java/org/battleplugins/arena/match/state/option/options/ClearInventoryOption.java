@@ -1,8 +1,8 @@
-package org.battleplugins.arena.competition.state.option.options;
+package org.battleplugins.arena.match.state.option.options;
 
 import org.battleplugins.api.entity.living.player.Player;
-import org.battleplugins.arena.competition.Competition;
-import org.battleplugins.arena.competition.state.option.StateOption;
+import org.battleplugins.arena.match.Match;
+import org.battleplugins.arena.match.state.option.StateOption;
 
 /**
  * State option that clears inventories.
@@ -16,7 +16,7 @@ public class ClearInventoryOption extends StateOption {
     }
 
     @Override
-    public void runOption(Player player, Competition competition) {
+    public void runOption(Player player, Match match) {
         player.getInventory().clear();
     }
 }

@@ -1,4 +1,4 @@
-package org.battleplugins.arena.competition;
+package org.battleplugins.arena.match;
 
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.arena.Arena;
@@ -15,9 +15,11 @@ import org.battleplugins.arena.arena.Arena;
  */
 public class Tournament extends Event {
 
-    private Competition parent;
+    private Match parent;
 
-    public Tournament(BattleArena plugin, Competition parent) {
+    public Tournament(BattleArena plugin, Match parent) {
         super(plugin, parent.getArena());
+
+        this.parent = parent;
     }
 }

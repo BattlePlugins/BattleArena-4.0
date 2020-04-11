@@ -7,12 +7,12 @@ import lombok.Setter;
 
 import org.battleplugins.api.entity.living.player.Player;
 import org.battleplugins.arena.arena.team.ArenaTeam;
-import org.battleplugins.arena.competition.Competition;
+import org.battleplugins.arena.match.Match;
 
 import java.util.Optional;
 
 /**
- * Represents a player in a competition.
+ * Represents a player in a match.
  * 
  * @author Redned
  */
@@ -21,9 +21,9 @@ import java.util.Optional;
 public class ArenaPlayer {
 
     /**
-     * The current competition the player is in
+     * The current match the player is in
      */
-    private Competition currentCompetition;
+    private Match currentMatch;
     
     /**
      * The current team the player is on
@@ -41,13 +41,13 @@ public class ArenaPlayer {
     private boolean ready = false;
     
     /**
-     * If the player is remaining in the competition
+     * If the player is remaining in the match
      * 
-     * @param remainingInCompetition if the player is remaining in the competition
-     * @return if the player is remaining in the competition
+     * @param remainingInMatch if the player is remaining in the match
+     * @return if the player is remaining in match
      */
     @Setter
-    private boolean remainingInCompetition = false;
+    private boolean remainingInMatch = false;
     
     /**
      * The amount of kills the player has
@@ -76,21 +76,21 @@ public class ArenaPlayer {
     private Player player;
     
     /**
-     * Returns if the player is in a competition
+     * Returns if the player is in a match
      * 
-     * @return if the player is in a competition
+     * @return if the player is in a match
      */
-    public boolean isInCompetition() {
-        return currentCompetition != null;
+    public boolean isInMatch() {
+        return currentMatch != null;
     }
     
     /**
-     * Returns the current competition the player is in
+     * Returns the current match the player is in
      * 
-     * @return the current competition the player is in
+     * @return the current match the player is in
      */
-    public Optional<Competition> getCurrentCompetition() {
-        return Optional.ofNullable(currentCompetition);
+    public Optional<Match> getCurrentMatch() {
+        return Optional.ofNullable(currentMatch);
     }
     
     /**
@@ -103,14 +103,14 @@ public class ArenaPlayer {
     }
     
     /**
-     * Sets the current competition the player is in, set to null
-     * if they are leaving a competition
+     * Sets the current match the player is in, set to null
+     * if they are leaving a match
      * 
-     * @param competition the competition to put the player in
+     * @param match the match to put the player in
      */
-    public void setCurrentCompetition(Competition competition) {
-        this.currentCompetition = competition;
-        if (competition == null) {
+    public void setCurrentMatch(Match match) {
+        this.currentMatch = match;
+        if (match == null) {
             this.currentTeam = null;
             this.ready = false;
         }

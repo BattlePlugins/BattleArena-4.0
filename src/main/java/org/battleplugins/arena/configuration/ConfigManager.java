@@ -13,6 +13,15 @@ import org.battleplugins.arena.BattleArena;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Manages configuration files used across BattleArena.
@@ -56,8 +65,12 @@ public class ConfigManager {
      * Loads all the configs necessary for BattleArena
      */
     public void loadConfigs() {
-        if (!plugin.getDataFolder().exists()) {
-            plugin.getDataFolder().mkdir();
+        if (Files.notExists(plugin.getDataFolder())) {
+            try {
+                Files.createDirectory(plugin.getDataFolder());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
 
         config = loadConfig(plugin.getDataFolder(), "", "config.yml");
@@ -69,30 +82,34 @@ public class ConfigManager {
      * Loads a config file, attempts to load from
      * jar if not found
      *
-     * @param directory the file of the config
+     * @param path the path of the config
      * @param resourceDir the directory of the resource
      * @param resource the resource to load from
      * @return the configuration object of the file
      */
-    public Configuration loadConfig(File directory, String resourceDir, String resource) {
-        File configFile = new File(directory, resource);
-        if (!configFile.exists()) {
+    public Configuration loadConfig(Path path, String resourceDir, String resource) {
+        Path configPath = Paths.get(path.toString(), resource);
+        if (Files.notExists(configPath)) {
             try {
-                InputStream stream = plugin.getClass().getResourceAsStream("/" + resourceDir + resource);
-                if (stream == null) {
-                    configFile.createNewFile();
+                URL url = plugin.getClass().getResource("/" + resourceDir + resource);
+                if (url == null) {
+                    Files.createFile(configPath);
                     Log.debug("Did not find " + resource + " in the jar, so creating an empty file instead.");
                 } else {
-                    FileUtil.writeFile(configFile, plugin.getClass().getResourceAsStream("/" + resourceDir + resource));
+                    Map<String, String> env = new HashMap<>();
+                    env.put("create", "true");
+                    FileSystems.newFileSystem(url.toURI(), env);
+                    Files.createDirectories(configPath.getParent());
+                    Files.copy(Paths.get(url.toURI()), configPath);
                 }
-            } catch (IOException ex) {
+            } catch (IOException | URISyntaxException ex) {
                 Log.err("Could not create " + resource + " config file!");
                 ex.printStackTrace();
             }
         }
 
         return Configuration.builder()
-                .file(configFile)
+                .path(configPath)
                 .provider(YAMLConfigurationProvider.class)
                 .build();
     }

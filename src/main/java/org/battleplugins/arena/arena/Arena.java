@@ -7,11 +7,10 @@ import lombok.Setter;
 
 import mc.alk.battlecore.executor.CustomCommandExecutor;
 
-import org.battleplugins.arena.competition.Competition;
-import org.battleplugins.arena.competition.Event;
-import org.battleplugins.arena.competition.Match;
-import org.battleplugins.arena.competition.Tournament;
-import org.battleplugins.arena.competition.victorycondition.VictoryCondition;
+import org.battleplugins.arena.match.Match;
+import org.battleplugins.arena.match.Event;
+import org.battleplugins.arena.match.Tournament;
+import org.battleplugins.arena.match.victorycondition.VictoryCondition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +19,10 @@ import java.util.List;
  * Main arena class. Custom arenas need to extend this class in order
  * to be properly added into the arena registry.
  * 
- * This is not the same as the physical arena in which the competition
- * is currently taking place in. The physical competition can either be
+ * This is not the same as the physical arena in which the match
+ * is currently taking place in. The physical match can either be
  * a {@link Match}, {@link Event} or {@link Tournament}. One of these exists
- * for each actively running competition. 
+ * for each actively running match.
  * 
  * @author Redned
  */
@@ -47,11 +46,11 @@ public class Arena {
     private CustomCommandExecutor executor;
 
     /**
-     * A list of competitions with this Arena
+     * A list of match with this Arena
      *
-     * @return a list of competitions with this Arena
+     * @return a list of match with this Arena
      */
-    private List<Competition> competitions = new ArrayList<>();
+    private List<Match> matches = new ArrayList<>();
 
     /**
      * The list of victory conditions for this arena
