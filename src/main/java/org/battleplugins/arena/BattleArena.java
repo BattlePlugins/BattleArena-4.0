@@ -18,7 +18,7 @@ import org.battleplugins.arena.message.MessageManager;
  * @author Redned
  */
 @Getter
-@PluginProperties(id = "battlearena", authors = "BattlePlugins", name = ArenaInfo.NAME, version = ArenaInfo.VERSION, description = ArenaInfo.DESCRIPTION, url = ArenaInfo.URL)
+@PluginProperties(id = "battlearena", authors = "BattlePlugins", name = "BattleArena", version = "$VERSION", description = "$DESCRIPTION", url = "$URL")
 public class BattleArena extends BattlePlugin {
 
     private ConfigManager configManager;

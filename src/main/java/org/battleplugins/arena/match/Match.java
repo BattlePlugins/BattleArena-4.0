@@ -11,8 +11,8 @@ import org.battleplugins.arena.arena.player.ArenaPlayer;
 import org.battleplugins.arena.arena.team.ArenaTeam;
 import org.battleplugins.arena.match.state.MatchState;
 import org.battleplugins.arena.match.state.MatchStates;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;

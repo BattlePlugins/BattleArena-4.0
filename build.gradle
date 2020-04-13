@@ -1,0 +1,63 @@
+plugins {
+    id "java"
+    id "com.github.johnrengelman.shadow" version "5.2.0"
+    id "net.kyori.blossom" version "1.1.0"
+}
+
+group 'org.battleplugins.arena'
+version '4.0.0-SNAPSHOT'
+description = 'An advanced, highly-customizable arena and minigame creation plugin for Minecraft.'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    jcenter()
+    mavenCentral()
+    mavenLocal()
+    maven {
+        name = "battleplugins-repo-releases"
+        url = "https://repo.battleplugins.org/artifactory/libs-release-local"
+    }
+    maven {
+        name = "battleplugins-repo-snapshot"
+        url = "https://repo.battleplugins.org/artifactory/libs-snapshot-local"
+    }
+}
+
+dependencies {
+    shadow 'org.battleplugins:McAPI:3.0.0-SNAPSHOT'
+    shadow('mc.alk:BattleCore:2.4.0-SNAPSHOT')
+    compileOnly 'org.jetbrains:annotations:18.0.0'
+    compileOnly 'org.projectlombok:lombok:1.18.4'
+
+    annotationProcessor('org.projectlombok:lombok:1.18.4')
+    annotationProcessor('org.battleplugins:McAPI:3.0.0-SNAPSHOT')
+}
+
+shadowJar {
+    minimize {
+        exclude('org.battleplugins:McAPI:.*')
+    }
+    setArchivesBaseName("BattleArena")
+    archiveName("BattleArena.jar")
+    configurations = [project.configurations.shadow]
+
+    relocate("mc.alk.battlecore", "org.battleplugins.arena.shaded.battlecore")
+}
+
+processResources {
+    expand([
+            "name": name,
+            "version": version,
+            "description": description
+    ])
+}
+
+blossom {
+    def main = 'src/main/java/org/battleplugins/arena/BattleArena.java'
+
+    replaceToken '$VERSION', version, main
+    replaceToken '$DESCRIPTION', description, main
+    replaceToken '$URL', 'https://github.com/BattlePlugins/BattleArena', main
+}
