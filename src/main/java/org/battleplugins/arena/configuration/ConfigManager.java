@@ -3,23 +3,23 @@ package org.battleplugins.arena.configuration;
 import lombok.AccessLevel;
 import lombok.Getter;
 
-import mc.alk.battlecore.util.FileUtil;
 import mc.alk.battlecore.util.Log;
 
 import org.battleplugins.api.configuration.Configuration;
 import org.battleplugins.api.configuration.provider.YAMLConfigurationProvider;
 import org.battleplugins.arena.BattleArena;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.spi.FileSystemProvider;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,17 +91,12 @@ public class ConfigManager {
         Path configPath = Paths.get(path.toString(), resource);
         if (Files.notExists(configPath)) {
             try {
-                URL url = plugin.getClass().getResource("/" + resourceDir + resource);
-                if (url == null) {
-                    Files.createFile(configPath);
-                    Log.debug("Did not find " + resource + " in the jar, so creating an empty file instead.");
-                } else {
-                    Map<String, String> env = new HashMap<>();
-                    env.put("create", "true");
-                    FileSystems.newFileSystem(url.toURI(), env);
-                    Files.createDirectories(configPath.getParent());
-                    Files.copy(Paths.get(url.toURI()), configPath);
-                }
+                URI uri = plugin.getClass().getResource("/" + resourceDir + resource).toURI();
+                this.createFileSystem(uri);
+
+                Path resourcePath = Paths.get(uri);
+                Files.createDirectories(configPath.getParent());
+                Files.copy(resourcePath, configPath);
             } catch (IOException | URISyntaxException ex) {
                 Log.err("Could not create " + resource + " config file!");
                 ex.printStackTrace();
@@ -147,6 +142,16 @@ public class ConfigManager {
             teamsConfig.save();
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    private void createFileSystem(URI uri) throws IOException {
+        try {
+            FileSystems.getFileSystem(uri);
+        } catch (FileSystemNotFoundException ex) {
+            Map<String, String> env = new HashMap<>();
+            env.put("create", "true");
+            FileSystems.newFileSystem(uri, env);
         }
     }
 }

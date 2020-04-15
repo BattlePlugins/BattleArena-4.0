@@ -27,7 +27,7 @@ repositories {
 
 dependencies {
     shadow 'org.battleplugins:McAPI:3.0.0-SNAPSHOT'
-    shadow('mc.alk:BattleCore:2.4.0-SNAPSHOT')
+    shadow 'mc.alk:BattleCore:2.4.0-SNAPSHOT'
     compileOnly 'org.jetbrains:annotations:18.0.0'
     compileOnly 'org.projectlombok:lombok:1.18.4'
 
@@ -36,9 +36,12 @@ dependencies {
 }
 
 shadowJar {
-    minimize {
-        exclude('org.battleplugins:McAPI:.*')
+    dependencies {
+        exclude(dependency('mc.euro:Version'))
     }
+
+    exclude('org/battleplugins/api/shaded/javassist/**')
+
     setArchivesBaseName("BattleArena")
     archiveName("BattleArena.jar")
     configurations = [project.configurations.shadow]
