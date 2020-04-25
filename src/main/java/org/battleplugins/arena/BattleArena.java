@@ -6,6 +6,8 @@ import mc.alk.battlecore.BattlePlugin;
 
 import org.battleplugins.api.configuration.Configuration;
 import org.battleplugins.api.plugin.PluginProperties;
+import org.battleplugins.arena.arena.Arena;
+import org.battleplugins.arena.arena.ArenaFactory;
 import org.battleplugins.arena.arena.ArenaManager;
 import org.battleplugins.arena.match.state.option.StateOptionManager;
 import org.battleplugins.arena.match.victorycondition.VictoryConditionManager;
@@ -38,6 +40,8 @@ public class BattleArena extends BattlePlugin {
         this.arenaManager = new ArenaManager(this);
         this.stateOptionManager = new StateOptionManager(this);
         this.victoryConditionManager = new VictoryConditionManager(this);
+
+        this.arenaManager.registerArena("Arena", "arena", ArenaFactory.DEFAULT);
     }
 
     @Override

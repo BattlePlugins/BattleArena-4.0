@@ -15,10 +15,17 @@ public class ArenaMessageHandler extends MessageHandler {
 
     private Arena arena;
 
-    public ArenaMessageHandler(Arena arena, ConfigurationNode node) {
-        super(node);
+    public ArenaMessageHandler(Arena arena, ConfigurationNode node, String... sections) {
+        super(node, sections);
 
         this.arena = arena;
+    }
+
+    @Override
+    public String getFormattedMessage(String key) {
+        String superResult = super.getFormattedMessage(key);
+        superResult = superResult.replace("%arena_name%", arena.getName());
+        return superResult;
     }
 
     @Override

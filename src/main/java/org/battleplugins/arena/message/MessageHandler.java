@@ -25,9 +25,17 @@ public class MessageHandler {
 
     private Map<String, String> messages = new HashMap<>();
 
-    protected MessageHandler(ConfigurationNode node) {
-        for (String str : node.getCollectionValue(String.class)) {
-            messages.put(str, node.getNode(str).getValue(String.class));
+    protected MessageHandler(ConfigurationNode node, String... sections) {
+        if (sections.length == 0) {
+            for (String str : node.getCollectionValue(String.class)) {
+                messages.put(str, node.getNode(str).getValue(String.class));
+            }
+        } else {
+            for (String section : sections) {
+                for (String str : node.getNode(section).getCollectionValue(String.class)) {
+                    messages.put(str, node.getNode(section).getNode(str).getValue(String.class));
+                }
+            }
         }
     }
 

@@ -14,7 +14,7 @@ public class MessageManager {
     private MessageHandler mainHandler;
 
     public MessageManager(ConfigurationNode node) {
-        this.mainHandler = new MessageHandler(node);
+        this.mainHandler = new MessageHandler(node, "general");
     }
 
     /**
