@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import org.battleplugins.api.entity.living.player.Player;
+import org.battleplugins.arena.arena.classes.ArenaClass;
 import org.battleplugins.arena.arena.team.ArenaTeam;
 import org.battleplugins.arena.match.Match;
 
@@ -30,7 +31,12 @@ public class ArenaPlayer {
      */
     @Setter
     private ArenaTeam currentTeam;
-    
+
+    /**
+     * The class the player currently has
+     */
+    private ArenaClass currentClass;
+
     /**
      * If the player is ready (clicked block or has voted for a map)
      * 
@@ -83,6 +89,13 @@ public class ArenaPlayer {
     public boolean isInMatch() {
         return currentMatch != null;
     }
+
+    /**
+     * Returns if the player has a class
+     *
+     * @return if the player has a class
+     */
+    public boolean hasClass() { return currentClass != null; }
     
     /**
      * Returns the current match the player is in
@@ -114,5 +127,14 @@ public class ArenaPlayer {
             this.currentTeam = null;
             this.ready = false;
         }
+    }
+
+    /**
+     * Set the current class for this player
+     *
+     * @param newClass List of new items for the class
+     */
+    public void setCurrentClass(ArenaClass newClass) {
+        this.currentClass = newClass;
     }
 }

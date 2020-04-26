@@ -55,6 +55,8 @@ public class ConfigManager {
      */
     private Configuration teamsConfig;
 
+    private Configuration classConfig;
+
     public ConfigManager(BattleArena plugin) {
         this.plugin = plugin;
 
@@ -76,6 +78,7 @@ public class ConfigManager {
         config = loadConfig(plugin.getDataFolder(), "", "config.yml");
         messagesConfig = loadConfig(plugin.getDataFolder(), "", "messages.yml");
         teamsConfig = loadConfig(plugin.getDataFolder(), "", "teams.yml");
+        classConfig = loadConfig(plugin.getDataFolder(), "", "classes.yml");
     }
 
     /**
@@ -116,6 +119,7 @@ public class ConfigManager {
         reloadConfig(config);
         reloadConfig(messagesConfig);
         reloadConfig(teamsConfig);
+        reloadConfig(classConfig);
     }
 
     /**
@@ -140,6 +144,7 @@ public class ConfigManager {
             config.save();
             messagesConfig.save();
             teamsConfig.save();
+            classConfig.save();
         } catch (IOException ex) {
             ex.printStackTrace();
         }

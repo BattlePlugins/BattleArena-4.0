@@ -1,3 +1,5 @@
+package org.battleplugins.arena.arena.classes;
+
 import org.battleplugins.api.inventory.item.ItemStack;
 
 import java.util.List;
