@@ -148,13 +148,16 @@ public class ArenaManager {
 
         if (messageHandler == null) {
             arena.setMessageHandler(new ArenaMessageHandler(arena, plugin.getConfigManager().getMessagesConfig()
-                    .getNode("messages").getNode("arena")));
+                    .getNode("messages"), "general", "arena"));
         }
         
         if (executor != null) {
             arena.getExecutor().addMethods(executor, executor.getClass().getMethods());
             plugin.registerCommand(new Command(command, "Main command for " + arena.getName() + ".", "battlearena." + command, new ArrayList<>()), executor);
+        } else {
+            plugin.registerCommand(new Command(command, "Main command for " + arena.getName() + ".", "battlearena." + command, new ArrayList<>()), arena.getExecutor());
         }
+        this.arenas.put(name, arena);
     }
 
     /**

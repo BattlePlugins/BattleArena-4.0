@@ -34,7 +34,7 @@ public class ArenaExecutor extends CustomCommandExecutor {
     @NonNull
     private Arena arena;
 
-    @MCCommand(cmds = {"j", "join"})
+    @MCCommand(cmds = {"join", "j"})
     public void joinCommand(Player player, String name) {
         ArenaPlayer arenaPlayer = plugin.getArenaManager().getArenaPlayer(player);
         if (arenaPlayer.isInMatch()) {
@@ -64,7 +64,7 @@ public class ArenaExecutor extends CustomCommandExecutor {
         player.sendMessage(arena.getMessageHandler().getFormattedMessage(player, "joinedMatch"));
     }
 
-    @MCCommand(cmds = {"l", "leave"})
+    @MCCommand(cmds = {"leave", "l"})
     public void leaveCommand(Player player) {
         ArenaPlayer arenaPlayer = plugin.getArenaManager().getArenaPlayer(player);
         if (!arenaPlayer.isInMatch()) {
