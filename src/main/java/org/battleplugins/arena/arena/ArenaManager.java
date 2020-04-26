@@ -7,14 +7,18 @@ import mc.alk.battlecore.executor.CustomCommandExecutor;
 
 import org.battleplugins.api.command.Command;
 import org.battleplugins.api.entity.living.player.Player;
+import org.battleplugins.api.world.Location;
 import org.battleplugins.arena.BattleArena;
+import org.battleplugins.arena.arena.map.ArenaMap;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
+import org.battleplugins.arena.arena.team.ArenaTeam;
 import org.battleplugins.arena.arena.team.ArenaTeamManager;
 import org.battleplugins.arena.executor.ArenaExecutor;
 import org.battleplugins.arena.message.MessageHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,6 +65,13 @@ public class ArenaManager {
      * @return a map of all the ArenaPlayers online
      */
     private Map<String, ArenaPlayer> arenaPlayers = new HashMap<>();
+
+    /**
+     * A list of all the loaded maps
+
+     * @return a list of all the loaded maps
+     */
+    private List<ArenaMap> loadedMaps = new ArrayList<>();
 
     public ArenaManager(BattleArena plugin) {
         this.plugin = plugin;
@@ -168,6 +179,29 @@ public class ArenaManager {
      */
     public ArenaPlayer getArenaPlayer(Player player) {
         return arenaPlayers.computeIfAbsent(player.getName(), arenaPlayer -> new ArenaPlayer(player));
+    }
+
+    /**
+     * Creates a new map with the given name
+     *
+     * @param name the name of the map
+     */
+    public ArenaMap createNewMap(String name) {
+        ArenaMap map = new ArenaMap(name, new HashMap<>());
+        this.loadedMaps.add(map);
+        return map;
+    }
+
+    /**
+     * Creates a new map with the given name and locations
+     *
+     * @param name the name of the map
+     * @param locations the locations for the map
+     */
+    public ArenaMap createNewMap(String name, Map<ArenaTeam, Location> locations) {
+        ArenaMap map = new ArenaMap(name, locations);
+        this.loadedMaps.add(map);
+        return map;
     }
 
     private ArenaFactory getArenaFactory(Class<? extends Arena> arenaClass) {

@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import mc.alk.battlecore.executor.CustomCommandExecutor;
 
+import org.battleplugins.arena.arena.map.ArenaMap;
 import org.battleplugins.arena.match.Match;
 import org.battleplugins.arena.match.Event;
 import org.battleplugins.arena.match.Tournament;
@@ -46,7 +47,7 @@ public class Arena {
     private CustomCommandExecutor executor;
 
     /**
-     * A list of match with this Arena
+     * A list of matches active with this Arena
      *
      * @return a list of match with this Arena
      */
@@ -65,4 +66,9 @@ public class Arena {
      * @return the message handler to use for this arena
      */
     private ArenaMessageHandler messageHandler;
+
+    /**
+     * A list of available maps 
+     */
+    private List<ArenaMap> availableMaps;
 }

@@ -2,11 +2,11 @@ package org.battleplugins.arena.match;
 
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.arena.Arena;
+import org.battleplugins.arena.arena.map.ArenaMap;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
 import org.battleplugins.arena.arena.team.ArenaTeam;
 import org.battleplugins.arena.match.state.MatchState;
@@ -36,19 +36,22 @@ import java.util.stream.Collectors;
  */
 @Getter
 @RequiredArgsConstructor
-public abstract class Match {
+public class Match {
 
-    @NonNull
     @Getter(AccessLevel.NONE)
-    private BattleArena plugin;
+    private final BattleArena plugin;
 
     /**
      * The {@link Arena} associated with the march
      * 
      * @return the arena associated with the match
      */
-    @NonNull 
     protected final Arena arena;
+
+    /**
+     * The map for this match
+     */
+    private ArenaMap map;
 
     /**
      * The current {@link MatchState}
@@ -66,14 +69,6 @@ public abstract class Match {
      * @return the teams in the match
      */
     protected Map<String, ArenaTeam> teams = new LinkedHashMap<>();
-
-    /**
-     * The name of this match, usually
-     * the name of the map associated with it. Will return
-     * empty if the match is not assigned to a
-     * map (yet)
-     */
-    private String name;
 
     @Getter(AccessLevel.NONE)
     private AtomicInteger nextTeamIndex = new AtomicInteger();
@@ -108,15 +103,13 @@ public abstract class Match {
     }
 
     /**
-     * The name of this match, usually
-     * the name of the map associated with it. Will return
-     * empty if the match is not assigned to a
-     * map (yet)
+     * Returns the map for this match. Empty if a
+     * map has not yet been selected
      *
-     * @return the name of this match
+     * @return the map for this match
      */
-    public Optional<String> getName() {
-        return Optional.ofNullable(name);
+    public Optional<ArenaMap> getMap() {
+        return Optional.ofNullable(map);
     }
 
     /**

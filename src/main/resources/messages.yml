@@ -17,3 +17,5 @@ messages:
     matchDoesNotExist: "&cA match could not be found by that name."
     joinedMatch: "&eYou have joined &6%arena_name%&e!"
     leftMatch: "&eYou have left &6%arena_name%&e!"
+    mapAlreadyExists: "&cA map by that name already exists!"
+    createdNewMap: "&eSuccessfully created a new map named &6%map_name%&e! Use &6/%arena_command% spawn add <team> &eto add more spawns!"

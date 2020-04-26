@@ -34,7 +34,25 @@ public class ArenaExecutor extends CustomCommandExecutor {
     @NonNull
     private Arena arena;
 
-    @MCCommand(cmds = {"join", "j"})
+    @MCCommand(cmds = {"create", "new"}, order = 1)
+    public void newCommand(Player player, String name) {
+        if (plugin.getArenaManager().getLoadedMaps().stream().anyMatch(map -> map.getName().equalsIgnoreCase(name))) {
+            player.sendMessage(arena.getMessageHandler().getFormattedMessage(player, "mapAlreadyExists"));
+            return;
+        }
+
+        // TODO: Custom match types & dont make new ones here (temporary)
+        plugin.getArenaManager().createNewMap(name);
+        arena.getMatches().add(new Match(plugin, arena));
+        player.sendMessage(arena.getMessageHandler().getFormattedMessage(player, "createdNewMap").replace("%map_name%", name));
+    }
+
+    @MCCommand(cmds = {"join", "j"}, order = 2, max = 1)
+    public void joinCommand(Player player) {
+        this.joinCommand(player, "");
+    }
+
+    @MCCommand(cmds = {"join", "j"}, order = 3)
     public void joinCommand(Player player, String name) {
         ArenaPlayer arenaPlayer = plugin.getArenaManager().getArenaPlayer(player);
         if (arenaPlayer.isInMatch()) {
@@ -45,11 +63,11 @@ public class ArenaExecutor extends CustomCommandExecutor {
         boolean nameNull = name == null || name.isEmpty();
         Match match = null;
         for (Match arenaMatch : arena.getMatches()) {
-            if (arenaMatch.getName().isPresent() && arenaMatch.getName().get().equalsIgnoreCase(name)) {
-                match = arenaMatch;
-            }
-
-            if (!arenaMatch.getName().isPresent() && nameNull) {
+            if (arenaMatch.getMap().isPresent()) {
+                if (arenaMatch.getMap().get().getName().equalsIgnoreCase(name)) {
+                    match = arenaMatch;
+                }
+            } else if (nameNull) {
                 match = arenaMatch;
                 break;
             }
@@ -64,7 +82,7 @@ public class ArenaExecutor extends CustomCommandExecutor {
         player.sendMessage(arena.getMessageHandler().getFormattedMessage(player, "joinedMatch"));
     }
 
-    @MCCommand(cmds = {"leave", "l"})
+    @MCCommand(cmds = {"leave", "l"}, order = 4)
     public void leaveCommand(Player player) {
         ArenaPlayer arenaPlayer = plugin.getArenaManager().getArenaPlayer(player);
         if (!arenaPlayer.isInMatch()) {

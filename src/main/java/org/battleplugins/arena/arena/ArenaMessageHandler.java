@@ -25,6 +25,15 @@ public class ArenaMessageHandler extends MessageHandler {
     public String getFormattedMessage(String key) {
         String superResult = super.getFormattedMessage(key);
         superResult = superResult.replace("%arena_name%", arena.getName());
+        superResult = superResult.replace("%arena_command%", arena.getName().toLowerCase());
+        return superResult;
+    }
+
+    @Override
+    public String getFormattedMessage(OfflinePlayer player, String key) {
+        String superResult = super.getFormattedMessage(player, key);
+        superResult = superResult.replace("%arena_name%", arena.getName());
+        superResult = superResult.replace("%arena_command%", arena.getName().toLowerCase());
         return superResult;
     }
 
@@ -32,6 +41,7 @@ public class ArenaMessageHandler extends MessageHandler {
     public String getPlaceholderMessage(OfflinePlayer player, String message) {
         String superResult = super.getPlaceholderMessage(player, message);
         superResult = superResult.replace("%arena_name%", arena.getName());
+        superResult = superResult.replace("%arena_command%", arena.getName().toLowerCase());
         return superResult;
     }
 }
