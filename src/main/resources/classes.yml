@@ -1,1 +1,50 @@
-# It's empty for now...
+version: 2.0
+
+### You can add new classes here
+classes:
+    gladiator:
+        displayName: "&4Gladiator" 
+        items:
+            - diamond_sword{enchantments=[sharpness:1]}
+            - bow
+            - arrow{amount=32}
+            - diamond_helmet
+            - diamond_chestplate
+            - diamond_leggings
+            - diamond_boots
+            - potion{effects=["instant_health:2"];name="Potion of Healing"} # potion of healing 2
+            - potion{effects=["regeneration:2"];name="Potion of Regeneration"} # potion of regen
+            - splash_potion{effects=["instant_damage:2"];name="Splash Potion of Harming"} # splash potion of harming 1
+        effects:
+            - speed:1:120
+            - resistance:1:120
+    archer:
+        displayName: "&2Archer" 
+        items:
+            - iron_sword{enchantments=[sharpness:1]}
+            - bow:{enchantments=[flame:2,power:3,punch:2]}
+            - arrow{amount=32}
+            - leather_helmet
+            - iron_chestplate{enchantments=[protection:3]}
+            - leather_leggings
+            - leather_boots
+            - potion{effects=["instant_health:2"];name="Potion of Healing"} # potion of healing 2
+            - potion{effects=["regeneration:2"];name="Potion of Regeneration"} # potion of regen
+            - splash_potion{effects=["instant_damage:2"];name="Splash Potion of Harming"} # splash potion of harming 1
+    monk:
+        displayName: "&fMonk" 
+        items:
+            - leather_helmet
+            - leather_chestplate
+            - leather_leggings
+            - leather_boots
+            - potion{effects=["instant_health:2"];name="Potion of Healing"} # potion of healing 2
+            - potion{effects=["regeneration:2"];name="Potion of Regeneration"} # potion of regen
+            - splash_potion{effects=["instant_damage:2"];name="Splash Potion of Harming"} # splash potion of harming 1
+        effects:
+            - strength:2:900 # increase attack power
+            - speed:2:900 # increase movement
+            - haste:2:900 # increase attack speed
+            - resistance:1:900 # reduce damage taken
+            - jump_boost:2:900 # jump 2 blocks higher than normal
+            - regeneration:1:60 # regen life
