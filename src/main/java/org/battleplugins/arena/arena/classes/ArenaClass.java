@@ -1,9 +1,16 @@
 package org.battleplugins.arena.arena.classes;
 
 import org.battleplugins.api.inventory.item.ItemStack;
+import org.battleplugins.arena.match.Match;
 
 import java.util.List;
 
+/**
+ * Represents a class used in {@link Match}es or any
+ * extensions of them.
+ *
+ * @author Zach443
+ */
 public class ArenaClass {
 
     /** Name of the Class **/
@@ -12,9 +19,9 @@ public class ArenaClass {
     /** All the items for the class **/
     private List<ItemStack> items;
 
-    public ArenaClass(String className, List<ItemStack> newStack) {
-        setName(className);
-        setItems(newStack);
+    public ArenaClass(String name, List<ItemStack> items) {
+        this.name = name;
+        this.items = items;
     }
 
     /**

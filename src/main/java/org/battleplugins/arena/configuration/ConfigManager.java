@@ -1,8 +1,5 @@
 package org.battleplugins.arena.configuration;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-
 import mc.alk.battlecore.util.Log;
 
 import org.battleplugins.api.configuration.Configuration;
@@ -12,14 +9,11 @@ import org.battleplugins.arena.BattleArena;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.FileSystem;
 import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.spi.FileSystemProvider;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,39 +22,55 @@ import java.util.Map;
  *
  * @author Redned
  */
-@Getter
 public class ConfigManager {
 
-    @Getter(AccessLevel.NONE)
     private BattleArena plugin;
 
-    /**
-     * The main config.yml for BattleArena
-     *
-     * @return the main config.yml
-     */
     private Configuration config;
-
-    /**
-     * The messages.yml config file for BattleArena
-     *
-     * @return the messages.yml config file
-     */
     private Configuration messagesConfig;
-
-    /**
-     * The teams.yml config file for BattleArena
-     *
-     * @return the teams.yml config file
-     */
     private Configuration teamsConfig;
-
     private Configuration classConfig;
 
     public ConfigManager(BattleArena plugin) {
         this.plugin = plugin;
 
         loadConfigs();
+    }
+
+    /**
+     * Returns the main config.yml for BattleArena
+     *
+     * @return the main config.yml
+     */
+    public Configuration getConfig() {
+        return config;
+    }
+
+    /**
+     * Returns the messages.yml config file for BattleArena
+     *
+     * @return the messages.yml config file
+     */
+    public Configuration getMessagesConfig() {
+        return messagesConfig;
+    }
+
+    /**
+     * Returns the teams.yml config file for BattleArena
+     *
+     * @return the teams.yml config file
+     */
+    public Configuration getTeamsConfig() {
+        return teamsConfig;
+    }
+
+    /**
+     * Returns the classes.yml config file for BattleArena
+     *
+     * @return the classes.yml config file
+     */
+    public Configuration getClassConfig() {
+        return classConfig;
     }
 
     /**

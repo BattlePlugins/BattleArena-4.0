@@ -1,55 +1,27 @@
 package org.battleplugins.arena.arena.team;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-
+import org.battleplugins.api.inventory.item.ItemStack;
 import org.battleplugins.api.message.MessageStyle;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
 
 import java.awt.Color;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 /**
  * Represents a team in a match.
  *
  * @author Redned
  */
-@Getter
-@RequiredArgsConstructor
 public class ArenaTeam implements Cloneable {
 
-    /**
-     * The name of the team
-     * 
-     * @return the name of the team
-     */
-    @NonNull
     private String name;
 
-    /**
-     * The color of the team
-     */
-    @NonNull
-    private String teamColor;
+    private MessageStyle teamColor;
+    private Color armorColor;
 
-    /**
-     * The armor color of the team
-     */
-    @NonNull
-    private String armorColor;
+    private ItemStack item;
 
-    /**
-     * The item of the team
-     *
-     * @return the item of the team
-     */
-    @NonNull
-    private String item;
-
-    @NonNull
     protected int maxPlayers;
 
     /**
@@ -58,7 +30,73 @@ public class ArenaTeam implements Cloneable {
      * @return the players in the team
      */
     private Set<ArenaPlayer> players = new HashSet<>();
-    
+
+    public ArenaTeam(String name, MessageStyle teamColor, Color armorColor, ItemStack item, int maxPlayers) {
+        this.name = name;
+        this.teamColor = teamColor;
+        this.armorColor = armorColor;
+        this.item = item;
+        this.maxPlayers = maxPlayers;
+    }
+
+    /**
+     * Returns the name of this team
+     *
+     * @return the name of this team
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Returns the color of the team
+     *
+     * @return the color of the team
+     */
+    public MessageStyle getTeamColor() {
+        return teamColor;
+    }
+
+    /**
+     * Returns the color of the armor
+     *
+     * @return the color of the armor
+     */
+    public Color getArmorColor() {
+        return armorColor;
+    }
+
+    /**
+     * Returns the {@link ItemStack} that represents this team,
+     * usually an item in the inventory that all team members
+     * get when they become part of the team (largely dependent
+     * on the gamemode)
+     *
+     * @return the itemstack that represents this team
+     */
+    public ItemStack getItem() {
+        return item;
+    }
+
+    /**
+     * Returns the maximum amount of players this
+     * team can have
+     *
+     * @return the maximum amount of players this team can have
+     */
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    /**
+     * Returns the {@link ArenaPlayer}s on this team
+     *
+     * @return the players on this team
+     */
+    public Set<ArenaPlayer> getPlayers() {
+        return players;
+    }
+
     /**
      * Returns if the team is remaining in the match
      * 
@@ -77,38 +115,7 @@ public class ArenaTeam implements Cloneable {
     }
 
     /**
-     * Returns the color of the team
-     *
-     * @return the color of the team
-     */
-    public MessageStyle getTeamColor() {
-        return MessageStyle.getByChar(teamColor.replace("&", ""));
-    }
-
-    /**
-     * Returns the color of the armor
-     *
-     * @return the color of the armor
-     */
-    public Color getArmorColor() {
-        // Check if the color is octal, decimal or hexadecimal
-        if (!armorColor.contains(",")) {
-            try {
-                return Color.decode(armorColor);
-            } catch (Exception ex) {
-                return new Color(0, 0, 0);
-            }
-        }
-        // Must be rgb, so check for that
-        StringTokenizer tokenizer = new StringTokenizer(armorColor, ",");
-        int r = Integer.parseInt(tokenizer.nextToken());
-        int g = Integer.parseInt(tokenizer.nextToken());
-        int b = Integer.parseInt(tokenizer.nextToken());
-        return new Color(r, g, b);
-    }
-
-    /**
-     * Clones the arena team.
+     * Clones the arena team
      *
      * @return the cloned team
      */

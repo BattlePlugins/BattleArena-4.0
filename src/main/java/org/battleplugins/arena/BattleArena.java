@@ -1,12 +1,9 @@
 package org.battleplugins.arena;
 
-import lombok.Getter;
-
 import mc.alk.battlecore.BattlePlugin;
 
 import org.battleplugins.api.configuration.Configuration;
 import org.battleplugins.api.plugin.PluginProperties;
-import org.battleplugins.arena.arena.Arena;
 import org.battleplugins.arena.arena.ArenaFactory;
 import org.battleplugins.arena.arena.ArenaManager;
 import org.battleplugins.arena.arena.classes.ArenaClassManager;
@@ -20,7 +17,6 @@ import org.battleplugins.arena.message.MessageManager;
  * 
  * @author Redned
  */
-@Getter
 @PluginProperties(id = "battlearena", authors = "BattlePlugins", name = "BattleArena", version = "$VERSION", description = "$DESCRIPTION", url = "$URL")
 public class BattleArena extends BattlePlugin {
 
@@ -50,6 +46,60 @@ public class BattleArena extends BattlePlugin {
     @Override
     public void onDisable() {
         super.onDisable();
+    }
+
+    /**
+     * Returns the {@link ConfigManager} used by BattleArena
+     *
+     * @return the {@link ConfigManager} used by BattleArena
+     */
+    public ConfigManager getConfigManager() {
+        return configManager;
+    }
+
+    /**
+     * Returns the {@link MessageManager} used by BattleArena
+     *
+     * @return the {@link MessageManager} used by BattleArena
+     */
+    public MessageManager getMessageManager() {
+        return messageManager;
+    }
+
+    /**
+     * Returns the {@link ArenaManager} used by BattleArena
+     *
+     * @return the {@link ArenaManager} used by BattleArena
+     */
+    public ArenaManager getArenaManager() {
+        return arenaManager;
+    }
+
+    /**
+     * Returns the {@link StateOptionManager} used by BattleArena
+     *
+     * @return the {@link StateOptionManager} used by BattleArena
+     */
+    public StateOptionManager getStateOptionManager() {
+        return stateOptionManager;
+    }
+
+    /**
+     * Returns the {@link VictoryConditionManager} used by BattleArena
+     *
+     * @return the {@link VictoryConditionManager} used by BattleArena
+     */
+    public VictoryConditionManager getVictoryConditionManager() {
+        return victoryConditionManager;
+    }
+
+    /**
+     * Returns the {@link ArenaClassManager} used by BattleArena
+     *
+     * @return the {@link ArenaClassManager} used by BattleArena
+     */
+    public ArenaClassManager getClassManager() {
+        return classManager;
     }
 
     /**

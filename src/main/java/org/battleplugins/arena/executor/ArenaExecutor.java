@@ -1,8 +1,5 @@
 package org.battleplugins.arena.executor;
 
-import lombok.AllArgsConstructor;
-import lombok.NonNull;
-
 import mc.alk.battlecore.executor.CustomCommandExecutor;
 
 import org.battleplugins.api.command.Command;
@@ -25,15 +22,16 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 
  * @author Redned
  */
-@AllArgsConstructor
 public class ArenaExecutor extends CustomCommandExecutor {
 
-    @NonNull
     private BattleArena plugin;
 
-    @NonNull
     private Arena arena;
 
+    public ArenaExecutor(BattleArena plugin, Arena arena) {
+        this.plugin = plugin;
+        this.arena = arena;
+    }
     @MCCommand(cmds = {"create", "new"}, order = 1)
     public void newCommand(Player player, String name) {
         if (plugin.getArenaManager().getLoadedMaps().stream().anyMatch(map -> map.getName().equalsIgnoreCase(name))) {

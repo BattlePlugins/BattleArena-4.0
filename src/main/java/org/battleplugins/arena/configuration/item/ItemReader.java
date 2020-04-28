@@ -30,4 +30,28 @@ public interface ItemReader {
      * @return an item stack from the given configuration node
      */
     Optional<ItemStack> fromString(String string);
+
+    /**
+     * Reads an item from the given {@link ConfigurationNode}
+     *
+     * @param node the config node to read from
+     * @return an {@link ItemStack} of the read item
+     */
+    static Optional<ItemStack> readItem(ConfigurationNode node) {
+        // TODO: Add support for more item readers
+        Optional<ItemStack> item = GenericItemReader.get().fromNode(node);
+        return item;
+    }
+
+    /**
+     * Reads an item from the given string
+     *
+     * @param itemStr the item string to read from
+     * @return an {@link ItemStack} of the read item
+     */
+    static Optional<ItemStack> readItem(String itemStr) {
+        // TODO: Add support for more item readers
+        Optional<ItemStack> item = GenericItemReader.get().fromString(itemStr);
+        return item;
+    }
 }

@@ -1,10 +1,5 @@
 package org.battleplugins.arena.arena;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import mc.alk.battlecore.executor.CustomCommandExecutor;
 
 import org.battleplugins.arena.arena.map.ArenaMap;
@@ -27,48 +22,85 @@ import java.util.List;
  * 
  * @author Redned
  */
-@Getter
-@Setter(AccessLevel.PACKAGE)
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class Arena {
 
-    /**
-     * The name of the arena
-     * 
-     * @return the name of the arena
-     */
     protected String name;
 
-    /**
-     * The command executor for this arena
-     * 
-     * @return the command executor for this arena
-     */
     private CustomCommandExecutor executor;
 
+    private List<Match> matches = new ArrayList<>();
+    private List<VictoryCondition> victoryConditions = new ArrayList<>();
+
+    private ArenaMessageHandler messageHandler;
+
+    private List<ArenaMap> availableMaps = new ArrayList<>();
+
+    Arena() {
+    }
+
     /**
-     * A list of matches active with this Arena
+     * Returns the name of the arena
+     *
+     * @return the name of the arena
+     */
+    public String getName() {
+        return name;
+    }
+
+    void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Returns the command executor for this arena
+     *
+     * @return the command executor for this arena
+     */
+    public CustomCommandExecutor getExecutor() {
+        return executor;
+    }
+
+    void setExecutor(CustomCommandExecutor executor) {
+        this.executor = executor;
+    }
+
+    /**
+     * Returns a list of matches active with this Arena
      *
      * @return a list of match with this Arena
      */
-    private List<Match> matches = new ArrayList<>();
+    public List<Match> getMatches() {
+        return matches;
+    }
 
     /**
-     * The list of victory conditions for this arena
+     * Returns the list of victory conditions for this arena
      *
      * @return the list of victory conditions for this arena
      */
-    private List<VictoryCondition> victoryConditions = new ArrayList<>();
+    public List<VictoryCondition> getVictoryConditions() {
+        return victoryConditions;
+    }
 
     /**
-     * The message handler to use for this arena
+     * Returns the message handler to use for this arena
      *
      * @return the message handler to use for this arena
      */
-    private ArenaMessageHandler messageHandler;
+    public ArenaMessageHandler getMessageHandler() {
+        return messageHandler;
+    }
+
+    void setMessageHandler(ArenaMessageHandler messageHandler) {
+        this.messageHandler = messageHandler;
+    }
 
     /**
-     * A list of available maps 
+     * Returns a list of available maps
+     *
+     * @return a list of available maps
      */
-    private List<ArenaMap> availableMaps;
+    public List<ArenaMap> getAvailableMaps() {
+        return availableMaps;
+    }
 }

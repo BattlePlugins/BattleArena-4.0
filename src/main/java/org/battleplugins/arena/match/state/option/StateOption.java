@@ -1,9 +1,5 @@
 package org.battleplugins.arena.match.state.option;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-
 import org.battleplugins.api.entity.living.player.Player;
 import org.battleplugins.arena.match.Match;
 
@@ -12,18 +8,23 @@ import org.battleplugins.arena.match.Match;
  * 
  * @author Redned
  */
-@Getter
-@RequiredArgsConstructor
 public abstract class StateOption {
 
+    private String name;
+
+    public StateOption(String name) {
+        this.name = name;
+    }
+
     /**
-     * The name of the state option
-     * 
+     * Returns the name of the state option
+     *
      * @return the name of the state option
      */
-    @NonNull
-    private String name;
-    
+    public String getName() {
+        return name;
+    }
+
     /**
      * Calls the state option
      * 

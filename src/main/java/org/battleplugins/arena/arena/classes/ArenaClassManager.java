@@ -1,11 +1,19 @@
 package org.battleplugins.arena.arena.classes;
 
+import mc.alk.battlecore.util.Log;
+
 import org.battleplugins.api.inventory.item.ItemStack;
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
 
 import java.util.Map;
 
+/**
+ * Represents a class that facilitates most any action related
+ * to class giving, detection or registration.
+ *
+ * @author Zach443
+ */
 public class ArenaClassManager {
 
     /** Instance of the plugin for config, etc **/
@@ -16,8 +24,6 @@ public class ArenaClassManager {
 
     public ArenaClassManager(BattleArena plugin) {
         this.plugin = plugin;
-
-
     }
 
     /**
@@ -28,6 +34,7 @@ public class ArenaClassManager {
     public void addClass(ArenaClass newClass) {
         arenaClasses.put(newClass.getName(), newClass);
     }
+
     /**
      * Gives a player a class
      *
@@ -45,8 +52,7 @@ public class ArenaClassManager {
                 player.getPlayer().getInventory().addItem(item);
             }
         } else {
-            System.out.println("Class [" + className + "] not found!");
+            Log.warn("Class [" + className + "] not found!");
         }
     }
-
 }

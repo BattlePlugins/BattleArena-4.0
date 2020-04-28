@@ -1,7 +1,5 @@
 package org.battleplugins.arena.match.state.option.options;
 
-import lombok.Getter;
-
 import mc.alk.battlecore.util.Log;
 
 import org.battleplugins.api.entity.living.player.Player;
@@ -16,7 +14,6 @@ import org.battleplugins.arena.configuration.ConfigProperty;
  *
  * @author Redned
  */
-@Getter
 public class ChangeGamemodeStateOption extends StateOption {
 
     @ConfigProperty(required = true)
@@ -42,5 +39,14 @@ public class ChangeGamemodeStateOption extends StateOption {
         }
 
         player.setGameMode(gameMode);
+    }
+
+    /**
+     * Returns the gamemode
+     *
+     * @return the gamemode
+     */
+    public String getMode() {
+        return mode;
     }
 }

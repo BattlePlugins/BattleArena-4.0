@@ -1,34 +1,27 @@
 package org.battleplugins.arena.arena.team;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-
 import org.battleplugins.api.configuration.Configuration;
 import org.battleplugins.api.configuration.ConfigurationNode;
+import org.battleplugins.api.inventory.item.ItemStack;
+import org.battleplugins.api.inventory.item.ItemTypes;
+import org.battleplugins.api.message.MessageStyle;
 import org.battleplugins.arena.BattleArena;
+import org.battleplugins.arena.configuration.item.ItemReader;
 
+import java.awt.Color;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 /**
  * Manages and stores default teams.
  *
  * @author Redned
  */
-@Getter
 public class ArenaTeamManager {
 
-    @Getter(AccessLevel.NONE)
     private BattleArena plugin;
 
-    /**
-     * A map of the default teams
-     *
-     * Key: the name of the team
-     * Value: the ArenaTeam object
-     *
-     * @return a map of the default teams
-     */
     private Map<String, ArenaTeam> defaultTeams;
 
     public ArenaTeamManager(BattleArena plugin) {
@@ -39,11 +32,24 @@ public class ArenaTeamManager {
         for (String key : teamConfig.getNode("teams").getCollectionValue(String.class)) {
             ConfigurationNode node = teamConfig.getNode("teams").getNode(key);
             ArenaTeam team = new ArenaTeam(node.getNode("name").getValue(String.class),
-                    node.getNode("teamColor").getValue(String.class),
-                    node.getNode("armorColor").getValue(String.class),
-                    node.getNode("item").getValue(String.class), -1);
+                    MessageStyle.getByChar(node.getNode("teamColor").getValue(String.class).replace("&", "")),
+                    this.parseColor(node.getNode("armorColor").getValue(String.class)),
+                    ItemReader.readItem(node.getNode("item").getValue(String.class)).orElse(ItemStack.builder().type(ItemTypes.AIR).build()),
+                    -1);
             defaultTeams.put(node.getNode(team.getName()).getValue(String.class), team);
         }
+    }
+
+    /**
+     * Returns a map of the default teams
+     *
+     * Key: the name of the team
+     * Value: the ArenaTeam object
+     *
+     * @return a map of the default teams
+     */
+    public Map<String, ArenaTeam> getDefaultTeams() {
+        return defaultTeams;
     }
 
     /**
@@ -59,5 +65,22 @@ public class ArenaTeamManager {
         ArenaTeam team = defaultTeams.get(name).clone();
         team.maxPlayers = maxPlayers;
         return team;
+    }
+
+    private Color parseColor(String color) {
+        // Check if the color is octal, decimal or hexadecimal
+        if (!color.contains(",")) {
+            try {
+                return Color.decode(color);
+            } catch (Exception ex) {
+                return new Color(0, 0, 0);
+            }
+        }
+        // Must be rgb, so check for that
+        StringTokenizer tokenizer = new StringTokenizer(color, ",");
+        int r = Integer.parseInt(tokenizer.nextToken());
+        int g = Integer.parseInt(tokenizer.nextToken());
+        int b = Integer.parseInt(tokenizer.nextToken());
+        return new Color(r, g, b);
     }
 }

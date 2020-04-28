@@ -33,9 +33,9 @@ public class MatchStates {
     public static final MatchState ON_SPAWN = MatchState.builder().name("onSpawn").build();
     public static final MatchState ON_DEATH = MatchState.builder().name("onDeath").build();
     public static final MatchState ON_KILL = MatchState.builder().name("onKill").build();
-    public static final MatchState ON_WIN = MatchState.builder().name("onWin").aliases(new String[]{"winners"}).build();
+    public static final MatchState ON_WIN = MatchState.builder().name("onWin").aliases("winners").build();
     public static final MatchState ON_DRAW = MatchState.builder().name("onDraw").build();
-    public static final MatchState ON_LOSE = MatchState.builder().name("onLose").aliases(new String[]{"losers"}).build();
+    public static final MatchState ON_LOSE = MatchState.builder().name("onLose").aliases("losers").build();
     public static final MatchState ON_TIME_EXPIRE = MatchState.builder().name("onTimeExpire").build();
     public static final MatchState ON_COUNTDOWN = MatchState.builder().name("onCountdown").build();
     public static final MatchState ON_QUEUE_ENTER = MatchState.builder().name("onQueueEnter").build();

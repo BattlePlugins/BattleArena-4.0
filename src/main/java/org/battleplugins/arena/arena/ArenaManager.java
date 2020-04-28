@@ -1,8 +1,5 @@
 package org.battleplugins.arena.arena;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-
 import mc.alk.battlecore.executor.CustomCommandExecutor;
 
 import org.battleplugins.api.command.Command;
@@ -33,49 +30,62 @@ import java.util.Map;
  * 
  * @author Redned
  */
-@Getter
 public class ArenaManager {
 
-    @Getter(AccessLevel.NONE)
     private BattleArena plugin;
 
+    private ArenaTeamManager teamManager;
+
+    private Map<String, Arena> arenas = new HashMap<>();
+    private Map<String, ArenaPlayer> arenaPlayers = new HashMap<>();
+
+    private List<ArenaMap> loadedMaps = new ArrayList<>();
+
+    public ArenaManager(BattleArena plugin) {
+        this.plugin = plugin;
+        this.teamManager = new ArenaTeamManager(plugin);
+    }
+
     /**
-     * The team manager
+     * Returns the team manager
      *
      * @return the team manager
      */
-    private ArenaTeamManager teamManager;
+    public ArenaTeamManager getTeamManager() {
+        return teamManager;
+    }
 
     /**
-     * A map of all the arenas
-     * 
+     * Returns a map of all the arenas
+     *
      * Key: the name of the arena
-     * Value: the arena 
-     * 
+     * Value: the arena
+     *
      * @return a map of all the arenas
      */
-    private Map<String, Arena> arenas = new HashMap<>();
+    public Map<String, Arena> getArenas() {
+        return arenas;
+    }
 
     /**
-     * A map of all the ArenaPlayers online
+     * Returns a map of all the ArenaPlayers online
      *
      * Key: the name of the ArenaPlayer
      * Value: the arena player
      *
      * @return a map of all the ArenaPlayers online
      */
-    private Map<String, ArenaPlayer> arenaPlayers = new HashMap<>();
+    public Map<String, ArenaPlayer> getArenaPlayers() {
+        return arenaPlayers;
+    }
 
     /**
-     * A list of all the loaded maps
+     * Returns a list of all the loaded maps
 
      * @return a list of all the loaded maps
      */
-    private List<ArenaMap> loadedMaps = new ArrayList<>();
-
-    public ArenaManager(BattleArena plugin) {
-        this.plugin = plugin;
-        this.teamManager = new ArenaTeamManager(plugin);
+    public List<ArenaMap> getLoadedMaps() {
+        return loadedMaps;
     }
 
     /**

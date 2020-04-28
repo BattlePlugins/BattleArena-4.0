@@ -1,9 +1,5 @@
 package org.battleplugins.arena.match;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.arena.Arena;
 import org.battleplugins.arena.arena.map.ArenaMap;
@@ -34,44 +30,63 @@ import java.util.stream.Collectors;
  * 
  * @author Redned
  */
-@Getter
-@RequiredArgsConstructor
 public class Match {
 
-    @Getter(AccessLevel.NONE)
     private final BattleArena plugin;
 
-    /**
-     * The {@link Arena} associated with the march
-     * 
-     * @return the arena associated with the match
-     */
     protected final Arena arena;
+    protected MatchState state = MatchStates.NONE;
 
-    /**
-     * The map for this match
-     */
     private ArenaMap map;
 
+    protected Map<String, ArenaTeam> teams = new LinkedHashMap<>();
+
+    private AtomicInteger nextTeamIndex = new AtomicInteger();
+
+    public Match(BattleArena plugin, Arena arena) {
+        this.plugin = plugin;
+        this.arena = arena;
+    }
+
     /**
-     * The current {@link MatchState}
-     * 
+     * Returns the {@link Arena} associated with the march
+     *
+     * @return the arena associated with the match
+     */
+    public Arena getArena() {
+        return arena;
+    }
+
+    /**
+     * Returns the current {@link MatchState}
+     *
      * @return the current match state
      */
-    protected MatchState state = MatchStates.NONE;
-    
+    public MatchState getState() {
+        return state;
+    }
+
     /**
-     * The teams in the match
+     * Returns the map for this match. Empty if a
+     * map has not yet been selected
+     *
+     * @return the map for this match
+     */
+    public Optional<ArenaMap> getMap() {
+        return Optional.ofNullable(map);
+    }
+
+    /**
+     * Returns the teams in the match
      *
      * Key: the name of the team
      * Value: the arena team
      *
      * @return the teams in the match
      */
-    protected Map<String, ArenaTeam> teams = new LinkedHashMap<>();
-
-    @Getter(AccessLevel.NONE)
-    private AtomicInteger nextTeamIndex = new AtomicInteger();
+    public Map<String, ArenaTeam> getTeams() {
+        return teams;
+    }
 
     /**
      * Returns a list of all the players in the match
@@ -100,16 +115,6 @@ public class Match {
      */
     public List<ArenaTeam> getRemainingTeams() {
         return getTeams().values().stream().filter(ArenaTeam::isRemainingInMatch).collect(Collectors.toList());
-    }
-
-    /**
-     * Returns the map for this match. Empty if a
-     * map has not yet been selected
-     *
-     * @return the map for this match
-     */
-    public Optional<ArenaMap> getMap() {
-        return Optional.ofNullable(map);
     }
 
     /**

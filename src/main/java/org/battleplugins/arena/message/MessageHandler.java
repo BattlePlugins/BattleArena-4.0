@@ -1,9 +1,5 @@
 package org.battleplugins.arena.message;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 import mc.alk.battlecore.message.MessageController;
 
 import org.battleplugins.api.configuration.ConfigurationNode;
@@ -19,8 +15,6 @@ import java.util.Map;
  *
  * @author Redned
  */
-@Getter
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class MessageHandler {
 
     private Map<String, String> messages = new HashMap<>();

@@ -1,9 +1,5 @@
 package org.battleplugins.arena.match.victorycondition;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-
 import org.battleplugins.arena.match.Match;
 
 /**
@@ -11,18 +7,23 @@ import org.battleplugins.arena.match.Match;
  * 
  * @author Redned
  */
-@Getter
-@RequiredArgsConstructor
 public abstract class VictoryCondition {
 
+    private String name;
+
+    public VictoryCondition(String name) {
+        this.name = name;
+    }
+
     /**
-     * The name of the victory condition
-     * 
+     * Returns the name of the victory condition
+     *
      * @return the name of the victory condition
      */
-    @NonNull
-    private String name;
-    
+    public String getName() {
+        return name;
+    }
+
     /**
      * Checks if the victory condition was met
      * 

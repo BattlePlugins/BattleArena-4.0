@@ -26,6 +26,8 @@ import java.util.Set;
  */
 public class GenericItemReader extends ConfigItemReader {
 
+    private static GenericItemReader INSTANCE = new GenericItemReader();
+
     @Override
     public Optional<ItemStack> fromString(String string) {
         String[] split = string.split("\\{");
@@ -93,5 +95,14 @@ public class GenericItemReader extends ConfigItemReader {
     private List<String> getList(String value) {
         return Arrays.asList(value.split("=")[1].replace("[", "")
                 .replace("]", "").split(","));
+    }
+
+    /**
+     * Returns the current instance of this item reader
+     *
+     * @return the current instance of this item reader
+     */
+    public static GenericItemReader get() {
+        return INSTANCE;
     }
 }
