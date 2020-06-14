@@ -1,0 +1,79 @@
+Battleground:
+  prefix: "&c[Battleground]&e"
+  signDisplayName: "&c[Battleground]"
+  gameSize:
+    teamAmount: 4
+    teamSize: 1
+  gameTimes:
+    minPlayerTime: 30
+    waitroomTime: 10
+    matchTime: 300
+    victoryTime: 10
+  lives:
+    enabled: false
+  tracking:
+    database: bg
+    rated: true
+    useTrackerMessages: true
+  victoryConditions:
+    playerKillsCondition:
+      condition: PlayerKills
+    timeLimit:
+      condition: TimeLimit
+      timeLimit: 300
+      checkOnCompletion:
+        - playerKillsCondition
+  scoreboard:
+    waitroom:
+      title: "&6Waiting For Players..."
+      scoreboardType: custom
+      customLines:
+        1: "&a" #empty line
+        2: "&6&lPlayers:"
+        3: "&e%queued_players%&f/&e%max_players%"
+        4: "&a" #empty line
+        5: "&ebattleplugins.org"
+    activeGame:
+      title: "&f&l%game_name%"
+      scoreboardType: playerList
+      customLines:
+        1: "&a" #empty line
+        2: "&6&lPlayers Alive:"
+        3: "&e%players_alive%"
+        4: "&a"  #empty line
+        5: "&ebattleplugins.org"
+  defaults:
+    options:
+      - woolTeams{alwaysApply=true}
+  onEnter:
+    options:
+      - store{types=all}
+  onLeave:
+    options:
+    - restore{types=all}
+  onPrestart:
+    options:
+      - pvp{enabled=false}
+      - teleport{position=waitroom}
+  onStart:
+    options:
+      - pvp{enabled=true}
+  onComplete:
+    options:
+    - teleport{position=out}
+  onSpawn:
+    giveClass:
+      default: gladiator
+    options:
+      - updateAttributes{health=20,hunger=20}
+      - respawn{giveClass=true}
+      - giveEffects{effect=speed,duration=1000000,amplifier=3}
+    enchants:
+      - speed:3
+  onDeath:
+    options:
+      - reset{types=inventory,attributes,effects}
+      - respawn
+  winner:
+    options:
+      - updateAttributes{health=20,hunger=20}

@@ -1,0 +1,77 @@
+Arena:
+  prefix: '&6[Arena]&e'
+  signDisplayName: '&6[Arena]'
+  gameSize:
+    teamAmount: '2'
+    teamSize: '1'
+  lives:
+    enabled: true
+    lives: 1
+  victoryConditions:
+    lastManStandingCondition:
+      condition: LastManStanding
+      peopleStanding: 1
+    timeLimit:
+      condition: TimeLimit
+      timeLimit: 300
+  scoreboard:
+    waitroom:
+      title: "&6Waiting For Players..."
+      scoreboardType: custom
+      customLines:
+        1: "&a" #empty line
+        2: "&6&lPlayers:"
+        3: "&e%queued_players%&f/&e%max_players%"
+        4: "&a" #empty line
+        5: "&ebattleplugins.org"
+    activeGame:
+      title: "&f&l%game_name%"
+      scoreboardType: playerList
+      customLines:
+        1: "&a" #empty line
+        2: "&6&lPlayers Alive:"
+        3: "&e%players_alive%"
+        4: "&a"  #empty line
+        5: "&ebattleplugins.org"
+  tracking:
+    database: arena
+    rated: true
+    useTrackerMessages: false
+  defaults:
+    options:
+      - woolTeams{alwaysApply=true}
+  onEnter:
+    options:
+      - store{types=all}
+      - reset{types=inventory,attributes,effects}
+      - changeGamemode{mode=survival}
+      - flight{enabled=false}
+      - giveEffects{effect=speed,duration=10,amplifier=2;effect=jump_boost,duration=10,amplifier=2}
+  onLeave:
+    options:
+      - reset{types=inventory,experience,health,effects}
+      - restore{types=all}
+  onPreStart:
+    options:
+      - teleport{position=waitroom}
+  onStart:
+    options:
+      - teleport{position=spawnLocation}
+      - pvp{enabled=true}
+      - blockBreak{enabled=false}
+  onComplete:
+    options:
+      - teleport{position=out}
+  onSpawn:
+    giveClass:
+      default: gladiator
+    options:
+      - updateAttributes{health=20,hunger=20}
+      - respawn{giveClass=true}
+  onDeath:
+    options:
+      - reset{types=inventory,attributes,effects}
+      - respawn
+  winner:
+    options:
+      - updateAttributes{health=20,hunger=20}
