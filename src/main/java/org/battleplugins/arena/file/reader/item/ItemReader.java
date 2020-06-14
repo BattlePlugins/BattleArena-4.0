@@ -1,7 +1,7 @@
-package org.battleplugins.arena.configuration.item;
+package org.battleplugins.arena.file.reader.item;
 
-import org.battleplugins.api.configuration.ConfigurationNode;
 import org.battleplugins.api.inventory.item.ItemStack;
+import org.spongepowered.configurate.ConfigurationNode;
 
 import java.util.Optional;
 

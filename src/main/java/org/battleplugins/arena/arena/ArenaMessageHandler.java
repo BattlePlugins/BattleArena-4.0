@@ -1,8 +1,8 @@
 package org.battleplugins.arena.arena;
 
-import org.battleplugins.api.configuration.ConfigurationNode;
 import org.battleplugins.api.entity.living.player.OfflinePlayer;
 import org.battleplugins.arena.message.MessageHandler;
+import org.spongepowered.configurate.ConfigurationNode;
 
 /**
  * A {@link MessageHandler} capable of sending messages

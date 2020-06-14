@@ -44,8 +44,13 @@ public class Match {
     private AtomicInteger nextTeamIndex = new AtomicInteger();
 
     public Match(BattleArena plugin, Arena arena) {
+        this(plugin, arena, null);
+    }
+
+    public Match(BattleArena plugin, Arena arena, ArenaMap map) {
         this.plugin = plugin;
         this.arena = arena;
+        this.map = map;
     }
 
     /**

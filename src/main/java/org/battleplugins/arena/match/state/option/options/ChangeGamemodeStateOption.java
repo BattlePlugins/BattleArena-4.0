@@ -7,7 +7,7 @@ import org.battleplugins.api.entity.living.player.gamemode.GameMode;
 import org.battleplugins.api.entity.living.player.gamemode.GameModes;
 import org.battleplugins.arena.match.Match;
 import org.battleplugins.arena.match.state.option.StateOption;
-import org.battleplugins.arena.configuration.ConfigProperty;
+import org.battleplugins.arena.file.configuration.ConfigProperty;
 
 /**
  * State option for changing a player's gamemode.

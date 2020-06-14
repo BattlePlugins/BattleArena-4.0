@@ -9,7 +9,9 @@ import org.battleplugins.arena.match.Tournament;
 import org.battleplugins.arena.match.victorycondition.VictoryCondition;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Main arena class. Custom arenas need to extend this class in order
@@ -33,7 +35,7 @@ public class Arena {
 
     private ArenaMessageHandler messageHandler;
 
-    private List<ArenaMap> availableMaps = new ArrayList<>();
+    private Map<String, ArenaMap> availableMaps = new HashMap<>();
 
     Arena() {
     }
@@ -96,11 +98,39 @@ public class Arena {
     }
 
     /**
-     * Returns a list of available maps
+     * Returns a map of available maps
      *
-     * @return a list of available maps
+     * Key: the id of the map
+     * Value: the {@link ArenaMap} instance
+     *
+     * @return a map of available maps
      */
-    public List<ArenaMap> getAvailableMaps() {
-        return availableMaps;
+    public Map<String, ArenaMap> getAvailableMaps() {
+        return this.availableMaps;
+    }
+
+    /**
+     * Returns if a {@link Match} exists for the specified map id
+     *
+     * @return if a match exists for the specified map id
+     */
+    public boolean matchExistsForMap(String mapId) {
+        return this.availableMaps.containsKey(mapId) && this.matchExistsForMap(this.availableMaps.get(mapId));
+    }
+
+    /**
+     * Returns if a {@link Match} exists for the specified
+     * {@link ArenaMap}
+     *
+     * @param map the map to check
+     * @return if a match exists for the specified map
+     */
+    public boolean matchExistsForMap(ArenaMap map) {
+        for (Match match : this.matches) {
+            if (match.getMap().isPresent() && match.getMap().get().equals(map)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

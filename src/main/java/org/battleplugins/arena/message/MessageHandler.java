@@ -2,9 +2,10 @@ package org.battleplugins.arena.message;
 
 import mc.alk.battlecore.message.MessageController;
 
-import org.battleplugins.api.configuration.ConfigurationNode;
+import mc.alk.battlecore.util.Log;
 import org.battleplugins.api.entity.living.player.OfflinePlayer;
 import org.battleplugins.api.entity.living.player.Player;
+import org.spongepowered.configurate.ConfigurationNode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,16 +22,20 @@ public class MessageHandler {
 
     protected MessageHandler(ConfigurationNode node, String... sections) {
         if (sections.length == 0) {
-            for (String str : node.getCollectionValue(String.class)) {
-                messages.put(str, node.getNode(str).getValue(String.class));
+            Map<Object, ? extends ConfigurationNode> mapResult = node.getChildrenMap();
+            for (Map.Entry<Object, ? extends ConfigurationNode> entry : mapResult.entrySet()) {
+                messages.put((String) entry.getKey(), mapResult.get(entry.getKey()).getString());
             }
         } else {
             for (String section : sections) {
-                for (String str : node.getNode(section).getCollectionValue(String.class)) {
-                    messages.put(str, node.getNode(section).getNode(str).getValue(String.class));
+                ConfigurationNode sectionNode = node.getNode(section);
+                Map<Object, ? extends ConfigurationNode> mapResult = sectionNode.getChildrenMap();
+                for (Map.Entry<Object, ? extends ConfigurationNode> entry : mapResult.entrySet()) {
+                    messages.put((String) entry.getKey(), mapResult.get(entry.getKey()).getString());
                 }
             }
         }
+        Log.debug("Loaded messages " + messages.keySet());
     }
 
     /**

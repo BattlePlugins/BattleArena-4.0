@@ -1,7 +1,7 @@
 package org.battleplugins.arena.match.victorycondition.conditions;
 
 import org.battleplugins.arena.match.Match;
-import org.battleplugins.arena.configuration.ConfigProperty;
+import org.battleplugins.arena.file.configuration.ConfigProperty;
 import org.battleplugins.arena.match.victorycondition.VictoryCondition;
 
 /**

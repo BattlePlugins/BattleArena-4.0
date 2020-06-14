@@ -8,6 +8,7 @@ import org.battleplugins.api.entity.living.player.Player;
 import org.battleplugins.api.message.MessageStyle;
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.arena.Arena;
+import org.battleplugins.arena.arena.map.ArenaMap;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
 import org.battleplugins.arena.arena.team.ArenaTeam;
 import org.battleplugins.arena.match.Match;
@@ -32,17 +33,19 @@ public class ArenaExecutor extends CustomCommandExecutor {
         this.plugin = plugin;
         this.arena = arena;
     }
+
     @MCCommand(cmds = {"create", "new"}, order = 1)
-    public void newCommand(Player player, String name) {
-        if (plugin.getArenaManager().getLoadedMaps().stream().anyMatch(map -> map.getName().equalsIgnoreCase(name))) {
+    public void newCommand(Player player, String id) {
+        if (plugin.getArenaManager().getLoadedMaps().stream().anyMatch(map -> map.getName().equalsIgnoreCase(id))) {
             player.sendMessage(arena.getMessageHandler().getFormattedMessage(player, "mapAlreadyExists"));
             return;
         }
 
-        // TODO: Custom match types & dont make new ones here (temporary)
-        plugin.getArenaManager().createNewMap(name);
-        arena.getMatches().add(new Match(plugin, arena));
-        player.sendMessage(arena.getMessageHandler().getFormattedMessage(player, "createdNewMap").replace("%map_name%", name));
+        ArenaMap arenaMap = plugin.getArenaManager().loadMap(id, this.arena);
+        if (!this.plugin.getConfig().getNode("defaultArenaOptions", "createMatchesOnDemand").getBoolean()) {
+            this.plugin.getArenaManager().createMatchForMap(this.arena, arenaMap, true);
+        }
+        player.sendMessage(arena.getMessageHandler().getFormattedMessage(player, "createdNewMap").replace("%map_name%", arenaMap.getName()));
     }
 
     @MCCommand(cmds = {"join", "j"}, order = 2, max = 1)
@@ -62,8 +65,9 @@ public class ArenaExecutor extends CustomCommandExecutor {
         Match match = null;
         for (Match arenaMatch : arena.getMatches()) {
             if (arenaMatch.getMap().isPresent()) {
-                if (arenaMatch.getMap().get().getName().equalsIgnoreCase(name)) {
+                if (arenaMatch.getMap().get().getId().equalsIgnoreCase(name)) {
                     match = arenaMatch;
+                    break;
                 }
             } else if (nameNull) {
                 match = arenaMatch;
@@ -71,8 +75,22 @@ public class ArenaExecutor extends CustomCommandExecutor {
             }
         }
 
+        if (match == null && nameNull && !this.arena.getMatches().isEmpty()) {
+            match = arena.getMatches().get(0);
+        }
+
         if (match == null) {
-            player.sendMessage(MessageStyle.RED + arena.getMessageHandler().getFormattedMessage(nameNull ? "noOpenMatches" : "matchDoesNotExist"));
+            if (this.plugin.getConfig().getNode("defaultArenaOptions", "createMatchesOnDemand").getBoolean()) {
+                // TODO: Check arena options for if on-demand matches for certain maps can be made
+                if (nameNull) {
+                    this.arena.getMatches().add(new Match(this.plugin, this.arena));
+                } else if (this.arena.getAvailableMaps().containsKey(name)) {
+                    this.plugin.getArenaManager().createMatchForMap(this.arena, this.arena.getAvailableMaps().get(name), true);
+                }
+                this.joinCommand(player, name);
+            } else {
+                player.sendMessage(MessageStyle.RED + arena.getMessageHandler().getFormattedMessage(nameNull ? "noOpenMatches" : "matchDoesNotExist"));
+            }
             return;
         }
 

@@ -2,7 +2,7 @@ package org.battleplugins.arena.match.state.option;
 
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.match.state.option.options.*;
-import org.battleplugins.arena.configuration.ConfigPropertyManager;
+import org.battleplugins.arena.file.configuration.ConfigPropertyManager;
 
 import java.util.Map;
 import java.util.Optional;

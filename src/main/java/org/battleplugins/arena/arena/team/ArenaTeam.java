@@ -15,6 +15,7 @@ import java.util.Set;
  */
 public class ArenaTeam implements Cloneable {
 
+    private String id;
     private String name;
 
     private MessageStyle teamColor;
@@ -31,12 +32,22 @@ public class ArenaTeam implements Cloneable {
      */
     private Set<ArenaPlayer> players = new HashSet<>();
 
-    public ArenaTeam(String name, MessageStyle teamColor, Color armorColor, ItemStack item, int maxPlayers) {
+    public ArenaTeam(String id, String name, MessageStyle teamColor, Color armorColor, ItemStack item, int maxPlayers) {
+        this.id = id;
         this.name = name;
         this.teamColor = teamColor;
         this.armorColor = armorColor;
         this.item = item;
         this.maxPlayers = maxPlayers;
+    }
+
+    /**
+     * Returns the id of this team
+     *
+     * @return the id of this team
+     */
+    public String getId() {
+        return this.id;
     }
 
     /**
@@ -120,6 +131,6 @@ public class ArenaTeam implements Cloneable {
      * @return the cloned team
      */
     protected ArenaTeam clone() {
-        return new ArenaTeam(name, teamColor, armorColor, item, maxPlayers);
+        return new ArenaTeam(id, name, teamColor, armorColor, item, maxPlayers);
     }
 }

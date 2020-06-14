@@ -1,12 +1,13 @@
 package org.battleplugins.arena.arena.team;
 
-import org.battleplugins.api.configuration.Configuration;
-import org.battleplugins.api.configuration.ConfigurationNode;
+import mc.alk.battlecore.util.Log;
 import org.battleplugins.api.inventory.item.ItemStack;
 import org.battleplugins.api.inventory.item.ItemTypes;
 import org.battleplugins.api.message.MessageStyle;
 import org.battleplugins.arena.BattleArena;
-import org.battleplugins.arena.configuration.item.ItemReader;
+import org.battleplugins.arena.file.configuration.Configuration;
+import org.battleplugins.arena.file.reader.item.ItemReader;
+import org.spongepowered.configurate.ConfigurationNode;
 
 import java.awt.Color;
 import java.util.LinkedHashMap;
@@ -29,15 +30,18 @@ public class ArenaTeamManager {
         this.defaultTeams = new LinkedHashMap<>();
 
         Configuration teamConfig = plugin.getConfigManager().getTeamsConfig();
-        for (String key : teamConfig.getNode("teams").getCollectionValue(String.class)) {
-            ConfigurationNode node = teamConfig.getNode("teams").getNode(key);
-            ArenaTeam team = new ArenaTeam(node.getNode("name").getValue(String.class),
-                    MessageStyle.getByChar(node.getNode("teamColor").getValue(String.class).replace("&", "")),
-                    this.parseColor(node.getNode("armorColor").getValue(String.class)),
-                    ItemReader.readItem(node.getNode("item").getValue(String.class)).orElse(ItemStack.builder().type(ItemTypes.AIR).build()),
+        Map<Object, ? extends ConfigurationNode> mapResult = teamConfig.getNode("teams").getChildrenMap();
+        for (Map.Entry<Object, ? extends ConfigurationNode> entry : mapResult.entrySet()) {
+            ConfigurationNode node = mapResult.get(entry.getKey());
+            ArenaTeam team = new ArenaTeam((String) node.getKey(),
+                    node.getNode("name").getString(),
+                    MessageStyle.getByChar(node.getNode("teamColor").getString().replace("&", "")),
+                    this.parseColor(node.getNode("armorColor").getString()),
+                    ItemReader.readItem(node.getNode("item").getString()).orElse(ItemStack.builder().type(ItemTypes.AIR).build()),
                     -1);
-            defaultTeams.put(node.getNode(team.getName()).getValue(String.class), team);
+            defaultTeams.put(team.getId(), team);
         }
+        Log.debug("Loaded teams " + defaultTeams.keySet());
     }
 
     /**

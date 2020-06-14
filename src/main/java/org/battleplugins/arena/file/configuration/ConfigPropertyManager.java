@@ -1,8 +1,8 @@
-package org.battleplugins.arena.configuration;
+package org.battleplugins.arena.file.configuration;
 
 import mc.alk.battlecore.util.Log;
 
-import org.battleplugins.api.configuration.ConfigurationNode;
+import org.spongepowered.configurate.ConfigurationNode;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -42,8 +42,9 @@ public class ConfigPropertyManager<T> {
         }
 
         Map<String, String> properties = new HashMap<>();
-        for (String key : node.getCollectionValue(String.class)) {
-            properties.put(key, node.getNode(key).getValue(String.class));
+        Map<Object, ? extends ConfigurationNode> mapResult = node.getChildrenMap();
+        for (Map.Entry<Object, ? extends ConfigurationNode> entry : mapResult.entrySet()) {
+            properties.put((String) entry.getKey(), mapResult.get(entry.getKey()).getString());
         }
 
         if (!properties.containsKey(rootProperty)) {

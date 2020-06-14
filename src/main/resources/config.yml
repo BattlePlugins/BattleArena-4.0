@@ -56,6 +56,13 @@ defaultArenaOptions:
   challengeInterval: 1800 ## Time to wait before allowing players to challenge someone to a duel again (1800s = 30m).
   disallowedChallengePerms: [battlearena.duel.exempt] ## A list of permissions that exempt someone from being dueled.
 
+  ### Technical Options ###
+  ## If matches should be created as they are needed, rather than upon server startup or when another match ends.
+  ## The trade-off here is that creating matches on demand means that memory (RAM) can be saved while games are not in progress,
+  ## but additional CPU may need to be used right as the match needs to be constructed, and players may notice a 1 - 2 second delay with this enabled.
+  ## It is recommended to enable this in a memory-sensitive environment.
+  createMatchesOnDemand: false
+
 currencyNameSingular: Gold ## Name of currency (singular).
 currencyNamePlural: Gold ## Name of currency (plural).
 

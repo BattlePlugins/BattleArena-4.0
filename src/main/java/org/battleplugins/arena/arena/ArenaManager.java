@@ -8,9 +8,9 @@ import org.battleplugins.api.world.Location;
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.arena.map.ArenaMap;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
-import org.battleplugins.arena.arena.team.ArenaTeam;
 import org.battleplugins.arena.arena.team.ArenaTeamManager;
 import org.battleplugins.arena.executor.ArenaExecutor;
+import org.battleplugins.arena.match.Match;
 import org.battleplugins.arena.message.MessageHandler;
 
 import java.util.ArrayList;
@@ -192,26 +192,50 @@ public class ArenaManager {
     }
 
     /**
-     * Creates a new map with the given name
+     * Loads a new map with the given name and arena
      *
      * @param name the name of the map
+     * @param arena the arena this map belongs to
      */
-    public ArenaMap createNewMap(String name) {
-        ArenaMap map = new ArenaMap(name, new HashMap<>());
+    public ArenaMap loadMap(String name, Arena arena) {
+        return this.loadMap(name, arena, new HashMap<>());
+    }
+
+    /**
+     * Loads a new map with the given data
+     *
+     * @param id the id of the map
+     * @param arena the arena this map belongs to
+     * @param locations the locations for the map
+     * @return the loaded map
+     */
+    public ArenaMap loadMap(String id, Arena arena, Map<String, List<Location>> locations) {
+        ArenaMap map = ArenaMap.builder().id(id).name(id).arena(arena).spawns(locations).build();
         this.loadedMaps.add(map);
+        arena.getAvailableMaps().put(map.getId(), map);
         return map;
     }
 
     /**
-     * Creates a new map with the given name and locations
+     * Creates a new {@link Match} with the given {@link ArenaMap} for the
+     * specified {@link Arena}. Will override an existing match if both the
+     * overrideExisting parameter is set to true and if the match is not in progress
      *
-     * @param name the name of the map
-     * @param locations the locations for the map
+     * @param arena the arena to create the match for
+     * @param map the map to create a match for
+     * @param overrideExisting if the existing match (if applicable) should be overriden
      */
-    public ArenaMap createNewMap(String name, Map<ArenaTeam, Location> locations) {
-        ArenaMap map = new ArenaMap(name, locations);
-        this.loadedMaps.add(map);
-        return map;
+    public void createMatchForMap(Arena arena, ArenaMap map, boolean overrideExisting) {
+        for (Match match : arena.getMatches()) {
+            if (match.getMap().isPresent() && match.getMap().get().equals(map)) {
+                if (!overrideExisting || !match.isOpen()) {
+                    return;
+                }
+                arena.getMatches().remove(match);
+                break;
+            }
+        }
+        arena.getMatches().add(new Match(this.plugin, arena, map));
     }
 
     private ArenaFactory getArenaFactory(Class<? extends Arena> arenaClass) {

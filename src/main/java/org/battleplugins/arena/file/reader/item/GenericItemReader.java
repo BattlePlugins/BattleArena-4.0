@@ -1,6 +1,5 @@
-package org.battleplugins.arena.configuration.item;
+package org.battleplugins.arena.file.reader.item;
 
-import org.battleplugins.api.configuration.ConfigurationNode;
 import org.battleplugins.api.inventory.item.ItemStack;
 import org.battleplugins.api.inventory.item.ItemType;
 import org.battleplugins.api.inventory.item.ItemTypes;
@@ -9,6 +8,7 @@ import org.battleplugins.api.inventory.item.component.flag.ItemFlag;
 import org.battleplugins.api.inventory.item.component.flag.ItemFlags;
 import org.battleplugins.api.message.MessageStyle;
 import org.battleplugins.api.util.Identifier;
+import org.spongepowered.configurate.ConfigurationNode;
 
 import java.awt.Color;
 import java.util.Arrays;
@@ -26,7 +26,7 @@ import java.util.Set;
  */
 public class GenericItemReader extends ConfigItemReader {
 
-    private static GenericItemReader INSTANCE = new GenericItemReader();
+    private static final GenericItemReader INSTANCE = new GenericItemReader();
 
     @Override
     public Optional<ItemStack> fromString(String string) {

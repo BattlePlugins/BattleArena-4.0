@@ -1,9 +1,9 @@
 package org.battleplugins.arena.match.victorycondition;
 
-import org.battleplugins.api.configuration.ConfigurationNode;
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.match.victorycondition.conditions.*;
-import org.battleplugins.arena.configuration.ConfigPropertyManager;
+import org.battleplugins.arena.file.configuration.ConfigPropertyManager;
+import org.spongepowered.configurate.ConfigurationNode;
 
 import java.util.Map;
 import java.util.Optional;

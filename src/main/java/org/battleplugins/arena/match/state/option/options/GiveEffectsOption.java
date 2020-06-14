@@ -3,7 +3,7 @@ package org.battleplugins.arena.match.state.option.options;
 import org.battleplugins.api.entity.living.player.Player;
 import org.battleplugins.arena.match.Match;
 import org.battleplugins.arena.match.state.option.StateOption;
-import org.battleplugins.arena.configuration.ConfigProperty;
+import org.battleplugins.arena.file.configuration.ConfigProperty;
 
 /**
  * State option that gives effects to a player.

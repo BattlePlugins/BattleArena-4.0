@@ -1,8 +1,8 @@
 package org.battleplugins.arena.message;
 
-import org.battleplugins.api.configuration.ConfigurationNode;
 import org.battleplugins.api.entity.living.player.OfflinePlayer;
 import org.battleplugins.api.entity.living.player.Player;
+import org.spongepowered.configurate.ConfigurationNode;
 
 /**
  * Main message manager for BattleArena.
