@@ -35,7 +35,7 @@ public class FlatfileSaveManager extends FileManager {
      */
     public void loadMaps() {
         try {
-            Path mapsPath = Paths.get(this.plugin.getDataFolder().toString(), "maps", "maps.yml");
+            Path mapsPath = Paths.get(this.plugin.getDataFolder().toString(), "saves/maps", "maps.yml");
             if (Files.notExists(mapsPath)) {
                 Files.createDirectories(mapsPath.getParent());
                 Files.createFile(mapsPath);
