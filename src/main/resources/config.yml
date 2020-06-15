@@ -7,6 +7,10 @@
 # -----------------
 configVersion: 3.0.0 # The config version, do not change!
 
+## What storage format the files should be stored in.
+## Applicable types: HOCON, JSON, XML, YAML
+configStorage: YAML
+
 ## Database options.
 database:
   type: sqlite ## Database type (mysql or sqlite).

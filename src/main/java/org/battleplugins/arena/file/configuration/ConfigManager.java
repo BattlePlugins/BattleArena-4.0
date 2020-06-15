@@ -6,6 +6,7 @@ import org.battleplugins.arena.file.FileManager;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Manages configuration files used across BattleArena.
@@ -14,13 +15,35 @@ import java.nio.file.Files;
  */
 public class ConfigManager extends FileManager {
 
-    private Configuration config;
     private Configuration messagesConfig;
     private Configuration teamsConfig;
     private Configuration classConfig;
 
     public ConfigManager(BattleArena plugin) {
         super(plugin);
+
+        for (String allowedExtension : ALLOWED_EXTENSIONS) {
+            if (Files.exists(Paths.get(plugin.getDataFolder().toString(), "config" + allowedExtension))) {
+                lastUsedExtension = allowedExtension;
+                break;
+            }
+        }
+        // No config has been made yet.. default to yml
+        if (lastUsedExtension == null) {
+            lastUsedExtension = ".yml";
+        }
+        try {
+            this.config = loadConfig(plugin.getDataFolder(), "", "config");
+            if (!lastUsedExtension.endsWith(this.config.getNode("configStorage").getString())) {
+                convertTo = this.config.getNode("configStorage").getString();
+                this.plugin.getLogger().info("Old config files found... converting.");
+
+                this.config = loadConfig(plugin.getDataFolder(), "", "config");
+            }
+        } catch (Exception ex) {
+            this.plugin.getLogger().warning("Failed to create or load main configuration!!");
+            ex.printStackTrace();
+        }
 
         loadConfigs();
     }
@@ -69,10 +92,9 @@ public class ConfigManager extends FileManager {
             if (Files.notExists(plugin.getDataFolder())) {
                 Files.createDirectory(plugin.getDataFolder());
             }
-            config = loadConfig(plugin.getDataFolder(), "", "config.yml");
-            messagesConfig = loadConfig(plugin.getDataFolder(), "", "messages.yml");
-            teamsConfig = loadConfig(plugin.getDataFolder(), "", "teams.yml");
-            classConfig = loadConfig(plugin.getDataFolder(), "", "classes.yml");
+            messagesConfig = loadConfig(plugin.getDataFolder(), "", "messages");
+            teamsConfig = loadConfig(plugin.getDataFolder(), "", "teams");
+            classConfig = loadConfig(plugin.getDataFolder(), "", "classes");
         } catch (IOException ex) {
             ex.printStackTrace();
         }

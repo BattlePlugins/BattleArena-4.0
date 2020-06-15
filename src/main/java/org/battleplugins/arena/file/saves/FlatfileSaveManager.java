@@ -35,12 +35,12 @@ public class FlatfileSaveManager extends FileManager {
      */
     public void loadMaps() {
         try {
-            Path mapsPath = Paths.get(this.plugin.getDataFolder().toString(), "saves/maps", "maps.yml");
+            Path mapsPath = Paths.get(this.plugin.getDataFolder().toString(), "saves/maps", "maps" + lastUsedExtension);
             if (Files.notExists(mapsPath)) {
                 Files.createDirectories(mapsPath.getParent());
                 Files.createFile(mapsPath);
             }
-            this.mapSaves = loadConfig(mapsPath.getParent(), "", "maps.yml");
+            this.mapSaves = loadConfig(mapsPath.getParent(), "", "maps");
             Map<Object, ? extends ConfigurationNode> mapResult = this.mapSaves.getChildrenMap();
             for (Map.Entry<Object, ? extends ConfigurationNode> entry : mapResult.entrySet()) {
                 Log.debug("Loading map " + entry.getKey());

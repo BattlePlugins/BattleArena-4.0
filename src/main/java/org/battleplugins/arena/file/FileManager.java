@@ -4,6 +4,11 @@ import mc.alk.battlecore.util.Log;
 
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.file.configuration.Configuration;
+import org.spongepowered.configurate.ConfigurationNode;
+import org.spongepowered.configurate.hocon.HoconConfigurationLoader;
+import org.spongepowered.configurate.json.JSONConfigurationLoader;
+import org.spongepowered.configurate.loader.ConfigurationLoader;
+import org.spongepowered.configurate.xml.XMLConfigurationLoader;
 import org.spongepowered.configurate.yaml.YAMLConfigurationLoader;
 
 import java.io.IOException;
@@ -24,7 +29,14 @@ import java.util.Map;
  */
 public class FileManager {
 
+    protected static final String[] ALLOWED_EXTENSIONS = {".conf", ".json", ".xml", ".yml"};
+
+    protected static String lastUsedExtension;
+    protected static String convertTo;
+
     protected BattleArena plugin;
+
+    protected Configuration config;
 
     public FileManager(BattleArena plugin) {
         this.plugin = plugin;
@@ -40,10 +52,10 @@ public class FileManager {
      * @return the configuration object of the file
      */
     public Configuration loadConfig(Path path, String resourceDir, String resource) throws IOException {
-        Path configPath = Paths.get(path.toString(), resource);
+        Path configPath = Paths.get(path.toString(), resource + lastUsedExtension);
         if (Files.notExists(configPath)) {
             try {
-                URI uri = this.plugin.getClass().getResource("/" + resourceDir + resource).toURI();
+                URI uri = this.plugin.getClass().getResource("/" + resourceDir + resource + ".yml").toURI();
                 this.createFileSystem(uri);
 
                 Path resourcePath = Paths.get(uri);
@@ -55,7 +67,48 @@ public class FileManager {
             }
         }
 
-        YAMLConfigurationLoader loader = YAMLConfigurationLoader.builder().setPath(configPath).build();
+        ConfigurationLoader<?> loader;
+        switch (lastUsedExtension) {
+            case ".conf":
+                loader = HoconConfigurationLoader.builder().setPath(configPath).build();
+                break;
+            case ".json":
+                loader = JSONConfigurationLoader.builder().setPath(configPath).build();
+                break;
+            case ".xml":
+                loader = XMLConfigurationLoader.builder().setPath(configPath).build();
+                break;
+            case ".yml":
+                loader = YAMLConfigurationLoader.builder().setPath(configPath).build();
+                break;
+            default:
+                throw new RuntimeException("Failed to find config parser for format " + lastUsedExtension + "!");
+        }
+
+        if (convertTo != null) {
+            ConfigurationNode node = loader.load();
+            Path newPath = Paths.get(path.toString(), resource + "." + convertTo);
+            Files.createDirectories(newPath.getParent());
+            Files.createFile(newPath);
+            switch (convertTo) {
+                case "conf":
+                    loader = HoconConfigurationLoader.builder().setPath(newPath).build();
+                    break;
+                case "json":
+                    loader = JSONConfigurationLoader.builder().setPath(newPath).build();
+                    break;
+                case "xml":
+                    loader = XMLConfigurationLoader.builder().setPath(newPath).build();
+                    break;
+                case "yml":
+                    loader = YAMLConfigurationLoader.builder().setPath(newPath).build();;
+                    break;
+                default:
+                    throw new RuntimeException("Failed to find config parser for format " + convertTo + " when converting files!");
+            }
+            loader.save(node);
+            Files.delete(configPath);
+        }
         return new Configuration(loader, loader.load());
     }
 
