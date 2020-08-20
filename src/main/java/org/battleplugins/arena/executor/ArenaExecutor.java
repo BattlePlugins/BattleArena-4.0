@@ -86,6 +86,9 @@ public class ArenaExecutor extends CustomCommandExecutor {
                     this.arena.getMatches().add(new Match(this.plugin, this.arena));
                 } else if (this.arena.getAvailableMaps().containsKey(name)) {
                     this.plugin.getArenaManager().createMatchForMap(this.arena, this.arena.getAvailableMaps().get(name), true);
+                } else {
+                    player.sendMessage(MessageStyle.RED + arena.getMessageHandler().getFormattedMessage("matchDoesNotExist"));
+                    return;
                 }
                 this.joinCommand(player, name);
             } else {

@@ -85,7 +85,7 @@ public class FileManager {
                 throw new RuntimeException("Failed to find config parser for format " + lastUsedExtension + "!");
         }
 
-        if (convertTo != null) {
+        if (convertTo != null && !lastUsedExtension.substring(1).equals(convertTo)) {
             ConfigurationNode node = loader.load();
             Path newPath = Paths.get(path.toString(), resource + "." + convertTo);
             Files.createDirectories(newPath.getParent());

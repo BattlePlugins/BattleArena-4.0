@@ -35,7 +35,7 @@ public class ConfigManager extends FileManager {
         try {
             this.config = loadConfig(plugin.getDataFolder(), "", "config");
             if (!lastUsedExtension.endsWith(this.config.getNode("configStorage").getString())) {
-                convertTo = this.config.getNode("configStorage").getString();
+                convertTo = this.config.getNode("configStorage").getString().toLowerCase();
                 this.plugin.getLogger().info("Old config files found... converting.");
 
                 this.config = loadConfig(plugin.getDataFolder(), "", "config");
