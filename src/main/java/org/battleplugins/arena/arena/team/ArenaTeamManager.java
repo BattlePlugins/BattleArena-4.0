@@ -1,9 +1,9 @@
 package org.battleplugins.arena.arena.team;
 
 import mc.alk.battlecore.util.Log;
+import net.kyori.adventure.text.format.TextColor;
 import org.battleplugins.api.inventory.item.ItemStack;
 import org.battleplugins.api.inventory.item.ItemTypes;
-import org.battleplugins.api.message.MessageStyle;
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.file.configuration.Configuration;
 import org.battleplugins.arena.file.reader.item.ItemReader;
@@ -35,7 +35,7 @@ public class ArenaTeamManager {
             ConfigurationNode node = mapResult.get(entry.getKey());
             ArenaTeam team = new ArenaTeam((String) node.getKey(),
                     node.getNode("name").getString(),
-                    MessageStyle.getByChar(node.getNode("teamColor").getString().replace("&", "")),
+                    TextColor.fromHexString(node.getNode("teamColor").getString().replace("&", "")),
                     this.parseColor(node.getNode("armorColor").getString()),
                     ItemReader.readItem(node.getNode("item").getString()).orElse(ItemStack.builder().type(ItemTypes.AIR).build()),
                     -1);

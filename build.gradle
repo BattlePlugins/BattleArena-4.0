@@ -30,6 +30,7 @@ dependencies {
     shadow 'mc.alk:BattleCore:2.4.0-SNAPSHOT'
     compileOnly 'org.jetbrains:annotations:18.0.0'
     compileOnly 'com.google.guava:guava:19.0'
+    compileOnly 'net.kyori:adventure-api:4.7.0'
 
     annotationProcessor('org.battleplugins:McAPI:3.0.0-SNAPSHOT')
 }

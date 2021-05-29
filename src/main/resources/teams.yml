@@ -11,122 +11,122 @@ configVersion: 2.0.0 # The config version, do not change!
 teams:
   red:
     name: Red
-    teamColor: "&c"
+    teamColor: "#ff5555"
     armorColor: 255,0,0
     item: red_wool
   blue:
     name: Blue
-    teamColor: "&9"
+    teamColor: "#5555ff"
     armorColor: 0,0,255
     item: blue_wool
   green:
     name: Green
-    teamColor: "&2"
+    teamColor: "#55ff55"
     armorColor: 0,128,0
     item: green_wool
   yellow:
     name: Yellow
-    teamColor: "&e"
+    teamColor: "#ffff55"
     armorColor: 255,255,0
     item: yellow_wool
   pink:
     name: Pink
-    teamColor: "&d"
+    teamColor: "#ff7adc"
     armorColor: 255,204,255
     item: pink_wool
   aqua:
     name: Aqua
-    teamColor: "&3"
+    teamColor: "#00aaaa"
     armorColor: 0,255,255
     item: cyan_wool
   gray:
     name: Gray
-    teamColor: "&7"
+    teamColor: "#aaaaaa"
     armorColor: 128,128,128
     item: light_gray_wool
   lime:
     name: Lime
-    teamColor: "&a"
+    teamColor: "#55ff55"
     armorColor: 0,255,255
     item: lime_wool
   purple:
     name: Purple
-    teamColor: "&5"
+    teamColor: "#aa00aa"
     armorColor: 192,0,192
     item: purple_wool
   orange:
     name: Orange
-    teamColor: "&6"
+    teamColor: "#f57600"
     armorColor: 255,165,0
     item: orange_wool
   white:
     name: White
-    teamColor: "&f"
+    teamColor: "#ffffff"
     armorColor: 255,255,255
     item: white_wool
   black:
     name: Black
-    teamColor: "&0"
+    teamColor: "#000000"
     armorColor: 0,0,0
     item: black_wool
   ice:
     name: Ice
-    teamColor: "&b"
+    teamColor: "#c2feff"
     armorColor: 153,153,255
     item: ice
   cobblestone:
     name: Cobblestone
-    teamColor: "&8"
+    teamColor: "#505252"
     armorColor: 150,150,150
     item: cobblestone
   tnt:
     name: TNT
-    teamColor: "&c"
+    teamColor: "#bf0006"
     armorColor: 200,50,50
     item: tnt
   sponge:
     name: Sponge
-    teamColor: "&e"
+    teamColor: "#fcff4d"
     armorColor: 255,130,100
     item: sponge
   glass:
     name: Glass
-    teamColor: "&f"
+    teamColor: "#e6f1f2"
     armorColor: 255,255,255
     item: glass
   obby:
     name: Obby
-    teamColor: "&0"
+    teamColor: "#180047"
     armorColor: 10,10,0
     item: obsidian
   snow:
     name: Snow
-    teamColor: "&f"
+    teamColor: "#dbdbdb"
     armorColor: 255,255,255
     item: snow_block
   nether:
     name: Nether
-    teamColor: "&4"
+    teamColor: "#991527"
     armorColor: 102,0,0
     item: netherrack
   iron:
     name: Iron
-    teamColor: "&7"
+    teamColor: "#d4d4d4"
     armorColor: 208,208,208
     item: iron_block
   diamond:
     name: Diamond
-    teamColor: "&b"
+    teamColor: "#28fcf5"
     armorColor: 102,204,255
     item: diamond_block
   emerald:
     name: Emerald
-    teamColor: "&a"
+    teamColor: "#4ff043"
     armorColor: 0,255,255
     item: emerald_block
   gold:
     name: Gold
-    teamColor: "&6"
+    teamColor: "#f0bd16"
     armorColor: 255,215,0
     item: gold_block
 

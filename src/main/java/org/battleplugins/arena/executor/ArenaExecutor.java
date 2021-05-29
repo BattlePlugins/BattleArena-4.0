@@ -5,7 +5,6 @@ import mc.alk.battlecore.executor.CustomCommandExecutor;
 import org.battleplugins.api.command.Command;
 import org.battleplugins.api.command.CommandSender;
 import org.battleplugins.api.entity.living.player.Player;
-import org.battleplugins.api.message.MessageStyle;
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.arena.Arena;
 import org.battleplugins.arena.arena.map.ArenaMap;
@@ -87,12 +86,12 @@ public class ArenaExecutor extends CustomCommandExecutor {
                 } else if (this.arena.getAvailableMaps().containsKey(name)) {
                     this.plugin.getArenaManager().createMatchForMap(this.arena, this.arena.getAvailableMaps().get(name), true);
                 } else {
-                    player.sendMessage(MessageStyle.RED + arena.getMessageHandler().getFormattedMessage("matchDoesNotExist"));
+                    player.sendMessage(arena.getMessageHandler().getFormattedMessage("matchDoesNotExist"));
                     return;
                 }
                 this.joinCommand(player, name);
             } else {
-                player.sendMessage(MessageStyle.RED + arena.getMessageHandler().getFormattedMessage(nameNull ? "noOpenMatches" : "matchDoesNotExist"));
+                player.sendMessage(arena.getMessageHandler().getFormattedMessage(nameNull ? "noOpenMatches" : "matchDoesNotExist"));
             }
             return;
         }

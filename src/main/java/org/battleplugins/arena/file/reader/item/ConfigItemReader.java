@@ -1,12 +1,12 @@
 package org.battleplugins.arena.file.reader.item;
 
+import net.kyori.adventure.text.Component;
 import org.battleplugins.api.inventory.item.ItemStack;
 import org.battleplugins.api.inventory.item.ItemType;
 import org.battleplugins.api.inventory.item.ItemTypes;
 import org.battleplugins.api.inventory.item.component.*;
 import org.battleplugins.api.inventory.item.component.flag.ItemFlag;
 import org.battleplugins.api.inventory.item.component.flag.ItemFlags;
-import org.battleplugins.api.message.MessageStyle;
 import org.battleplugins.api.util.Identifier;
 import org.spongepowered.configurate.ConfigurationNode;
 
@@ -54,7 +54,7 @@ public abstract class ConfigItemReader implements ItemReader {
                 case "display-name":
                 case "displayName":
                 case "name":
-                    builder.component(DisplayNameComponent.class, MessageStyle.translateAlternateColorCodes('&', node.getNode(key).getString()));
+                    builder.component(DisplayNameComponent.class, Component.text(node.getNode(key).getString()));
                     break;
                 case "enchants":
                 case "enchantments":
@@ -77,7 +77,7 @@ public abstract class ConfigItemReader implements ItemReader {
                     builder.component(ItemFlagComponent.class, flags);
                     break;
                 case "lore":
-                    builder.component(LoreComponent.class, node.getNode(key).getChildrenList().stream().map(ConfigurationNode::getString).collect(Collectors.toList()));
+                    builder.component(LoreComponent.class, node.getNode(key).getChildrenList().stream().map(str -> Component.text(str.getString())).collect(Collectors.toList()));
                     break;
                 case "unbreakable":
                     builder.component(UnbreakableComponent.class, node.getNode(key).getBoolean());

@@ -1,12 +1,12 @@
 package org.battleplugins.arena.file.reader.item;
 
+import net.kyori.adventure.text.Component;
 import org.battleplugins.api.inventory.item.ItemStack;
 import org.battleplugins.api.inventory.item.ItemType;
 import org.battleplugins.api.inventory.item.ItemTypes;
 import org.battleplugins.api.inventory.item.component.*;
 import org.battleplugins.api.inventory.item.component.flag.ItemFlag;
 import org.battleplugins.api.inventory.item.component.flag.ItemFlags;
-import org.battleplugins.api.message.MessageStyle;
 import org.battleplugins.api.util.Identifier;
 import org.spongepowered.configurate.ConfigurationNode;
 
@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * An {@link ItemReader} capable of reading items
@@ -58,7 +59,7 @@ public class GenericItemReader extends ConfigItemReader {
                 case "display-name":
                 case "displayName":
                 case "name":
-                    builder.component(DisplayNameComponent.class, MessageStyle.translateAlternateColorCodes('&', option[1]));
+                    builder.component(DisplayNameComponent.class, Component.text(option[1]));
                     break;
                 case "enchants":
                 case "enchantments":
@@ -79,7 +80,7 @@ public class GenericItemReader extends ConfigItemReader {
                     builder.component(ItemFlagComponent.class, flags);
                     break;
                 case "lore":
-                    builder.component(LoreComponent.class, getList(meta));
+                    builder.component(LoreComponent.class, getList(meta).stream().map(Component::text).collect(Collectors.toList()));
                     break;
                 case "quantity":
                     builder.quantity(Integer.parseInt(option[1]));

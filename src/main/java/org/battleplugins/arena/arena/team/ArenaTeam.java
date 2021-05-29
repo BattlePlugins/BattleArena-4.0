@@ -1,7 +1,7 @@
 package org.battleplugins.arena.arena.team;
 
+import net.kyori.adventure.text.format.TextColor;
 import org.battleplugins.api.inventory.item.ItemStack;
-import org.battleplugins.api.message.MessageStyle;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
 
 import java.awt.Color;
@@ -18,7 +18,7 @@ public class ArenaTeam implements Cloneable {
     private String id;
     private String name;
 
-    private MessageStyle teamColor;
+    private TextColor teamColor;
     private Color armorColor;
 
     private ItemStack item;
@@ -32,7 +32,7 @@ public class ArenaTeam implements Cloneable {
      */
     private Set<ArenaPlayer> players = new HashSet<>();
 
-    public ArenaTeam(String id, String name, MessageStyle teamColor, Color armorColor, ItemStack item, int maxPlayers) {
+    public ArenaTeam(String id, String name, TextColor teamColor, Color armorColor, ItemStack item, int maxPlayers) {
         this.id = id;
         this.name = name;
         this.teamColor = teamColor;
@@ -64,7 +64,7 @@ public class ArenaTeam implements Cloneable {
      *
      * @return the color of the team
      */
-    public MessageStyle getTeamColor() {
+    public TextColor getTeamColor() {
         return teamColor;
     }
 
