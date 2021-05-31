@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * This class contains all the necessary arena info and handles
@@ -98,21 +99,21 @@ public class ArenaManager {
     public void registerArena(String name, String command, Class<? extends Arena> arenaClass) {
         registerArena(name, command, getArenaFactory(arenaClass));
     }
-    
+
     /**
      * Registers an arena into BattleArena
-     * 
+     *
      * @param name the name of the arena
      * @param command the command to register this arena with
      * @param arenaFactory the arena factory containing the arena
      */
-    public void registerArena(String name, String command, ArenaFactory arenaFactory) {
+    public void registerArena(String name, String command, Supplier<Arena> arenaFactory) {
         registerArena(name, command, arenaFactory, null);
     }
-    
+
     /**
      * Registers an arena into BattleArena
-     * 
+     *
      * @param name the name of the arena
      * @param command the command to register this arena with
      * @param arenaClass the class of the arena to register
@@ -130,7 +131,7 @@ public class ArenaManager {
      * @param arenaFactory the arena factory containing the arena
      * @param executor the command executor for this arena
      */
-    public void registerArena(String name, String command, ArenaFactory arenaFactory, CustomCommandExecutor executor) {
+    public void registerArena(String name, String command, Supplier<Arena> arenaFactory, CustomCommandExecutor executor) {
         registerArena(name, command, arenaFactory, executor, null);
     }
 
@@ -149,19 +150,19 @@ public class ArenaManager {
 
     /**
      * Registers an arena into BattleArena
-     * 
+     *
      * @param name the name of the arena
      * @param command the command to register this arena with
      * @param arenaFactory the arena factory containing the arena
      * @param executor the command executor for this arena
      * @param messageHandler the message handler for this arena
      */
-    public void registerArena(String name, String command, ArenaFactory arenaFactory, CustomCommandExecutor executor, MessageHandler messageHandler) {
+    public void registerArena(String name, String command, Supplier<Arena> arenaFactory, CustomCommandExecutor executor, MessageHandler messageHandler) {
         if (arenaFactory == null) {
             throw new NullPointerException("Arena factory for " + name + " was null, failed to register arena!");
         }
 
-        Arena arena = arenaFactory.newArena();
+        Arena arena = arenaFactory.get();
         arena.setName(name);
         if (arena.getExecutor() == null) {
             arena.setExecutor(new ArenaExecutor(plugin, arena));
@@ -171,7 +172,7 @@ public class ArenaManager {
             arena.setMessageHandler(new ArenaMessageHandler(arena, plugin.getConfigManager().getMessagesConfig()
                     .getNode("messages"), "general", "arena"));
         }
-        
+
         if (executor != null) {
             arena.getExecutor().addMethods(executor, executor.getClass().getMethods());
             plugin.registerCommand(new Command(command, "Main command for " + arena.getName() + ".", "battlearena." + command, new ArrayList<>()), executor);
@@ -238,7 +239,7 @@ public class ArenaManager {
         arena.getMatches().add(new Match(this.plugin, arena, map));
     }
 
-    private ArenaFactory getArenaFactory(Class<? extends Arena> arenaClass) {
+    private Supplier<Arena> getArenaFactory(Class<? extends Arena> arenaClass) {
         if (arenaClass == null)
             return null;
 

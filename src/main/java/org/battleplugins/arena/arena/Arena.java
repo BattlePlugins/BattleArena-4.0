@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * Main arena class. Custom arenas need to extend this class in order
@@ -25,6 +26,7 @@ import java.util.Map;
  * @author Redned
  */
 public class Arena {
+    public static final Supplier<Arena> DEFAULT_FACTORY = Arena::new;
 
     protected String name;
 

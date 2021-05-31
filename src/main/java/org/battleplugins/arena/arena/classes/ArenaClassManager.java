@@ -44,8 +44,6 @@ public class ArenaClassManager {
 
             ArenaClass newClass = new ArenaClass(classNode.getNode("displayName").getString(), items);
             addClass(newClass);
-
-
         }
     }
 

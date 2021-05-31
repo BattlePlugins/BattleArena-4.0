@@ -4,7 +4,7 @@ import mc.alk.battlecore.BattlePlugin;
 import mc.alk.battlecore.util.Log;
 
 import org.battleplugins.api.plugin.PluginProperties;
-import org.battleplugins.arena.arena.ArenaFactory;
+import org.battleplugins.arena.arena.Arena;
 import org.battleplugins.arena.arena.ArenaManager;
 import org.battleplugins.arena.arena.classes.ArenaClassManager;
 import org.battleplugins.arena.arena.map.ArenaMap;
@@ -52,7 +52,7 @@ public class BattleArena extends BattlePlugin {
         this.victoryConditionManager = new VictoryConditionManager(this);
         this.classManager = new ArenaClassManager(this);
 
-        this.arenaManager.registerArena("Arena", "arena", ArenaFactory.DEFAULT);
+        this.arenaManager.registerArena("Arena", "arena", Arena.DEFAULT_FACTORY);
 
         this.saveManager = new FlatfileSaveManager(this);
         if (!this.getConfig().getNode("defaultArenaOptions", " createMatchesOnDemand").getBoolean()) {
