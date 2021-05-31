@@ -2,6 +2,7 @@ package org.battleplugins.arena.executor;
 
 import mc.alk.battlecore.executor.CustomCommandExecutor;
 
+import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer;
 import org.battleplugins.api.command.Command;
 import org.battleplugins.api.command.CommandSender;
 import org.battleplugins.api.entity.living.player.Player;
@@ -44,7 +45,7 @@ public class ArenaExecutor extends CustomCommandExecutor {
         if (!this.plugin.getConfig().getNode("defaultArenaOptions", "createMatchesOnDemand").getBoolean()) {
             this.plugin.getArenaManager().createMatchForMap(this.arena, arenaMap, true);
         }
-        player.sendMessage(arena.getMessageHandler().getFormattedMessage(player, "createdNewMap").replace("%map_name%", arenaMap.getName()));
+        player.sendMessage(arena.getMessageHandler().getFormattedMessage(player, "createdNewMap").replaceText(config -> config.matchLiteral("%map_name%").replacement(arenaMap.getName())));
     }
 
     @MCCommand(cmds = {"join", "j"}, order = 2, max = 1)
@@ -120,7 +121,9 @@ public class ArenaExecutor extends CustomCommandExecutor {
             ArenaPlayer arenaPlayer = plugin.getArenaManager().getArenaPlayer(player);
             if (clazz.isAssignableFrom(Match.class)) {
                 return arenaPlayer.getCurrentMatch().orElseThrow(()
-                        -> new IllegalArgumentException(arena.getMessageHandler().getFormattedMessage("notInMatch")));
+                        -> new IllegalArgumentException(PlainComponentSerializer.plain()
+                        .serialize(arena.getMessageHandler().getFormattedMessage("notInMatch")))
+                );
             }
         }
 

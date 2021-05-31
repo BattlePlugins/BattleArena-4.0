@@ -1,5 +1,6 @@
 package org.battleplugins.arena.arena;
 
+import net.kyori.adventure.text.Component;
 import org.battleplugins.api.entity.living.player.OfflinePlayer;
 import org.battleplugins.arena.message.MessageHandler;
 import org.spongepowered.configurate.ConfigurationNode;
@@ -22,26 +23,26 @@ public class ArenaMessageHandler extends MessageHandler {
     }
 
     @Override
-    public String getFormattedMessage(String key) {
-        String superResult = super.getFormattedMessage(key);
-        superResult = superResult.replace("%arena_name%", arena.getName());
-        superResult = superResult.replace("%arena_command%", arena.getName().toLowerCase());
+    public Component getFormattedMessage(String key) {
+        Component superResult = super.getFormattedMessage(key);
+        superResult = superResult.replaceText(config -> config.matchLiteral("%arena_name%").replacement(arena.getName()));
+        superResult = superResult.replaceText(config -> config.matchLiteral("%arena_command%").replacement(arena.getName().toLowerCase()));
         return superResult;
     }
 
     @Override
-    public String getFormattedMessage(OfflinePlayer player, String key) {
-        String superResult = super.getFormattedMessage(player, key);
-        superResult = superResult.replace("%arena_name%", arena.getName());
-        superResult = superResult.replace("%arena_command%", arena.getName().toLowerCase());
+    public Component getFormattedMessage(OfflinePlayer player, String key) {
+        Component superResult = super.getFormattedMessage(player, key);
+        superResult = superResult.replaceText(config -> config.matchLiteral("%arena_name%").replacement(arena.getName()));
+        superResult = superResult.replaceText(config -> config.matchLiteral("%arena_command%").replacement(arena.getName().toLowerCase()));
         return superResult;
     }
 
     @Override
-    public String getPlaceholderMessage(OfflinePlayer player, String message) {
-        String superResult = super.getPlaceholderMessage(player, message);
-        superResult = superResult.replace("%arena_name%", arena.getName());
-        superResult = superResult.replace("%arena_command%", arena.getName().toLowerCase());
+    public Component getPlaceholderMessage(OfflinePlayer player, Component message) {
+        Component superResult = super.getPlaceholderMessage(player, message);
+        superResult = superResult.replaceText(config -> config.matchLiteral("%arena_name%").replacement(arena.getName()));
+        superResult = superResult.replaceText(config -> config.matchLiteral("%arena_command%").replacement(arena.getName().toLowerCase()));
         return superResult;
     }
 }

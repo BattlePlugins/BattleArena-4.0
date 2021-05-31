@@ -1,8 +1,8 @@
 package org.battleplugins.arena.message;
 
-import mc.alk.battlecore.message.MessageController;
-
 import mc.alk.battlecore.util.Log;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.battleplugins.api.entity.living.player.OfflinePlayer;
 import org.battleplugins.api.entity.living.player.Player;
 import org.spongepowered.configurate.ConfigurationNode;
@@ -18,23 +18,25 @@ import java.util.Map;
  */
 public class MessageHandler {
 
-    private Map<String, String> messages = new HashMap<>();
+    private final Component prefix;
+    private final Map<String, Component> messages = new HashMap<>();
 
     protected MessageHandler(ConfigurationNode node, String... sections) {
         if (sections.length == 0) {
             Map<Object, ? extends ConfigurationNode> mapResult = node.getChildrenMap();
             for (Map.Entry<Object, ? extends ConfigurationNode> entry : mapResult.entrySet()) {
-                messages.put((String) entry.getKey(), mapResult.get(entry.getKey()).getString());
+                messages.put((String) entry.getKey(), MiniMessage.get().parse(mapResult.get(entry.getKey()).getString()));
             }
         } else {
             for (String section : sections) {
                 ConfigurationNode sectionNode = node.getNode(section);
                 Map<Object, ? extends ConfigurationNode> mapResult = sectionNode.getChildrenMap();
                 for (Map.Entry<Object, ? extends ConfigurationNode> entry : mapResult.entrySet()) {
-                    messages.put((String) entry.getKey(), mapResult.get(entry.getKey()).getString());
+                    messages.put((String) entry.getKey(), MiniMessage.get().parse(mapResult.get(entry.getKey()).getString()));
                 }
             }
         }
+        this.prefix = messages.get("prefix");
         Log.debug("Loaded messages " + messages.keySet());
     }
 
@@ -44,7 +46,7 @@ public class MessageHandler {
      * @param key the name (key) of the message in the config
      * @return a message with the given key/path
      */
-    public String getMessage(String key) {
+    public Component getMessage(String key) {
         return messages.get(key);
     }
 
@@ -56,8 +58,8 @@ public class MessageHandler {
      * @param key the name (key) of the message in the config
      * @return a message with the given key/path
      */
-    public String getFormattedMessage(String key) {
-        return MessageController.colorChat(messages.get("prefix") + MessageController.colorChat(messages.get(key)));
+    public Component getFormattedMessage(String key) {
+        return this.prefix.append(messages.get(key));
     }
 
     /**
@@ -68,7 +70,7 @@ public class MessageHandler {
      * @param key the name (key) of the message in the config
      * @return a message with the given key/path
      */
-    public String getMessage(OfflinePlayer player, String key) {
+    public Component getMessage(OfflinePlayer player, String key) {
         return getPlaceholderMessage(player, messages.get(key));
     }
 
@@ -82,8 +84,8 @@ public class MessageHandler {
      * @param key the name (key) of the message in the config
      * @return a message with the given key/path
      */
-    public String getFormattedMessage(OfflinePlayer player, String key) {
-        return MessageController.colorChat(messages.get("prefix") + getPlaceholderMessage(player, messages.get(key)));
+    public Component getFormattedMessage(OfflinePlayer player, String key) {
+        return this.prefix.append(getPlaceholderMessage(player, messages.get(key)));
     }
 
     /**
@@ -93,12 +95,12 @@ public class MessageHandler {
      * @param message the message to send
      * @return the message with variables replaced
      */
-    public String getPlaceholderMessage(OfflinePlayer player, String message) {
-        message = message.replace("%player_name%", player.getName());
-        for (Map.Entry<String, String> entry : messages.entrySet()) {
-            message = message.replace("%" + entry + "%", entry.getValue());
+    public Component getPlaceholderMessage(OfflinePlayer player, Component message) {
+        message = message.replaceText(config -> config.matchLiteral("%player_name%").replacement(player.getName()).build());
+        for (Map.Entry<String, Component> entry : messages.entrySet()) {
+            message = message.replaceText(config -> config.matchLiteral("%" + entry.getKey() + "%").replacement(entry.getValue()).build());
         }
-        return MessageController.colorChat(message);
+        return message;
     }
 
     /**
@@ -108,7 +110,7 @@ public class MessageHandler {
      * @param player the player to send the message to
      * @param message the message to send
      */
-    public void sendMessage(Player player, String message) {
+    public void sendMessage(Player player, Component message) {
         player.sendMessage(getPlaceholderMessage(player, message));
     }
 }

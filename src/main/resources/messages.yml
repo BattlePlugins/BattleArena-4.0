@@ -9,13 +9,13 @@ configVersion: 2.0.0 # The config version, do not change!
 
 messages:
   general:
-    prefix: "&6[%arena_name%]&e "
+    prefix: "<gold>[%arena_name%]</gold> "
   arena: # These can be overridden by arenas
-    alreadyInMatch: "&cYou are already in a match!"
-    notInMatch: "&cYou are not in a match!"
-    noOpenMatches: "&cThere are currently no open matches."
-    matchDoesNotExist: "&cA match could not be found by that name."
-    joinedMatch: "&eYou have joined &6%arena_name%&e!"
-    leftMatch: "&eYou have left &6%arena_name%&e!"
-    mapAlreadyExists: "&cA map by that name already exists!"
-    createdNewMap: "&eSuccessfully created a new map named &6%map_name%&e! Use &6/%arena_command% spawn add <team> &eto add more spawns!"
+    alreadyInMatch: "<red>You are already in a match!</red>"
+    notInMatch: "<red>You are not in a match!</red>"
+    noOpenMatches: "<red>There are currently no open matches.</red>"
+    matchDoesNotExist: "<red>A match could not be found by that name.</red>"
+    joinedMatch: "<yellow>You have joined</yellow> <gold>%arena_name%</gold><yellow>!</yellow>"
+    leftMatch: "<yellow>You have left</yellow> <gold>%arena_name%</gold><yellow>!</yellow>"
+    mapAlreadyExists: "<red>A map by that name already exists!</red>"
+    createdNewMap: "<yellow>Successfully created a new map named</yellow> <gold>%map_name%</gold><yellow>! Use</yellow> <gold>/%arena_command% spawn add <team></gold> <yellow>to add more spawns!</yellow>"

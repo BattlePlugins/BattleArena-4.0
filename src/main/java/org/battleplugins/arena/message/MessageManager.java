@@ -1,5 +1,6 @@
 package org.battleplugins.arena.message;
 
+import net.kyori.adventure.text.Component;
 import org.battleplugins.api.entity.living.player.OfflinePlayer;
 import org.battleplugins.api.entity.living.player.Player;
 import org.spongepowered.configurate.ConfigurationNode;
@@ -23,7 +24,7 @@ public class MessageManager {
      * @param key the name (key) of the message in the config
      * @return a message with the given key/path
      */
-    public String getMessage(String key) {
+    public Component getMessage(String key) {
         return mainHandler.getMessage(key);
     }
 
@@ -35,7 +36,7 @@ public class MessageManager {
      * @param key the name (key) of the message in the config
      * @return a message with the given key/path
      */
-    public String getFormattedMessage(String key) {
+    public Component getFormattedMessage(String key) {
         return mainHandler.getFormattedMessage(key);
     }
 
@@ -47,7 +48,7 @@ public class MessageManager {
      * @param key the name (key) of the message in the config
      * @return a message with the given key/path
      */
-    public String getMessage(OfflinePlayer player, String key) {
+    public Component getMessage(OfflinePlayer player, String key) {
         return mainHandler.getMessage(player, key);
     }
 
@@ -61,7 +62,7 @@ public class MessageManager {
      * @param key the name (key) of the message in the config
      * @return a message with the given key/path
      */
-    public String getFormattedMessage(OfflinePlayer player, String key) {
+    public Component getFormattedMessage(OfflinePlayer player, String key) {
         return mainHandler.getFormattedMessage(player, key);
     }
 
@@ -72,7 +73,7 @@ public class MessageManager {
      * @param message the message to send
      * @return the message with variables replaced
      */
-    public String getPlaceholderMessage(OfflinePlayer player, String message) {
+    public Component getPlaceholderMessage(OfflinePlayer player, Component message) {
         return mainHandler.getPlaceholderMessage(player, message);
     }
 
@@ -83,7 +84,7 @@ public class MessageManager {
      * @param player the player to send the message to
      * @param message the message to send
      */
-    public void sendMessage(Player player, String message) {
+    public void sendMessage(Player player, Component message) {
         mainHandler.sendMessage(player, message);
     }
 }

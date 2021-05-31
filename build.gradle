@@ -23,11 +23,17 @@ repositories {
         name = "battleplugins-repo-snapshot"
         url = "https://repo.battleplugins.org/artifactory/libs-snapshot-local"
     }
+    maven {
+        name = "sonatype-oss-snapshots"
+        url = "https://oss.sonatype.org/content/repositories/snapshots"
+    }
 }
 
 dependencies {
     shadow 'org.battleplugins:McAPI:3.0.0-SNAPSHOT'
     shadow 'mc.alk:BattleCore:2.4.0-SNAPSHOT'
+    shadow 'net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT'
+    shadow 'net.kyori:adventure-text-serializer-plain:4.7.0'
     compileOnly 'org.jetbrains:annotations:18.0.0'
     compileOnly 'com.google.guava:guava:19.0'
     compileOnly 'net.kyori:adventure-api:4.7.0'
@@ -47,6 +53,8 @@ shadowJar {
     configurations = [project.configurations.shadow]
 
     relocate("mc.alk.battlecore", "org.battleplugins.arena.shaded.battlecore")
+    relocate("net.kyori.adventure.text.minimessage", "org.battleplugins.arena.shaded.adventure.text.minimessage")
+    relocate("net.kyori.adventure.text.serializer", "org.battleplugins.arena.shaded.adventure.text.serializer")
 }
 
 processResources {
