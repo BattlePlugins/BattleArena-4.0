@@ -1,7 +1,5 @@
 package org.battleplugins.arena.arena;
 
-import mc.alk.battlecore.executor.CustomCommandExecutor;
-
 import org.battleplugins.arena.arena.map.ArenaMap;
 import org.battleplugins.arena.match.Match;
 import org.battleplugins.arena.match.Event;
@@ -30,8 +28,6 @@ public class Arena {
 
     protected String name;
 
-    private CustomCommandExecutor executor;
-
     private List<Match> matches = new ArrayList<>();
     private List<VictoryCondition> victoryConditions = new ArrayList<>();
 
@@ -53,19 +49,6 @@ public class Arena {
 
     void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Returns the command executor for this arena
-     *
-     * @return the command executor for this arena
-     */
-    public CustomCommandExecutor getExecutor() {
-        return executor;
-    }
-
-    void setExecutor(CustomCommandExecutor executor) {
-        this.executor = executor;
     }
 
     /**

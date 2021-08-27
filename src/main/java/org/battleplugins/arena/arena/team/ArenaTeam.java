@@ -1,8 +1,8 @@
 package org.battleplugins.arena.arena.team;
 
 import net.kyori.adventure.text.format.TextColor;
-import org.battleplugins.api.inventory.item.ItemStack;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
+import org.bukkit.inventory.ItemStack;
 
 import java.awt.Color;
 import java.util.HashSet;

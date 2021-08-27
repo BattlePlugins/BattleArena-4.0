@@ -1,10 +1,5 @@
 package org.battleplugins.arena.arena;
 
-import mc.alk.battlecore.executor.CustomCommandExecutor;
-
-import org.battleplugins.api.command.Command;
-import org.battleplugins.api.entity.living.player.Player;
-import org.battleplugins.api.world.Location;
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.arena.map.ArenaMap;
 import org.battleplugins.arena.arena.player.ArenaPlayer;
@@ -12,6 +7,8 @@ import org.battleplugins.arena.arena.team.ArenaTeamManager;
 import org.battleplugins.arena.executor.ArenaExecutor;
 import org.battleplugins.arena.match.Match;
 import org.battleplugins.arena.message.MessageHandler;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -247,9 +244,9 @@ public class ArenaManager {
             try {
                 return arenaClass.newInstance();
             } catch (InstantiationException | IllegalAccessException ex) {
-                plugin.getLogger().error("An error occurred when trying to register arena class " + arenaClass.getSimpleName());
-                plugin.getLogger().error("If your arena class has a custom constructor, it must also have a default one as well.");
-                plugin.getLogger().error("If you want to use custom constructors, you can create a new ArenaFactory. Refer to the API documentation for more info.");
+                plugin.getLogger().severe("An error occurred when trying to register arena class " + arenaClass.getSimpleName());
+                plugin.getLogger().severe("If your arena class has a custom constructor, it must also have a default one as well.");
+                plugin.getLogger().severe("If you want to use custom constructors, you can create a new ArenaFactory. Refer to the API documentation for more info.");
                 ex.printStackTrace();
             }
             return null;

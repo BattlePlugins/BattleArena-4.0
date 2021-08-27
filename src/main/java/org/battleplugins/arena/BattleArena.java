@@ -1,32 +1,25 @@
 package org.battleplugins.arena;
 
-import mc.alk.battlecore.BattlePlugin;
-import mc.alk.battlecore.util.Log;
-
-import org.battleplugins.api.plugin.PluginProperties;
 import org.battleplugins.arena.arena.Arena;
 import org.battleplugins.arena.arena.ArenaManager;
 import org.battleplugins.arena.arena.classes.ArenaClassManager;
 import org.battleplugins.arena.arena.map.ArenaMap;
-import org.battleplugins.arena.file.saves.FlatfileSaveManager;
 import org.battleplugins.arena.match.state.option.StateOptionManager;
 import org.battleplugins.arena.match.victorycondition.VictoryConditionManager;
-import org.battleplugins.arena.file.configuration.ConfigManager;
 import org.battleplugins.arena.message.MessageManager;
-import org.spongepowered.configurate.ConfigurationNode;
+import org.battleplugins.arena.util.Log;
+import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * Overall main class for the BattleArena plugin.
  * 
  * @author Redned
+ * Gutted by Zach443
  */
-@PluginProperties(id = "battlearena", authors = "BattlePlugins", name = "BattleArena", version = "$VERSION", description = "$DESCRIPTION", url = "$URL")
-public class BattleArena extends BattlePlugin {
+public class BattleArena extends JavaPlugin {
 
     private static BattleArena INSTANCE;
 
-    private ConfigManager configManager;
-    private FlatfileSaveManager saveManager;
     private MessageManager messageManager;
 
     private ArenaManager arenaManager;
@@ -40,11 +33,10 @@ public class BattleArena extends BattlePlugin {
 
         super.onEnable();
 
-        this.configManager = new ConfigManager(this);
+        //TODO: Fix debug stuff
+        //Log.setDebug(this.getConfig().getNode("debugMode").getBoolean());
+        //this.getLogger().setDebug(true);
 
-        Log.setDebug(this.getConfig().getNode("debugMode").getBoolean());
-
-        this.getLogger().setDebug(true);
         this.messageManager = new MessageManager(this.configManager.getMessagesConfig().getNode("messages"));
 
         this.arenaManager = new ArenaManager(this);
@@ -53,12 +45,10 @@ public class BattleArena extends BattlePlugin {
         this.classManager = new ArenaClassManager(this);
 
         this.arenaManager.registerArena("Arena", "arena", Arena.DEFAULT_FACTORY);
-
-        this.saveManager = new FlatfileSaveManager(this);
         if (!this.getConfig().getNode("defaultArenaOptions", " createMatchesOnDemand").getBoolean()) {
             for (ArenaMap map : this.arenaManager.getLoadedMaps()) {
                 this.arenaManager.createMatchForMap(map.getArena(), map, true);
-                Log.debug("Constructed match for map " + map.getId());
+                Log.info("Constructed match for map " + map.getId());
             }
         }
     }
@@ -66,17 +56,6 @@ public class BattleArena extends BattlePlugin {
     @Override
     public void onDisable() {
         super.onDisable();
-
-        this.saveManager.saveMaps();
-    }
-
-    /**
-     * Returns the {@link ConfigManager} used by BattleArena
-     *
-     * @return the {@link ConfigManager} used by BattleArena
-     */
-    public ConfigManager getConfigManager() {
-        return configManager;
     }
 
     /**
@@ -122,15 +101,6 @@ public class BattleArena extends BattlePlugin {
      */
     public ArenaClassManager getClassManager() {
         return classManager;
-    }
-
-    /**
-     * Returns the config for BattleArena
-     *
-     * @return the config for BattleArena
-     */
-    public ConfigurationNode getConfig() {
-        return this.configManager.getConfig();
     }
 
     /**

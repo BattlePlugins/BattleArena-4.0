@@ -2,11 +2,11 @@ package org.battleplugins.arena.arena.map;
 
 import com.google.common.base.Preconditions;
 
-import org.battleplugins.api.world.Location;
 import org.battleplugins.arena.BattleArena;
 import org.battleplugins.arena.arena.Arena;
 import org.battleplugins.arena.arena.team.ArenaTeam;
 import org.battleplugins.arena.match.Match;
+import org.bukkit.Location;
 
 import java.util.ArrayList;
 import java.util.Arrays;

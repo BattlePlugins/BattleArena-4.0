@@ -1,13 +1,9 @@
 package org.battleplugins.arena.arena.team;
 
-import mc.alk.battlecore.util.Log;
 import net.kyori.adventure.text.format.TextColor;
-import org.battleplugins.api.inventory.item.ItemStack;
-import org.battleplugins.api.inventory.item.ItemTypes;
 import org.battleplugins.arena.BattleArena;
-import org.battleplugins.arena.file.configuration.Configuration;
-import org.battleplugins.arena.file.reader.item.ItemReader;
-import org.spongepowered.configurate.ConfigurationNode;
+import org.battleplugins.arena.util.Log;
+import org.bukkit.configuration.Configuration;
 
 import java.awt.Color;
 import java.util.LinkedHashMap;
@@ -41,7 +37,7 @@ public class ArenaTeamManager {
                     -1);
             defaultTeams.put(team.getId(), team);
         }
-        Log.debug("Loaded teams " + defaultTeams.keySet());
+        Log.info("Loaded teams " + defaultTeams.keySet());
     }
 
     /**

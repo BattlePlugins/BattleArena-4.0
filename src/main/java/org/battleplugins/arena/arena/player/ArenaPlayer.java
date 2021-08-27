@@ -1,9 +1,9 @@
 package org.battleplugins.arena.arena.player;
 
-import org.battleplugins.api.entity.living.player.Player;
 import org.battleplugins.arena.arena.classes.ArenaClass;
 import org.battleplugins.arena.arena.team.ArenaTeam;
 import org.battleplugins.arena.match.Match;
+import org.bukkit.entity.Player;
 
 import java.util.Optional;
 

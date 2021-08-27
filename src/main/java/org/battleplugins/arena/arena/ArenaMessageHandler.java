@@ -1,9 +1,8 @@
 package org.battleplugins.arena.arena;
 
 import net.kyori.adventure.text.Component;
-import org.battleplugins.api.entity.living.player.OfflinePlayer;
 import org.battleplugins.arena.message.MessageHandler;
-import org.spongepowered.configurate.ConfigurationNode;
+import org.bukkit.OfflinePlayer;
 
 /**
  * A {@link MessageHandler} capable of sending messages
