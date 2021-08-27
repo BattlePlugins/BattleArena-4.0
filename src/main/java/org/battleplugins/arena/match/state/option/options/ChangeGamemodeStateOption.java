@@ -1,13 +1,10 @@
 package org.battleplugins.arena.match.state.option.options;
 
-import mc.alk.battlecore.util.Log;
-
-import org.battleplugins.api.entity.living.player.Player;
-import org.battleplugins.api.entity.living.player.gamemode.GameMode;
-import org.battleplugins.api.entity.living.player.gamemode.GameModes;
+import org.battleplugins.arena.util.Log;
 import org.battleplugins.arena.match.Match;
 import org.battleplugins.arena.match.state.option.StateOption;
-import org.battleplugins.arena.file.configuration.ConfigProperty;
+import org.bukkit.GameMode;
+import org.bukkit.entity.Player;
 
 /**
  * State option for changing a player's gamemode.
@@ -16,7 +13,6 @@ import org.battleplugins.arena.file.configuration.ConfigProperty;
  */
 public class ChangeGamemodeStateOption extends StateOption {
 
-    @ConfigProperty(required = true)
     private String mode;
 
     public ChangeGamemodeStateOption(String name) {
@@ -34,7 +30,7 @@ public class ChangeGamemodeStateOption extends StateOption {
         }
 
         if (gameMode == null) {
-            Log.debug("Gamemode " + mode + " could not be found!");
+            Log.warn("Gamemode " + mode + " could not be found!");
             return;
         }
 

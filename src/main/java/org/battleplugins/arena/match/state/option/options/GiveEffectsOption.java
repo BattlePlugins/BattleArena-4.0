@@ -1,9 +1,8 @@
 package org.battleplugins.arena.match.state.option.options;
 
-import org.battleplugins.api.entity.living.player.Player;
 import org.battleplugins.arena.match.Match;
 import org.battleplugins.arena.match.state.option.StateOption;
-import org.battleplugins.arena.file.configuration.ConfigProperty;
+import org.bukkit.entity.Player;
 
 /**
  * State option that gives effects to a player.
@@ -12,13 +11,10 @@ import org.battleplugins.arena.file.configuration.ConfigProperty;
  */
 public class GiveEffectsOption extends StateOption {
 
-    @ConfigProperty(required = true)
     private String effect;
-    
-    @ConfigProperty
+
     private int duration;
-    
-    @ConfigProperty
+
     private int amplifier;
     
     public GiveEffectsOption(String name) {

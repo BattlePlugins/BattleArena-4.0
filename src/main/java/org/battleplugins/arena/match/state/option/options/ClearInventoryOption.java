@@ -1,8 +1,8 @@
 package org.battleplugins.arena.match.state.option.options;
 
-import org.battleplugins.api.entity.living.player.Player;
 import org.battleplugins.arena.match.Match;
 import org.battleplugins.arena.match.state.option.StateOption;
+import org.bukkit.entity.Player;
 
 /**
  * State option that clears inventories.

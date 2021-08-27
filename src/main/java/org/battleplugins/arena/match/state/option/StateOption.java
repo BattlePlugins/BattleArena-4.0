@@ -1,7 +1,7 @@
 package org.battleplugins.arena.match.state.option;
 
-import org.battleplugins.api.entity.living.player.Player;
 import org.battleplugins.arena.match.Match;
+import org.bukkit.entity.Player;
 
 /**
  * Represents a state option for a match.

@@ -1,11 +1,10 @@
 package org.battleplugins.arena.message;
 
-import mc.alk.battlecore.util.Log;
+import org.battleplugins.arena.util.Log;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.battleplugins.api.entity.living.player.OfflinePlayer;
-import org.battleplugins.api.entity.living.player.Player;
-import org.spongepowered.configurate.ConfigurationNode;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +36,7 @@ public class MessageHandler {
             }
         }
         this.prefix = messages.get("prefix");
-        Log.debug("Loaded messages " + messages.keySet());
+        Log.info("Loaded messages " + messages.keySet());
     }
 
     /**

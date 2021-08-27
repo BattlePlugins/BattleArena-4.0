@@ -1,9 +1,8 @@
 package org.battleplugins.arena.message;
 
 import net.kyori.adventure.text.Component;
-import org.battleplugins.api.entity.living.player.OfflinePlayer;
-import org.battleplugins.api.entity.living.player.Player;
-import org.spongepowered.configurate.ConfigurationNode;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 /**
  * Main message manager for BattleArena.
